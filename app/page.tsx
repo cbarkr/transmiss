@@ -79,7 +79,7 @@ export default function Home() {
     .then((res: any) => {
       console.log(res)
 
-      // TODO: setStop
+      setStop(res.data)
     })
     .catch((err: any) => {
       console.error(err)
@@ -96,7 +96,7 @@ export default function Home() {
     .then((res: any) => {
       console.log(res)
 
-      // TODO: setStops
+      setStops(res.data)
     })
     .catch((err: any) => {
       console.error(err)
