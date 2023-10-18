@@ -7,14 +7,14 @@ export default function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'GET') {
-    if (!req.query.lat || !req.query.lon) {
+    if (!req.query.lat || !req.query.long) {
       res.status(400).json({ message: 'A location must be provided' })
     }
 
     // Note: Translink API requires lat and lon be 6 decimals max
     const request = {
       lat: Number.parseFloat(req.query.lat!.toString()).toFixed(6),
-      lon: Number.parseFloat(req.query.lon!.toString()).toFixed(6)
+      long: Number.parseFloat(req.query.long!.toString()).toFixed(6)
     }
 
     axios.request({
@@ -23,7 +23,7 @@ export default function handler(
       params: {
         apiKey: process.env.TRANSLINK_API_KEY,
         lat: request.lat,
-        lon: request.lon
+        long: request.long
       },
       headers: {
         'Content-Type': 'application/json',
