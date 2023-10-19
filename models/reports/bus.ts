@@ -11,7 +11,7 @@ interface BusReport extends Report {
 
 export class Bus implements BusReport {
   readonly reportID: UUID;
-  readonly reportDatetime: Date;
+  readonly reportDatetime: string;
   stopID: number;
   busID?: number;
   routeID?: number;
@@ -24,7 +24,7 @@ export class Bus implements BusReport {
     personCount?: number
   ) {
     this.reportID = randomUUID();
-    this.reportDatetime = new Date();
+    this.reportDatetime = new Date().toUTCString();
     this.stopID = stopID;
 
     if (busID) this.busID = busID;
