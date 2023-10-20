@@ -1,25 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import React from 'react';
 import dynamic from 'next/dynamic';
 
 import { IStopDetails } from '@/interfaces/stopdetails';
+import { StopListContext, StopSearchContext } from '@/context/stop';
 
 
 const StopSearch = dynamic(() => import('./components/StopSearch'))
 const StopList = dynamic(() => import('./components/StopList'))
 const StopSelected = dynamic(() => import('./components/StopSelected'))
-
-
-export const StopSearchContext = React.createContext({
-  setStop: (stop: IStopDetails) => {},
-  setStops: (stops: IStopDetails[]) => {}
-})
-
-export const StopListContext = React.createContext({
-  setStop: (stop: IStopDetails) => {}
-})
 
 
 const defaultStopState = {

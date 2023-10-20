@@ -2,7 +2,7 @@ import { useContext } from "react";
 import dynamic from 'next/dynamic'
 
 import { IStopDetails } from "@/interfaces/stopdetails";
-import { StopListContext } from "../page";
+import { StopListContext } from "@/context/stop";
 
 
 const StopDetails = dynamic(() => import('./StopDetails'))

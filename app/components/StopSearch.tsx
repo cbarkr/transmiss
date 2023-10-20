@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { IconContext } from "react-icons";
 import { FaSearch, FaLocationArrow } from "react-icons/fa";
 
-import { StopSearchContext } from "../page";
+import { StopSearchContext } from "@/context/stop";
 
 const axios = require("axios").default;
 
