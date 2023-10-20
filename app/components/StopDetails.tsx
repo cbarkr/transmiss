@@ -1,5 +1,6 @@
-export default function StopDetails() {
+export default function StopDetails({ stop }) {
     return (
+        // TODO
         <div></div>
     )
 }
