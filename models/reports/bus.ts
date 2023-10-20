@@ -1,8 +1,8 @@
 import { UUID, randomUUID } from "crypto";
 
-import { Report } from "./report";
+import { IReport } from "../../interfaces/report";
 
-interface BusReport extends Report {
+interface BusReport extends IReport {
   stopID: number;
   busID?: number;
   routeID?: number;
