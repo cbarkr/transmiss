@@ -9,7 +9,7 @@ const StopDetails = dynamic(() => import('./StopDetails'))
 
 
 interface StopListProps {
-  stops: Array<IStopDetails>
+  stops: IStopDetails[]
 }
 
 

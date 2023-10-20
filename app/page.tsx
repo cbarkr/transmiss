@@ -14,12 +14,27 @@ const StopSelected = dynamic(() => import('./components/StopSelected'))
 
 export const StopSearchContext = React.createContext({
   setStop: (stop: IStopDetails) => {},
-  setStops: (stops: Array<IStopDetails>) => []
+  setStops: (stops: IStopDetails[]) => {}
 })
 
 export const StopListContext = React.createContext({
   setStop: (stop: IStopDetails) => {}
 })
+
+
+const defaultStopState = {
+  StopNo: NaN,
+  Name: '',
+  BayNo: '',
+  City: '',
+  OnStreet: '',
+  AtStreet: '',
+  Latitude: NaN,
+  Longitude: NaN,
+  WheelchairAccess: NaN,
+  Distance: NaN,
+  Routes: ''
+}
 
 
 const isStopEmpty = (stop: IStopDetails) => {
@@ -28,20 +43,8 @@ const isStopEmpty = (stop: IStopDetails) => {
 
 
 export default function Home() {
-  const [stop, setStop] = useState<IStopDetails>({
-    StopNo: NaN,
-    Name: '',
-    BayNo: '',
-    City: '',
-    OnStreet: '',
-    AtStreet: '',
-    Latitude: NaN,
-    Longitude: NaN,
-    WheelchairAccess: NaN,
-    Distance: NaN,
-    Routes: '',
-  })
-  const [stops, setStops] = useState<Array<IStopDetails>>([])
+  const [stop, setStop] = useState<IStopDetails>(defaultStopState)
+  const [stops, setStops] = useState<IStopDetails[]>([])
   
 
   return (
