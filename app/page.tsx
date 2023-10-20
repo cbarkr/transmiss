@@ -12,19 +12,15 @@ const StopList = dynamic(() => import('./components/StopList'))
 const StopSelected = dynamic(() => import('./components/StopSelected'))
 
 
-export const StopContext = React.createContext({
+export const StopSearchContext = React.createContext({
   setStop: (stop: IStopDetails) => {},
-  setStops: (stops: {}) => {}
+  setStops: (stops: Array<IStopDetails>) => []
 })
 
 export const StopListContext = React.createContext({
   setStop: (stop: IStopDetails) => {}
 })
 
-
-const isObjectEmpty = (obj: object) => {
-  return Object.keys(obj).length === 0;
-}
 
 const isStopEmpty = (stop: IStopDetails) => {
   return Number.isNaN(stop.StopNo)
@@ -45,19 +41,19 @@ export default function Home() {
     Distance: NaN,
     Routes: '',
   })
-  const [stops, setStops] = useState({})
+  const [stops, setStops] = useState<Array<IStopDetails>>([])
   
 
   return (
     <div className='w-full p-24'>
       <div className='flex flex-col items-center'>
-        <StopContext.Provider value={{ setStop: setStop, setStops: setStops }}>
+        <StopSearchContext.Provider value={{ setStop: setStop, setStops: setStops }}>
           <StopSearch />
-        </StopContext.Provider>
+        </StopSearchContext.Provider>
         { !isStopEmpty(stop) && <StopSelected stop={ stop } /> }
-        { (isStopEmpty(stop) && isObjectEmpty(stops)) && <div>Select a stop to get started</div> }
+        { (isStopEmpty(stop) && stops.length === 0) && <div>Select a stop to get started</div> }
         {
-          (isStopEmpty(stop) && !(isObjectEmpty(stops))) && (
+          (isStopEmpty(stop) && stops.length > 0) && (
             <StopListContext.Provider value={{ setStop: setStop }}>
               <StopList stops={stops} />
             </StopListContext.Provider>

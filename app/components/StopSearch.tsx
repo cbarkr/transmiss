@@ -2,14 +2,14 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { IconContext } from "react-icons";
 import { FaSearch, FaLocationArrow } from "react-icons/fa";
 
-import { StopContext } from "../page";
+import { StopSearchContext } from "../page";
 
 const axios = require("axios").default;
 
 export default function StopSearch() {
   const initRef = useRef(true);
 
-  const { setStop, setStops } = useContext(StopContext);
+  const { setStop, setStops } = useContext(StopSearchContext);
 
   const [submitStop, setSubmitStop] = useState(false);
   const [stopID, setStopID] = useState("");
