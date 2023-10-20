@@ -1,118 +1,117 @@
-import { useState, useEffect, useRef, useContext } from 'react';
-import { IconContext } from 'react-icons';
-import { BiCurrentLocation } from 'react-icons/bi';
+import { useState, useEffect, useRef, useContext } from "react";
+import { IconContext } from "react-icons";
+import { FaSearch, FaLocationArrow } from "react-icons/fa";
 
-import { StopContext } from '../page'
+import { StopContext } from "../page";
 
-const axios = require('axios').default;
 
-type LocationDataType = {
-  lat: number,
-  lon: number
-}
+const axios = require("axios").default;
+
 
 export default function StopSearch() {
-  const initRef = useRef(true)
+  const initRef = useRef(true);
 
+  const { stop, stops, setStop, setStops } = useContext(StopContext);
 
-  const {stop, stops, setStop, setStops } = useContext(StopContext)
+  const [submitStop, setSubmitStop] = useState(false);
+  const [stopID, setStopID] = useState("");
 
-
-  const [submitStop, setSubmitStop] = useState(false)
-  const [submitLocation, setSubmitLocation] = useState(false)
-  const [stopID, setStopID] = useState('')
-  const [location, setLocation] = useState<LocationDataType>()
 
   useEffect(() => {
     if (initRef.current) {
-      initRef.current = false
-    }
-
-    else {
+      initRef.current = false;
+    } else {
       if (submitStop) {
         if (stopID) {
-          fetchStopByID(stopID)
+          fetchStopByID(stopID);
         }
-        setSubmitStop(false)
-      }
-      if (submitLocation) {
-        if (location) {
-          fetchStopsByLocation(location)
-        }
-        setSubmitLocation(false)
+        setSubmitStop(false);
       }
     }
-  }, [stopID, location, submitStop, submitLocation])
-
+  }, [stopID, submitStop]);
 
   const handleSubmit = (e: any) => {
-    e.preventDefault()
-    setSubmitStop(true)
-  }
+    e.preventDefault();
+    setSubmitStop(true);
+  };
 
-  const handleClick = () => {
-    setSubmitLocation(true)
-    getCoords()
-  }
-
-  function getCoords() {
+  const getCoords = () => {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(setCoords)
+      navigator.geolocation.getCurrentPosition(fetchStopsByLocation);
     } else {
       // TODO: Error
     }
   }
 
-  function setCoords(position: GeolocationPosition) {
-    setLocation({
-      lat: position.coords.latitude,
-      lon: position.coords.longitude
-    })
+  const fetchStopByID = (id: string) => {
+    axios
+      .get("/api/stops/search", {
+        params: {
+          stopID: id,
+        },
+      })
+      .then((res: any) => {
+        setStop(res.data.data);
+      })
+      .catch((err: any) => {
+        console.error(err);
+      });
   }
 
-  function fetchStopByID(id: string) {
-    axios.get('/api/stops/search', {
-      params: {
-        stopID: id
-      }
-    })
-    .then((res: any) => {
-      console.log(res)
-
-      setStop(res.data)
-    })
-    .catch((err: any) => {
-      console.error(err)
-    })
-  }
-
-  function fetchStopsByLocation(location: LocationDataType) {
-    axios.get('/api/stops/nearby', {
-      params: {
-        lat: location.lat,
-        lon: location.lon
-      }
-    })
-    .then((res: any) => {
-      console.log(res)
-
-      setStops(res.data)
-    })
-    .catch((err: any) => {
-      console.error(err)
-    })
+  const fetchStopsByLocation = (position: GeolocationPosition) => {
+    axios
+      .get("/api/stops/nearby", {
+        params: {
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        },
+      })
+      .then((res: any) => {
+        setStops(res.data.data);
+      })
+      .catch((err: any) => {
+        console.error(err);
+      });
   }
 
   return (
     <div>
-      <form onSubmit={e => handleSubmit(e)} className='flex flex-row rounded bg-white'>
-        <input onChange={e => setStopID(e.target.value)} value={stopID} type='text' placeholder='Stop number' className='shadow border rounded p-2 text-gray-800 focus:outline-none'></input>
-        <button onClick={handleClick} type='button'>
-          <IconContext.Provider value={{ size: '2rem', color: 'black', className:'m-2' }}>
-            <BiCurrentLocation />
-          </IconContext.Provider>
-        </button>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div className="flex flex-row justify-between items-center rounded-lg">
+          <div className="flex flex-row justify-between items-center rounded-full border-solid border-2 p-2 bg-white">
+            <input
+              onChange={(e) => setStopID(e.target.value)}
+              value={stopID}
+              type="text"
+              placeholder="Search by stop number"
+              className="rounded-lg p-2 text-gray-800 bg-transparent outline-none"
+            ></input>
+            <button
+              type="submit"
+              className="rounded-full px-2 bg-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            >
+              <IconContext.Provider
+                value={{ size: "1.5rem", color: "white", className: "m-2" }}
+              >
+                <FaSearch />
+              </IconContext.Provider>
+            </button>
+          </div>
+          <div className="mx-2">or</div>
+          <button
+            onClick={getCoords}
+            type="button"
+            className="flex flex-row justify-between items-center rounded-full w-full p-2 bg-white border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            <div className="text-black">Use location</div>
+            <IconContext.Provider
+              value={{ size: "1.5rem", color: "black", className: "m-2" }}
+            >
+              <FaLocationArrow />
+            </IconContext.Provider>
+          </button>
+        </div>
       </form>
     </div>
-  )
+  );
 }
