@@ -4,18 +4,15 @@ import { FaSearch, FaLocationArrow } from "react-icons/fa";
 
 import { StopContext } from "../page";
 
-
 const axios = require("axios").default;
-
 
 export default function StopSearch() {
   const initRef = useRef(true);
 
-  const { stop, stops, setStop, setStops } = useContext(StopContext);
+  const { setStop, setStops } = useContext(StopContext);
 
   const [submitStop, setSubmitStop] = useState(false);
   const [stopID, setStopID] = useState("");
-
 
   useEffect(() => {
     if (initRef.current) {
@@ -41,7 +38,7 @@ export default function StopSearch() {
     } else {
       // TODO: Error
     }
-  }
+  };
 
   const fetchStopByID = (id: string) => {
     axios
@@ -56,7 +53,7 @@ export default function StopSearch() {
       .catch((err: any) => {
         console.error(err);
       });
-  }
+  };
 
   const fetchStopsByLocation = (position: GeolocationPosition) => {
     axios
@@ -72,12 +69,12 @@ export default function StopSearch() {
       .catch((err: any) => {
         console.error(err);
       });
-  }
+  };
 
   return (
     <div>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="flex flex-row justify-between items-center rounded-lg">
+        <div className="flex flex-col sm:flex-row justify-between items-center rounded-lg">
           <div className="flex flex-row justify-between items-center rounded-full border-solid border-2 p-2 bg-white">
             <input
               onChange={(e) => setStopID(e.target.value)}
