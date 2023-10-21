@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 
 import { IStopDetails } from '@/interfaces/stopdetails';
 
-const StopDetails = dynamic(() => import('./StopDetails'))
+const StopDetails = dynamic(() => import('./stopDetails'))
 
 
 interface StopSelectedProps {

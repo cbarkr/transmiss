@@ -5,7 +5,7 @@ import { IStopDetails } from "@/interfaces/stopdetails";
 import { StopListContext } from "@/context/stop";
 
 
-const StopDetails = dynamic(() => import('./StopDetails'))
+const StopDetails = dynamic(() => import('./stopDetails'))
 
 
 interface StopListProps {

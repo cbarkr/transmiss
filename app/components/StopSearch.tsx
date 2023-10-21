@@ -72,7 +72,7 @@ export default function StopSearch() {
   };
 
   return (
-    <div>
+    <>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col sm:flex-row justify-between items-center rounded-lg">
           <div className="flex flex-row justify-between items-center rounded-full border-solid border-2 p-2 bg-white">
@@ -109,6 +109,6 @@ export default function StopSearch() {
           </button>
         </div>
       </form>
-    </div>
+    </>
   );
 }
