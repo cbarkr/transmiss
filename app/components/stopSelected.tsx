@@ -1,14 +1,12 @@
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 
-import { IStopDetails } from '@/interfaces/stopdetails';
+import { IStopDetails } from "@/interfaces/stopdetails";
 
-const StopDetails = dynamic(() => import('./stopDetails'))
-
+const StopDetails = dynamic(() => import("./stopDetails"));
 
 interface StopSelectedProps {
   stop: IStopDetails;
 }
-
 
 export default function StopSelected({ stop }: StopSelectedProps) {
   const reportStop = () => {
@@ -20,10 +18,10 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   };
 
   return (
-    <div className='m-1 rounded-lg p-2 bg-gray-200'>
-      <StopDetails stop={ stop } />
-      <div className='my-2'>Report</div>
-      <div className='flex flex-row justify-between'>
+    <div className="m-1 rounded-lg p-2 bg-gray-200">
+      <StopDetails stop={stop} />
+      <div className="my-2">Report</div>
+      <div className="flex flex-row justify-between">
         <button
           onClick={reportStop}
           type="button"
@@ -42,4 +40,3 @@ export default function StopSelected({ stop }: StopSelectedProps) {
     </div>
   );
 }
-  

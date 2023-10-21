@@ -13,13 +13,10 @@ export class Stop implements StopReport {
   stopID: number;
   personCount: number;
 
-  constructor(
-    stopID: number,
-    personCount: number,
-  ) {
+  constructor(stopID: number, personCount: number) {
     this.reportID = randomUUID();
     this.reportDatetime = new Date().toUTCString();
-    this.stopID = stopID; 
+    this.stopID = stopID;
     this.personCount = personCount;
   }
 }

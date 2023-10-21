@@ -5,7 +5,7 @@ import { PutCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { Bus } from "@/models/reports/bus";
 
 const client = new DynamoDBClient({
-  region: process.env.AWS_REGION
+  region: process.env.AWS_REGION,
 });
 const docClient = DynamoDBDocumentClient.from(client);
 
@@ -23,7 +23,7 @@ export default async function handler(
 
     const command = new PutCommand({
       TableName: process.env.AWS_BUS_TABLE_NAME,
-      Item: busReport
+      Item: busReport,
     });
 
     await docClient.send(command);

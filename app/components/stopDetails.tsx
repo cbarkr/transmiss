@@ -1,16 +1,12 @@
 import { IStopDetails } from "@/interfaces/stopdetails";
 
-
 interface StopDetailsProps {
   stop: IStopDetails;
 }
 
-
 export default function StopDetails({ stop }: StopDetailsProps) {
   return (
-    <div
-      className="rounded-lg p-2 bg-gray-200 max-w-screen-sm"
-    >
+    <div className="rounded-lg p-2 bg-gray-200 max-w-screen-sm">
       <div className="flex flex-row justify-between">
         <div className="font-bold">{stop.StopNo}</div>
         <div>
