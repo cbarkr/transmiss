@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
-import { IconContext } from "react-icons";
-import { FaSearch, FaLocationArrow } from "react-icons/fa";
+import { Search, NearMe } from "@mui/icons-material";
 
 import { defaultStopState } from "@/models/stop/default";
 import { StopSearchContext } from "@/context/stop";
@@ -14,8 +13,20 @@ export default function StopSearch() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    submitHandler();
+  };
+
+  const submitHandler = (id: string = stopID) => {
     setStops([]); // Reset stops if we're setting a stop
-    fetchStopByID(stopID)
+    fetchStopByID(id);
+  }
+
+  const handleChange = (id: string) => {
+    setStopID(id);
+    
+    if (id.length === 5) {
+      submitHandler(id); // Stop IDs are 5 characters, search immediately
+    }
   };
 
   const handleClick = () => {
@@ -68,7 +79,7 @@ export default function StopSearch() {
         <div className="flex flex-col sm:flex-row justify-between items-center rounded-lg">
           <div className="flex flex-row justify-between items-center rounded-full border-solid border-2 p-2 bg-white">
             <input
-              onChange={(e) => setStopID(e.target.value)}
+              onChange={(e) => handleChange(e.target.value)}
               value={stopID}
               type="text"
               placeholder="Search by stop number"
@@ -78,25 +89,17 @@ export default function StopSearch() {
               type="submit"
               className="rounded-full px-2 bg-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
-              <IconContext.Provider
-                value={{ size: "1.5rem", color: "white", className: "m-2" }}
-              >
-                <FaSearch />
-              </IconContext.Provider>
+              <Search fontSize="large" sx={{ color: "white" }}/>
             </button>
           </div>
           <div className="mx-2">or</div>
           <button
             onClick={handleClick}
             type="button"
-            className="flex flex-row justify-between items-center rounded-full w-full p-2 bg-white border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="flex flex-row justify-between items-center rounded-full p-2 bg-white border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             <p className="text-black">Use location</p>
-            <IconContext.Provider
-              value={{ size: "1.5rem", color: "black", className: "m-2" }}
-            >
-              <FaLocationArrow />
-            </IconContext.Provider>
+            <NearMe fontSize="large" sx={{ color: "black" }} />
           </button>
         </div>
       </form>
