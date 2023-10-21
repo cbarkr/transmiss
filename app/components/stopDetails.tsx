@@ -8,10 +8,10 @@ export default function StopDetails({ stop }: StopDetailsProps) {
   return (
     <div className="rounded-lg p-2 bg-gray-200 max-w-screen-sm">
       <div className="flex flex-row justify-between">
-        <div className="font-bold">{stop.StopNo}</div>
-        <div>
+        <p className="font-bold">{stop.StopNo}</p>
+        <p>
           {stop.OnStreet} & {stop.AtStreet}
-        </div>
+        </p>
       </div>
       <div className="flex flex-row">
         {stop.Routes.split(",").map((route: string) => (

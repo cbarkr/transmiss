@@ -100,7 +100,7 @@ export default function StopSearch() {
             type="button"
             className="flex flex-row justify-between items-center rounded-full w-full p-2 bg-white border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
-            <div className="text-black">Use location</div>
+            <p className="text-black">Use location</p>
             <IconContext.Provider
               value={{ size: "1.5rem", color: "black", className: "m-2" }}
             >

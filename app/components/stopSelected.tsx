@@ -20,7 +20,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   return (
     <div className="m-1 rounded-lg p-2 bg-gray-200">
       <StopDetails stop={stop} />
-      <div className="my-2">Report</div>
+      <p className="my-2">Report</p>
       <div className="flex flex-row justify-between">
         <button
           onClick={reportStop}

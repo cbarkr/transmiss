@@ -42,7 +42,7 @@ export default function Home() {
         </StopSearchContext.Provider>
         {!isStopEmpty(stop) && <StopSelected stop={stop} />}
         {isStopEmpty(stop) && stops.length === 0 && (
-          <div className="mt-24 text-center">Select a stop to get started</div>
+          <p className="mt-24 text-center">Select a stop to get started</p>
         )}
         {isStopEmpty(stop) && stops.length > 0 && (
           <StopListContext.Provider value={{ setStop: setStop }}>
