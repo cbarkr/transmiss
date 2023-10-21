@@ -108,7 +108,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
               <SentimentSatisfiedAltIcon />
               <Slider 
                 valueLabelDisplay="auto"
-                color="secondary"
+                color="info"
                 value={numPeople} 
                 onChange={handleChange}
                 defaultValue={5}
@@ -134,7 +134,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
               <SentimentSatisfiedAltIcon />
               <Slider 
                 valueLabelDisplay="auto"
-                color="secondary"
+                color="info"
                 value={numPeople} 
                 onChange={handleChange}
                 defaultValue={5}
