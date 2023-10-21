@@ -3,6 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 
+import { defaultStopState } from "@/models/stop/default";
 import { IStopDetails } from "@/interfaces/stopdetails";
 import { StopListContext, StopSearchContext } from "@/context/stop";
 
@@ -10,25 +11,12 @@ const StopSearch = dynamic(() => import("./components/stopSearch"));
 const StopList = dynamic(() => import("./components/stopList"));
 const StopSelected = dynamic(() => import("./components/stopSelected"));
 
-const defaultStopState = {
-  StopNo: NaN,
-  Name: "",
-  BayNo: "",
-  City: "",
-  OnStreet: "",
-  AtStreet: "",
-  Latitude: NaN,
-  Longitude: NaN,
-  WheelchairAccess: NaN,
-  Distance: NaN,
-  Routes: "",
-};
-
 const isStopEmpty = (stop: IStopDetails) => {
   return Number.isNaN(stop.StopNo);
 };
 
 export default function Home() {
+  // NOTE: stop and stops should be mutually exclusive
   const [stop, setStop] = useState<IStopDetails>(defaultStopState);
   const [stops, setStops] = useState<IStopDetails[]>([]);
 
