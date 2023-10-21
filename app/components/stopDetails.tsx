@@ -8,7 +8,7 @@ export default function StopDetails({ stop }: StopDetailsProps) {
   return (
     <div className="rounded-lg p-2 bg-gray-200 max-w-screen-sm">
       <div className="flex flex-row justify-between">
-        <p className="font-bold">{stop.StopNo}</p>
+        <p className="text-l md:text-xl font-bold">{stop.StopNo}</p>
         <p>
           {stop.OnStreet} & {stop.AtStreet}
         </p>
