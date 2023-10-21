@@ -7,7 +7,7 @@ import { StopSearchContext } from "@/context/stop";
 const axios = require("axios").default;
 
 export default function StopSearch() {
-  const { setStop, setStops } = useContext(StopSearchContext);
+  const { setStop, setStops, setIsFetching } = useContext(StopSearchContext);
 
   const [stopID, setStopID] = useState("");
 
@@ -43,6 +43,7 @@ export default function StopSearch() {
   };
 
   const fetchStopByID = (id: string) => {
+    setIsFetching(true);
     axios
       .get("/api/stops/search", {
         params: {
@@ -54,10 +55,14 @@ export default function StopSearch() {
       })
       .catch((err: any) => {
         console.error(err);
+      })
+      .finally(() => {
+        setIsFetching(false);
       });
   };
 
   const fetchStopsByLocation = (position: GeolocationPosition) => {
+    setIsFetching(true);
     axios
       .get("/api/stops/nearby", {
         params: {
@@ -70,6 +75,9 @@ export default function StopSearch() {
       })
       .catch((err: any) => {
         console.error(err);
+      })
+      .finally(() => {
+        setIsFetching(false);
       });
   };
 
