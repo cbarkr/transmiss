@@ -32,7 +32,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
         <button
           onClick={reportBus}
           type="button"
-          className="rounded-full py-2 px-8 bg-white border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          className="rounded-full py-2 px-8 bg-amber-800 text-white border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
           Full bus
         </button>
