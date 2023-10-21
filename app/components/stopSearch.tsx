@@ -1,35 +1,26 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useContext } from "react";
 import { IconContext } from "react-icons";
 import { FaSearch, FaLocationArrow } from "react-icons/fa";
 
+import { defaultStopState } from "@/models/stop/default";
 import { StopSearchContext } from "@/context/stop";
 
 const axios = require("axios").default;
 
 export default function StopSearch() {
-  const initRef = useRef(true);
-
   const { setStop, setStops } = useContext(StopSearchContext);
 
-  const [submitStop, setSubmitStop] = useState(false);
   const [stopID, setStopID] = useState("");
-
-  useEffect(() => {
-    if (initRef.current) {
-      initRef.current = false;
-    } else {
-      if (submitStop) {
-        if (stopID) {
-          fetchStopByID(stopID);
-        }
-        setSubmitStop(false);
-      }
-    }
-  }, [stopID, submitStop]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    setSubmitStop(true);
+    setStops([]); // Reset stops if we're setting a stop
+    fetchStopByID(stopID)
+  };
+
+  const handleClick = () => {
+    setStop(defaultStopState); // Reset stop if we're querying stops
+    getCoords();
   };
 
   const getCoords = () => {
@@ -96,7 +87,7 @@ export default function StopSearch() {
           </div>
           <div className="mx-2">or</div>
           <button
-            onClick={getCoords}
+            onClick={handleClick}
             type="button"
             className="flex flex-row justify-between items-center rounded-full w-full p-2 bg-white border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
