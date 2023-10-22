@@ -7,7 +7,8 @@ import { StopSearchContext } from "@/context/stop";
 const axios = require("axios").default;
 
 export default function StopSearch() {
-  const { setStop, setStops, setIsFetching } = useContext(StopSearchContext);
+  const { setStop, setStops, setIsFetching, setStopNotFound } =
+    useContext(StopSearchContext);
 
   const [stopID, setStopID] = useState("");
 
@@ -19,11 +20,11 @@ export default function StopSearch() {
   const submitHandler = (id: string = stopID) => {
     setStops([]); // Reset stops if we're setting a stop
     fetchStopByID(id);
-  }
+  };
 
   const handleChange = (id: string) => {
     setStopID(id);
-    
+
     if (id.length === 5) {
       submitHandler(id); // Stop IDs are 5 characters, search immediately
     }
@@ -44,6 +45,8 @@ export default function StopSearch() {
 
   const fetchStopByID = (id: string) => {
     setIsFetching(true);
+    setStopNotFound(false);
+
     axios
       .get("/api/stops/search", {
         params: {
@@ -54,7 +57,7 @@ export default function StopSearch() {
         setStop(res.data.data);
       })
       .catch((err: any) => {
-        console.error(err);
+        setStopNotFound(true);
       })
       .finally(() => {
         setIsFetching(false);
@@ -63,6 +66,8 @@ export default function StopSearch() {
 
   const fetchStopsByLocation = (position: GeolocationPosition) => {
     setIsFetching(true);
+    setStopNotFound(false);
+
     axios
       .get("/api/stops/nearby", {
         params: {
@@ -74,7 +79,7 @@ export default function StopSearch() {
         setStops(res.data.data);
       })
       .catch((err: any) => {
-        console.error(err);
+        setStopNotFound(true);
       })
       .finally(() => {
         setIsFetching(false);
@@ -97,7 +102,7 @@ export default function StopSearch() {
               type="submit"
               className="rounded-full px-2 bg-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
-              <Search fontSize="large" sx={{ color: "white" }}/>
+              <Search fontSize="large" sx={{ color: "white" }} />
             </button>
           </div>
           <div className="mx-2">or</div>
