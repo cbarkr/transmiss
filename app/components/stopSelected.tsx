@@ -19,6 +19,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   const [full, setFull] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [numPeople, setNumPeople] = useState(0);
+  const [routeID, setRouteID] = useState("");
 
   const mounted = useRef(0);
 
@@ -33,6 +34,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
         setCrowded(false);
         setSubmitted(false);
         setNumPeople(0);
+        setRouteID("");
       }
     }
   });
@@ -81,10 +83,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
       .post("/api/report/bus", {
         stopID: stop.StopNo,
         personCount: numPeople,
-
-        // TODO
-        // busID: 0,
-        // routeID: 0,
+        routeID: routeID
       })
       .then((res: any) => {
         console.log(res);
@@ -152,22 +151,39 @@ export default function StopSelected({ stop }: StopSelectedProps) {
       )}
       {full && (
         <>
-          <p>How many people are at this stop? (optional)</p>
-          <div className="flex flex-row justify-between items-center">
-            {/* TODO: Consider getting estimate instead? Like https://transitapp.com/rats */}
-            <Slider
-              valueLabelDisplay="auto"
-              color="info"
-              value={numPeople}
-              onChange={handleChange}
-              defaultValue={5}
-              step={1}
-              min={1}
-              max={20}
-              className="mx-4"
-            />
+          <div className='my-4'>
+            <p>How many people are at this stop? (optional)</p>
+            <div className="flex flex-row justify-between items-center">
+              {/* TODO: Consider getting estimate instead? Like https://transitapp.com/rats */}
+              <Slider
+                valueLabelDisplay="auto"
+                color="info"
+                value={numPeople}
+                onChange={handleChange}
+                defaultValue={5}
+                step={1}
+                min={1}
+                max={20}
+                className="mx-4"
+              />
+            </div>
           </div>
-          {/* TODO: Input for bus ID and route number? */}
+          <div className='my-4'>
+            <p>Which bus passed you? (optional)</p>
+            <div className="flex flex-row justify-between items-center">
+              {stop.Routes.split(",").map((route: string) => (
+                <button
+                  key={route}
+                  type="button"
+                  disabled={routeID === route}
+                  onClick={() => setRouteID(route)}
+                  className="rounded-full p-2 font-bold bg-purple-400 text-amber-950 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                >
+                  {route ? route : "N/A"}
+                </button>
+              ))}
+            </div>
+          </div>
           <div className="flex flex-col items-center my-4">
             <button
               type="button"
