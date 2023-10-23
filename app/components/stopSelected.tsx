@@ -144,7 +144,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
                 type="button"
                 disabled={submitted}
                 onClick={handleCrowdedSubmit}
-                className="rounded-full py-2 px-8 bg-emerald-700 text-white transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                className="rounded-full py-2 px-8 bg-success-600 text-success-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               >
                 {
                   submitted ? <CheckCircle /> : <p>Submit</p>
@@ -201,7 +201,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
                 type="button"
                 disabled={submitted}
                 onClick={handleFullSubmit}
-                className="rounded-full py-2 px-8 bg-emerald-700 text-white transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                className="rounded-full py-2 px-8 bg-success-600 text-success-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               >
                 {
                   submitted ? <CheckCircle /> : <p>Submit</p>
