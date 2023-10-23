@@ -90,7 +90,7 @@ export default function StopSearch() {
     <>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col sm:flex-row justify-between items-center">
-          <div className="flex flex-row justify-between items-center rounded-full border-solid border-1 p-2 bg-white dark:bg-neutral-900">
+          <div className="flex flex-row justify-between items-center rounded-full border-solid border-2 dark:border-1 p-2 bg-white dark:bg-neutral-900">
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
@@ -109,7 +109,7 @@ export default function StopSearch() {
           <button
             onClick={handleClick}
             type="button"
-            className="flex flex-row justify-between items-center rounded-full p-2 text-neutral-800 dark:text-neutral-50 bg-white dark:bg-neutral-900 border-solid border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="flex flex-row justify-between items-center rounded-full p-2 text-neutral-800 dark:text-neutral-50 bg-white dark:bg-neutral-900 border-solid border-2 dark:border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             <p>Use location</p>
             <NearMe fontSize="large" />
