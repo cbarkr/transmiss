@@ -92,7 +92,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   };
 
   return (
-    <div className="m-1 rounded-lg p-2 bg-neutral-200">
+    <div className="m-1 rounded-lg p-2 bg-neutral-200 dark:bg-neutral-800">
       <StopDetails stop={stop} />
       <div className="p-2 max-w-screen-sm">
         <p className="font-bold my-2">Report</p>
@@ -101,14 +101,14 @@ export default function StopSelected({ stop }: StopSelectedProps) {
             <button
               onClick={reportCrowded}
               type="button"
-              className="rounded-full p-2 bg-white text-error-800 border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              className="rounded-full p-2 bg-white text-error-800 border-solid border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
               Crowded stop
             </button>
             <button
               onClick={reportFull}
               type="button"
-              className="rounded-full py-2 px-8 bg-error-800 text-white border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              className="rounded-full py-2 px-8 bg-error-800 text-white border-solid border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
               Full bus
             </button>

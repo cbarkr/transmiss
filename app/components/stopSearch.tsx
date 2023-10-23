@@ -89,30 +89,30 @@ export default function StopSearch() {
   return (
     <>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="flex flex-col sm:flex-row justify-between items-center rounded-lg">
-          <div className="flex flex-row justify-between items-center rounded-full border-solid border-2 p-2 bg-white">
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <div className="flex flex-row justify-between items-center rounded-full border-solid border-1 p-2 bg-white dark:bg-neutral-900">
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
               type="text"
               placeholder="Search by stop number"
-              className="rounded-lg p-2 text-gray-800 bg-transparent outline-none"
+              className="rounded-lg p-2 text-neutral-800 dark:text-neutral-50 bg-transparent outline-none"
             ></input>
             <button
               type="submit"
-              className="rounded-full px-2 bg-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              className="rounded-full px-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
-              <Search fontSize="large" sx={{ color: "white" }} />
+              <Search fontSize="large" />
             </button>
           </div>
           <div className="mx-2">or</div>
           <button
             onClick={handleClick}
             type="button"
-            className="flex flex-row justify-between items-center rounded-full p-2 bg-white border-solid border-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="flex flex-row justify-between items-center rounded-full p-2 text-neutral-800 dark:text-neutral-50 bg-white dark:bg-neutral-900 border-solid border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
-            <p className="text-black">Use location</p>
-            <NearMe fontSize="large" sx={{ color: "black" }} />
+            <p>Use location</p>
+            <NearMe fontSize="large" />
           </button>
         </div>
       </form>
