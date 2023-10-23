@@ -7,6 +7,7 @@ import { defaultStopState } from "@/models/stop/default";
 import { IStopDetails } from "@/interfaces/stopdetails";
 import { StopListContext, StopSearchContext } from "@/context/stop";
 import { CircularProgress } from "@mui/material";
+import { BusAlert } from "@mui/icons-material";
 
 const StopSearch = dynamic(() => import("./components/stopSearch"));
 const StopList = dynamic(() => import("./components/stopList"));
@@ -38,7 +39,12 @@ export default function Home() {
         </StopSearchContext.Provider>
         {!isStopEmpty(stop) && <StopSelected stop={stop} />}
         {isStopEmpty(stop) && stops.length === 0 && !isFetching && !stopNotFound && (
-          <p className="mt-24 text-center">Select a stop to get started</p>
+          <div className="mt-24">
+            <div className="flex flex-col items-center">
+              <BusAlert fontSize="large" />
+            </div>
+            <p className="text-center">Select a stop to get started</p>
+          </div>
         )}
         {isStopEmpty(stop) && stops.length === 0 && !isFetching && stopNotFound && (
           <p className="mt-24 text-center">Stop not found</p>
