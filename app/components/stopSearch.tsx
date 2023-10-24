@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
 import { Search, NearMe } from "@mui/icons-material";
 
-import { defaultStopState } from "@/models/stop/default";
 import { StopSearchContext } from "@/context/stop";
+import { Active } from "@/enums/activeComponent";
 
 const axios = require("axios").default;
 
 export default function StopSearch() {
-  const { setStop, setStops, setIsFetching, setStopNotFound } =
+  const { setStop, setStops, setActive } =
     useContext(StopSearchContext);
 
   const [stopID, setStopID] = useState("");
@@ -15,11 +15,6 @@ export default function StopSearch() {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     submitHandler();
-  };
-
-  const submitHandler = (id: string = stopID) => {
-    setStops([]); // Reset stops if we're setting a stop
-    fetchStopByID(id);
   };
 
   const handleChange = (id: string) => {
@@ -30,9 +25,8 @@ export default function StopSearch() {
     }
   };
 
-  const handleClick = () => {
-    setStop(defaultStopState); // Reset stop if we're querying stops
-    getCoords();
+  const submitHandler = (id: string = stopID) => {
+    fetchStopByID(id);
   };
 
   const getCoords = () => {
@@ -44,8 +38,7 @@ export default function StopSearch() {
   };
 
   const fetchStopByID = (id: string) => {
-    setIsFetching(true);
-    setStopNotFound(false);
+    setActive(Active.Loading);
 
     axios
       .get("/api/stops/search", {
@@ -55,18 +48,15 @@ export default function StopSearch() {
       })
       .then((res: any) => {
         setStop(res.data.data);
+        setActive(Active.Selected);
       })
       .catch((err: any) => {
-        setStopNotFound(true);
-      })
-      .finally(() => {
-        setIsFetching(false);
+        setActive(Active.Error);
       });
   };
 
   const fetchStopsByLocation = (position: GeolocationPosition) => {
-    setIsFetching(true);
-    setStopNotFound(false);
+    setActive(Active.Loading);
 
     axios
       .get("/api/stops/nearby", {
@@ -77,12 +67,10 @@ export default function StopSearch() {
       })
       .then((res: any) => {
         setStops(res.data.data);
+        setActive(Active.List);
       })
       .catch((err: any) => {
-        setStopNotFound(true);
-      })
-      .finally(() => {
-        setIsFetching(false);
+        setActive(Active.Error);
       });
   };
 
@@ -107,7 +95,7 @@ export default function StopSearch() {
           </div>
           <div className="mx-2 w-full sm:w-fit text-center">or</div>
           <button
-            onClick={handleClick}
+            onClick={getCoords}
             type="button"
             className="flex flex-row w-full sm:w-fit justify-between items-center rounded-full p-2 text-neutral-800 dark:text-neutral-50 bg-transparent border-solid border-2 dark:border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >

@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 
 import { IStopDetails } from "@/interfaces/stopdetails";
 import { StopListContext } from "@/context/stop";
+import { Active } from "@/enums/activeComponent";
 
 const StopDetails = dynamic(() => import("./stopDetails"));
 
@@ -11,10 +12,11 @@ interface StopListProps {
 }
 
 export default function StopList({ stops }: StopListProps) {
-  const { setStop } = useContext(StopListContext);
+  const { setStop, setActive } = useContext(StopListContext);
 
   const handleClick = (stop: IStopDetails) => {
     setStop(stop);
+    setActive(Active.Selected);
   };
 
   // NOTE: Stops pre-ordered
