@@ -1,9 +1,18 @@
 import type { AppProps } from "next/app";
-import '../app/styles/globals.css'
+import "../app/styles/globals.css";
 
-interface CustomPageProps {
-}
+import Header from "@/app/components/header";
 
-export default function App({ Component, pageProps }: AppProps<CustomPageProps>) {
-    return <Component { ...pageProps } />
+interface CustomPageProps {}
+
+export default function App({
+  Component,
+  pageProps,
+}: AppProps<CustomPageProps>) {
+  return (
+    <>
+      <Header />
+      <Component {...pageProps} />
+    </>
+  )
 }
