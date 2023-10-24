@@ -15,7 +15,7 @@ export default function About() {
           <div className="mt-4">
             <p className="font-bold text-2xl lg:text-4xl text-center">What</p>
             <p className="text-lg text-center max-w-screen-sm">
-              Transmiss is a web application for reporting transit "misses".
+              Transmiss is a web application for reporting transit &quot;misses&quot;.
               Maybe it&apos;s a crowded stop or perhaps a bus that passes by you because it&apos;s full.
             </p>
           </div>
