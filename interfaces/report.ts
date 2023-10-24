@@ -1,6 +1,6 @@
 import { UUID } from "crypto";
 
-export interface Report {
+export interface IReport {
   readonly reportID: UUID;
   readonly reportDatetime: string;
 }
