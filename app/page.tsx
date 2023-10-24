@@ -27,38 +27,44 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
       <div className="max-w-screen-sm">
-        <StopSearchContext.Provider
-          value={{
-            setStop: setStop,
-            setStops: setStops,
-            setStopNotFound: setStopNotFound,
-            setIsFetching: setIsFetching,
-          }}
-        >
-          <StopSearch />
-        </StopSearchContext.Provider>
-        {!isStopEmpty(stop) && <StopSelected stop={stop} />}
-        {isStopEmpty(stop) && stops.length === 0 && !isFetching && !stopNotFound && (
-          <div className="mt-24">
+        <div className="mt-4">
+          <StopSearchContext.Provider
+            value={{
+              setStop: setStop,
+              setStops: setStops,
+              setStopNotFound: setStopNotFound,
+              setIsFetching: setIsFetching,
+            }}
+          >
+            <StopSearch />
+          </StopSearchContext.Provider>
+        </div>
+        <div className="mt-4">
+          {!isStopEmpty(stop) && (
+            <StopSelected stop={stop} />
+          )}
+          {isStopEmpty(stop) && stops.length > 0 && (
+            <StopListContext.Provider value={{ setStop: setStop }}>
+              <StopList stops={stops} />
+            </StopListContext.Provider>
+          )}
+          {isStopEmpty(stop) && stops.length === 0 && !isFetching && !stopNotFound && (
+            <>
+              <div className="flex flex-col items-center">
+                <BusAlert fontSize="large" />
+              </div>
+              <p className="text-center">Select a stop to get started</p>
+            </>
+          )}
+          {isStopEmpty(stop) && stops.length === 0 && !isFetching && stopNotFound && (
+            <p className="text-center">Stop not found</p>
+          )}
+          {isFetching && (
             <div className="flex flex-col items-center">
-              <BusAlert fontSize="large" />
+              <CircularProgress color="inherit" />
             </div>
-            <p className="text-center">Select a stop to get started</p>
-          </div>
-        )}
-        {isStopEmpty(stop) && stops.length === 0 && !isFetching && stopNotFound && (
-          <p className="mt-24 text-center">Stop not found</p>
-        )}
-        {isFetching && (
-          <div className="flex flex-col items-center mt-24">
-            <CircularProgress color="inherit" />
-          </div>
-        )}
-        {isStopEmpty(stop) && stops.length > 0 && (
-          <StopListContext.Provider value={{ setStop: setStop }}>
-            <StopList stops={stops} />
-          </StopListContext.Provider>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

@@ -92,7 +92,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   };
 
   return (
-    <div className="m-1 rounded-lg p-2 bg-neutral-200 dark:bg-neutral-800">
+    <div className="m-1 rounded-lg p-2 bg-neutral-200 dark:bg-neutral-900">
       <StopDetails stop={stop} />
       <div className="p-2 max-w-screen-sm">
         <p className="font-bold my-2">Report</p>
@@ -125,6 +125,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
               <div>
                 <button 
                   type="button"
+                  disabled={submitted}
                   onClick={() => setNumPeople(numPeople => numPeople > 1 ? numPeople - 1 : 0)}
                   className="rounded-full py-2 px-4 bg-primary-950 text-secondary-300 text-xl transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 >
@@ -132,6 +133,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
                 </button>
                 <button 
                   type="button"
+                  disabled={submitted}
                   onClick={() => setNumPeople(numPeople => numPeople + 1)}
                   className="rounded-full py-2 px-4 bg-primary-950 text-secondary-300 text-xl transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 >
@@ -165,6 +167,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
                 <div>
                   <button 
                     type="button"
+                    disabled={submitted}
                     onClick={() => setNumPeople(numPeople => numPeople > 1 ? numPeople - 1 : 0)}
                     className="rounded-full py-2 px-4 bg-primary-950 text-secondary-300 text-xl transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   >
@@ -172,6 +175,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
                   </button>
                   <button 
                     type="button"
+                    disabled={submitted}
                     onClick={() => setNumPeople(numPeople => numPeople + 1)}
                     className="rounded-full py-2 px-4 bg-primary-950 text-secondary-300 text-xl transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   >
