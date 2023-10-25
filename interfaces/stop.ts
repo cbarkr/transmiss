@@ -10,4 +10,4 @@ export interface IStopDetails {
   WheelchairAccess: number;
   Distance: number;
   Routes: string;
-}
+};

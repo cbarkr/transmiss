@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { CheckCircle } from "@mui/icons-material";
 import dynamic from "next/dynamic";
 
-import { IStopDetails } from "@/interfaces/stopdetails";
+import { IStopDetails } from "@/interfaces/stop";
 
 const StopDetails = dynamic(() => import("./stopDetails"));
 
@@ -59,8 +59,8 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   const postCrowdedReport = () => {
     axios
       .post("/api/report/stop", {
-        stopID: stop.StopNo,
-        personCount: numPeople,
+        stop_id: stop.StopNo,
+        person_count: numPeople,
       })
       .then((res: any) => {
         console.log(res);
@@ -76,9 +76,9 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   const postFullReport = () => {
     axios
       .post("/api/report/bus", {
-        stopID: stop.StopNo,
-        personCount: numPeople,
-        routeID: routeID
+        stop_id: stop.StopNo,
+        person_count: numPeople,
+        route_id: routeID
       })
       .then((res: any) => {
         console.log(res);
