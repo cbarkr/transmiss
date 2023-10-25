@@ -17,9 +17,9 @@ export default async function handler(
   if (req.method === "POST") {
     const report = new Report({
       stop_id: req.body.stop_id, 
-      report_type: ReportType.StopCrowded,
-      bus_id: undefined,
-      route_id: undefined,
+      report_type: ReportType.NoShow,
+      bus_id: req.body.bus_id,
+      route_id: req.body.route_id,
       person_count: req.body.person_count
     });
 

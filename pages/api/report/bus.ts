@@ -2,7 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { PutCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
-import { Bus } from "@/models/reports/bus";
+import { Report } from "@/models/report";
+import { ReportType } from "@/enums/reportType";
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION,
@@ -14,19 +15,20 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const busReport = new Bus(
-      req.body.stopID,
-      req.body.busID,
-      req.body.routeID,
-      req.body.personCount
-    );
+    const report = new Report({
+      stop_id: req.body.stop_id, 
+      report_type: ReportType.BusFull,
+      bus_id: req.body.bus_id,
+      route_id: req.body.route_id,
+      person_count: req.body.person_count
+    });
 
     const command = new PutCommand({
-      TableName: process.env.AWS_BUS_TABLE_NAME,
-      Item: busReport,
+      TableName: process.env.AWS_TABLE_NAME,
+      Item: report,
     });
 
     await docClient.send(command);
-    res.status(201).json(busReport);
+    res.status(201).json(report);
   }
 }

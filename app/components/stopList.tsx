@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import dynamic from "next/dynamic";
 
-import { IStopDetails } from "@/interfaces/stopdetails";
+import { IStopDetails } from "@/interfaces/stop";
 import { StopListContext } from "@/context/stop";
 import { Active } from "@/enums/activeComponent";
 

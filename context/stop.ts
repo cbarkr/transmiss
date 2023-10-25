@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IStopDetails } from "@/interfaces/stopdetails";
+import { IStopDetails } from "@/interfaces/stop";
 
 export const StopSearchContext = React.createContext({
   setStop: (stop: IStopDetails) => {},

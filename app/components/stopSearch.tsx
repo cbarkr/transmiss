@@ -78,7 +78,7 @@ export default function StopSearch() {
     <>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col xs:flex-row justify-between items-center">
-          <div className="flex flex-row justify-between items-center rounded-full border-solid border-2 dark:border-1 p-2 bg-transparent">
+          <div className="flex flex-row w-full sm:w-fit justify-between items-center rounded-full border-solid border-2 dark:border-1 p-2 bg-transparent">
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
