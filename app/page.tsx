@@ -3,8 +3,8 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 
-import { defaultStopState } from "@/models/stop/default";
-import { IStopDetails } from "@/interfaces/stopdetails";
+import { defaultStopState } from "@/models/stop";
+import { IStopDetails } from "@/interfaces/stop";
 import { StopListContext, StopSearchContext } from "@/context/stop";
 import { CircularProgress } from "@mui/material";
 import { BusAlert } from "@mui/icons-material";
