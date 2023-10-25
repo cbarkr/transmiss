@@ -1,4 +1,4 @@
-import { IStopDetails } from "@/interfaces/stopdetails";
+import { IStopDetails } from "@/interfaces/stop";
 
 interface StopDetailsProps {
   stop: IStopDetails;
