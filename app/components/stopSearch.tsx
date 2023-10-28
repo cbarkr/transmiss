@@ -82,7 +82,7 @@ export default function StopSearch() {
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
-              type="text"
+              type="number"
               placeholder="Search by stop number"
               className="rounded-lg p-2 text-neutral-800 dark:text-neutral-50 bg-transparent outline-none"
             ></input>
