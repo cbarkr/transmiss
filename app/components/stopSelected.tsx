@@ -30,6 +30,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
+      getReports();
     }
     else {
       if (stop !== previousStop) {
@@ -39,7 +40,6 @@ export default function StopSelected({ stop }: StopSelectedProps) {
         setSubmitted(false);
         setNumPeople(0);
         setRouteID("");
-        getReports();
       }
     }
   }, [stop, previousStop, reports]);
@@ -63,6 +63,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   };
 
   const getReports = () => {
+    console.log('getReports')
     axios
       .get("/api/report/from", {
         params: {
