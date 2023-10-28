@@ -41,7 +41,8 @@ export default function StopSearch() {
         }
       );
     } else {
-      // TODO: Handle when geolocation unsupported by browser
+      setError(ErrorText.LocationUnsupported);
+      setActive(Active.Error);  
     }
   };
 
