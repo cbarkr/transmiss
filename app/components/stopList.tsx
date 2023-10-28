@@ -26,7 +26,7 @@ export default function StopList({ stops }: StopListProps) {
       className="m-1 hover:cursor-pointer"
       key={stop.StopNo}
     >
-      <StopDetails stop={stop} />
+      <StopDetails stop={stop} reports={[]}/>
     </div>
   ));
 
