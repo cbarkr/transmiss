@@ -3,11 +3,12 @@ import { Search, NearMe } from "@mui/icons-material";
 
 import { StopSearchContext } from "@/context/stop";
 import { Active } from "@/enums/activeComponent";
+import { ErrorText } from "@/enums/activeError";
 
 const axios = require("axios").default;
 
 export default function StopSearch() {
-  const { setStop, setStops, setActive } =
+  const { setStop, setStops, setActive, setError } =
     useContext(StopSearchContext);
 
   const [stopID, setStopID] = useState("");
@@ -36,7 +37,7 @@ export default function StopSearch() {
         navigatorError,
         {
           enableHighAccuracy: true,
-          maximumAge: 0
+          maximumAge: 0,
         }
       );
     } else {
@@ -44,10 +45,22 @@ export default function StopSearch() {
     }
   };
 
-  const navigatorError = () => {
-    // TODO: Handle errors
-    console.log('error');
-  }
+  const navigatorError = (error: GeolocationPositionError) => {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        setError(ErrorText.LocationDenied);
+        setActive(Active.Error);
+        break;
+      case error.POSITION_UNAVAILABLE:
+        setError(ErrorText.LocationUnavailable);
+        setActive(Active.Error);
+        break;
+      default:
+        setError(ErrorText.LocationUnknown);
+        setActive(Active.Error);
+        break;
+    }
+  };
 
   const fetchStopByID = (id: string) => {
     setActive(Active.Loading);
