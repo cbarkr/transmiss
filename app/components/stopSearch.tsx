@@ -1,5 +1,6 @@
-import { useState, useContext } from "react";
-import { Search, NearMe } from "@mui/icons-material";
+import { useState, useContext } from "react";;
+import SearchIcon from '@mui/icons-material/Search';
+import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 
 import { StopSearchContext } from "@/context/stop";
 import { Active } from "@/enums/activeComponent";
@@ -103,31 +104,29 @@ export default function StopSearch() {
   return (
     <>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="flex flex-col xs:flex-row justify-between items-center">
-          <div className="flex flex-row w-full sm:w-fit justify-between items-center rounded-full border-solid border-2 dark:border-1 p-2 bg-transparent">
+        <div className="flex flex-row justify-between items-center">
+          <button
+            onClick={getCoords}
+            type="button"
+            className="rounded-full p-2 text-neutral-800 dark:text-neutral-50 bg-transparent border-solid border-2 dark:border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            <LocationSearchingIcon fontSize="large" />
+          </button>
+          <div className="flex flex-row w-full py-2 justify-between items-center rounded-full border-solid border-2 dark:border-1 bg-transparent">
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
               type="number"
               placeholder="Search by stop number"
-              className="rounded-lg p-2 text-neutral-800 dark:text-neutral-50 bg-transparent outline-none"
+              className="rounded-lg pl-2 m-2 text-neutral-800 dark:text-neutral-50 bg-transparent outline-none"
             ></input>
             <button
               type="submit"
-              className="rounded-full px-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              className="rounded-full mx-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
-              <Search fontSize="large" />
+              <SearchIcon fontSize="large" />
             </button>
           </div>
-          <div className="mx-2 w-full sm:w-fit text-center">or</div>
-          <button
-            onClick={getCoords}
-            type="button"
-            className="flex flex-row w-full sm:w-fit justify-between items-center rounded-full p-2 text-neutral-800 dark:text-neutral-50 bg-transparent border-solid border-2 dark:border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          >
-            <p className="p-2">Use location</p>
-            <NearMe fontSize="large" />
-          </button>
         </div>
       </form>
     </>

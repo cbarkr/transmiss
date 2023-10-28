@@ -23,8 +23,8 @@ export default function Home() {
   const [error, setError] = useState(ErrorText.LocationNotFound);
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-full sm:w-max px-2 max-w-screen-sm">
+    <div className="flex flex-col items-center mx-2">
+      <div className="w-full max-w-screen-sm">
         <div className="mt-4">
           <StopSearchContext.Provider
             value={{
