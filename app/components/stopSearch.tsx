@@ -117,6 +117,8 @@ export default function StopSearch() {
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
               type="number"
+              pattern="[0-9]{5}"
+              title="Five digit stop number"
               placeholder="Search by stop number"
               className="rounded-lg pl-2 m-2 text-neutral-800 dark:text-neutral-50 bg-transparent outline-none"
             ></input>
