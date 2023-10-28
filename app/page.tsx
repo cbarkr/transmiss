@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="max-w-screen-sm">
+      <div className="w-full sm:w-max px-2 max-w-screen-sm">
         <div className="mt-4">
           <StopSearchContext.Provider
             value={{
