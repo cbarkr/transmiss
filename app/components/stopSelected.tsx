@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { CheckCircle } from "@mui/icons-material";
 import dynamic from "next/dynamic";
 
+import { usePrevious } from "../hooks/prev";
 import { IStopDetails } from "@/interfaces/stop";
+import { IReportFrom } from "@/interfaces/from";
 
 const StopDetails = dynamic(() => import("./stopDetails"));
 
@@ -20,16 +22,18 @@ export default function StopSelected({ stop }: StopSelectedProps) {
   const [submitted, setSubmitted] = useState(false);
   const [numPeople, setNumPeople] = useState(0);
   const [routeID, setRouteID] = useState("");
+  const [reports, setReports] = useState<IReportFrom[]>([]);
 
-  const mounted = useRef(0);
+  const mounted = useRef(false);
+  const previousStop = usePrevious(stop);
 
   useEffect(() => {
     if (!mounted.current) {
-      mounted.current = stop.StopNo;
-    } else {
-      if (mounted.current !== stop.StopNo) {
-        // Reset if new stop has been selected
-        mounted.current = stop.StopNo;
+      mounted.current = true;
+      getReports();
+    }
+    else {
+      if (stop !== previousStop) {
         setFull(false);
         setCrowded(false);
         setNoShow(false);
@@ -38,7 +42,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
         setRouteID("");
       }
     }
-  });
+  }, [stop, previousStop, reports]);
 
   const reportCrowded = () => {
     setFull(false);
@@ -57,6 +61,22 @@ export default function StopSelected({ stop }: StopSelectedProps) {
     setFull(false);
     setNoShow(true);
   };
+
+  const getReports = () => {
+    console.log('getReports')
+    axios
+      .get("/api/report/from", {
+        params: {
+          StopNo: stop.StopNo
+        }
+      })
+      .then((res: any) => {
+        setReports(res.data.data);
+    })
+      .catch((err: any) => {
+        console.error(err);
+      });
+  }
 
   const handleCrowdedSubmit = () => {
     postReport("/api/report/stop");
@@ -90,7 +110,7 @@ export default function StopSelected({ stop }: StopSelectedProps) {
 
   return (
     <div className="m-1 rounded-lg p-2 bg-neutral-200 dark:bg-neutral-900">
-      <StopDetails stop={stop} />
+      <StopDetails stop={stop} reports={reports}/>
       <div className="p-2 max-w-screen-sm">
         <p className="font-bold my-2">Report</p>
         {!crowded && !full && !noShow && (

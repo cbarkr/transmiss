@@ -9,6 +9,7 @@ import { StopListContext, StopSearchContext } from "@/context/stop";
 import { CircularProgress } from "@mui/material";
 import { BusAlert } from "@mui/icons-material";
 import { Active } from "@/enums/activeComponent";
+import { ErrorText } from "@/enums/activeError";
 
 const StopSearch = dynamic(() => import("./components/stopSearch"));
 const StopList = dynamic(() => import("./components/stopList"));
@@ -19,16 +20,18 @@ export default function Home() {
   const [stop, setStop] = useState<IStopDetails>(defaultStopState);
   const [stops, setStops] = useState<IStopDetails[]>([]);
   const [active, setActive] = useState(Active.Default);
+  const [error, setError] = useState(ErrorText.LocationNotFound);
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="max-w-screen-sm">
+    <div className="flex flex-col items-center mx-2">
+      <div className="w-full max-w-screen-sm">
         <div className="mt-4">
           <StopSearchContext.Provider
             value={{
               setStop: setStop,
               setStops: setStops,
               setActive: setActive,
+              setError: setError
             }}
           >
             <StopSearch />
@@ -49,7 +52,7 @@ export default function Home() {
             </div>
           )}
           {active == Active.Error && (
-            <p className="text-center">Stop not found</p>
+            <p className="text-center">{error}</p>
           )}
           {active == Active.Selected && <StopSelected stop={stop} />}
           {active == Active.List && (
