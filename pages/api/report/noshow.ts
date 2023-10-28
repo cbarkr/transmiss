@@ -29,6 +29,6 @@ export default async function handler(
     });
 
     await docClient.send(command);
-    res.status(201).json(report);
+    res.status(201).json({ data: report });
   }
 }
