@@ -18,3 +18,15 @@ body {
   color: var(--foreground);
   background: var(--background);
 }
+
+/* Hide arrows in number input */
+@layer base {
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    margin: 0;
+    appearance: textfield;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+  }
+}
