@@ -31,11 +31,23 @@ export default function StopSearch() {
 
   const getCoords = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(fetchStopsByLocation);
+      navigator.geolocation.getCurrentPosition(
+        fetchStopsByLocation,
+        navigatorError,
+        {
+          enableHighAccuracy: true,
+          maximumAge: 0
+        }
+      );
     } else {
-      // TODO: Error
+      // TODO: Handle when geolocation unsupported by browser
     }
   };
+
+  const navigatorError = () => {
+    // TODO: Handle errors
+    console.log('error');
+  }
 
   const fetchStopByID = (id: string) => {
     setActive(Active.Loading);
