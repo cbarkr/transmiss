@@ -57,8 +57,10 @@ function PeopleCounter({currNum, handler, disabled}: IPeopleCounterProps) {
         onChange={(e) => handleChange(e.target.value)}
         value={currNum}
         type="number"
-        size={1}
-        className="rounded-full bg-transparent outline-none text-center"
+        min={0}
+        max={100}
+        pattern="[0-9]*"
+        className="rounded-full w-6 bg-transparent outline-none text-center"
       ></input>
       <button 
         type="button"
