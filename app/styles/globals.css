@@ -2,25 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground: #000000;
-  --background: #FFFFFF;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground: #FFFFFF;
-    --background: #000000;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-}
-
-/* Hide arrows in number input */
 @layer base {
+  /* Hide arrows in number input */
   input[type='number']::-webkit-outer-spin-button,
   input[type='number']::-webkit-inner-spin-button,
   input[type='number'] {
@@ -28,5 +11,22 @@ body {
     appearance: textfield;
     -webkit-appearance: none;
     -moz-appearance: textfield;
+  }
+
+  :root {
+    --foreground: #000000;
+    --background: #FFFFFF;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --foreground: #FFFFFF;
+      --background: #000000;
+    }
+  }
+  
+  body {
+    color: var(--foreground);
+    background: var(--background);
   }
 }

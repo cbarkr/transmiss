@@ -20,7 +20,7 @@ export default function Header() {
           <MenuButton>
             <MenuIcon />
           </MenuButton>
-          <Menu className="rounded-lg border-solid border-2 bg-neutral-200 dark:bg-neutral-900 p-2">
+          <Menu className="rounded-lg border-solid border-2 bg-neutral-200 dark:bg-gunmetal p-2">
             <MenuItem>
               <Link href="/about" className="hover:underline text-lg mx-2">
                 About

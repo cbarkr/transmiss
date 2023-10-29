@@ -105,28 +105,28 @@ export default function StopSearch() {
     <>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-row justify-between items-center">
-          <button
-            onClick={getCoords}
-            type="button"
-            className="rounded-full p-2 text-neutral-800 dark:text-neutral-50 bg-transparent border-solid border-2 dark:border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          >
-            <LocationSearchingIcon fontSize="large" />
-          </button>
-          <div className="flex flex-row w-full py-2 justify-between items-center rounded-full border-solid border-2 dark:border-1 bg-transparent">
+          <div className="flex flex-row w-full py-2 items-center rounded-full border-solid border-2 dark:border-1 border-primary-950 dark:border-white bg-transparent">
+            <button
+              type="submit"
+              className="rounded-full mx-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            >
+              <SearchIcon />
+            </button>
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
               type="number"
               placeholder="Search by stop number"
-              className="rounded-lg pl-2 m-2 text-neutral-800 dark:text-neutral-50 bg-transparent outline-none"
+              className="rounded-lg m-2 text-primary-950 dark:text-primary-50 bg-transparent outline-none"
             ></input>
-            <button
-              type="submit"
-              className="rounded-full mx-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            >
-              <SearchIcon fontSize="large" />
-            </button>
           </div>
+          <button
+            onClick={getCoords}
+            type="button"
+            className="rounded-full mx-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            <LocationSearchingIcon />
+          </button>
         </div>
       </form>
     </>

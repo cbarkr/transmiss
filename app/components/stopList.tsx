@@ -7,11 +7,11 @@ import { Active } from "@/enums/activeComponent";
 
 const StopDetails = dynamic(() => import("./stopDetails"));
 
-interface StopListProps {
+interface IStopListProps {
   stops: IStopDetails[];
 }
 
-export default function StopList({ stops }: StopListProps) {
+export default function StopList({ stops }: IStopListProps) {
   const { setStop, setActive } = useContext(StopListContext);
 
   const handleClick = (stop: IStopDetails) => {
@@ -23,10 +23,10 @@ export default function StopList({ stops }: StopListProps) {
   const stopItems = stops.map((stop: IStopDetails) => (
     <div
       onClick={() => handleClick(stop)}
-      className="m-1 hover:cursor-pointer"
+      className="my-1 hover:cursor-pointer"
       key={stop.StopNo}
     >
-      <StopDetails stop={stop} reports={[]}/>
+      <StopDetails stop={stop} />
     </div>
   ));
 
