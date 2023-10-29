@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { CheckCircle } from "@mui/icons-material";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import GroupsIcon from '@mui/icons-material/Groups';
+import NoTransferIcon from '@mui/icons-material/NoTransfer';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import dynamic from "next/dynamic";
 
 import { usePrevious } from "../hooks/prev";
@@ -77,7 +81,7 @@ function RouteSelector({routes, handler, curr}: IRouteSelectorProps) {
           type="button"
           disabled={curr === route}
           onClick={() => handler(route)}
-          className="rounded-lg py-2 px-4 font-bold bg-secondary-300 text-primary-950 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          className="rounded-full py-2 px-4 font-bold text-secondary-300 bg-primary-950 dark:text-primary-950 dark:bg-secondary-300 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
           {route ? route : "N/A"}
         </button>
@@ -88,15 +92,19 @@ function RouteSelector({routes, handler, curr}: IRouteSelectorProps) {
 
 function SubmitButton({submitted, handler}: ISubmitButtonProps) {
   return (
-    <div className="flex flex-col items-center my-2">
+    <div className="flex justify-end items-center my-2">
       <button
         type="button"
         disabled={submitted}
         onClick={handler}
-        className="rounded-full py-2 px-8 bg-success-600 text-success-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        className="rounded-full py-2 px-4 text-secondary-300 bg-primary-950 dark:text-primary-950 dark:bg-secondary-300 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
       >
         {
-          submitted ? <CheckCircle /> : <p>Submit</p>
+          submitted ? <CheckCircleIcon /> : 
+            <div className="flex flex-row">
+              <p>Submit</p>
+              <ArrowForwardIcon />
+            </div>
         }
       </button>
     </div>
@@ -208,12 +216,10 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
   return (
     <div className="m-2">
       {
-        reports && (
+        reports.length > 0 && (
           <div className="flex flex-row items-center rounded-lg my-1 p-2 bg-flush-orange-950">
-            {/* Magic strings are evil but MUI and tailwind don't play nicely together */}
-            {/* #381717 is error-950 */}
             <ErrorOutlineIcon sx={{ color: 'white' }} />
-            <p className="mx-2 text-white">Users have reported issues with this stop within the last hour. Submit a report to help others!</p>
+            <p className="mx-2 text-white">Others have reported issues with this stop within the last hour. Submit a report to help!</p>
           </div>
         )
       }
@@ -222,43 +228,60 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
         <p className="font-bold my-2">Report</p>
         {!crowded && !full && !noShow && (
           <div className="flex flex-row justify-center">
-            <button
+            <div 
+              className="flex-grow basis-1 rounded-lg bg-primary-950 dark:bg-primary-200 mx-1 px-2 py-4 hover:cursor-pointer" 
               onClick={reportCrowded}
-              type="button"
-              className="flex-grow rounded-lg p-2 w-24 h-16 bg-error-100 text-sm text-error-900 border-solid border-2 dark:border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
-              Crowded
-            </button>
-            <button
+              <div className="flex flex-row justify-between items-center text-primary-200 dark:text-primary-950">
+                <div className="flex flex-col items-center">
+                  <GroupsIcon />
+                  <p>Crowded</p>
+                </div>
+                <ArrowForwardIosIcon />
+              </div>
+            </div> 
+            <div 
+              className="flex-grow basis-1 rounded-lg bg-flush-orange-400/75 mx-1 px-2 py-4 hover:cursor-pointer" 
               onClick={reportNoShow}
-              type="button"
-              className="flex-grow rounded-lg p-2 w-24 h-16 bg-error-900 text-sm text-error-100 border-solid border-2 dark:border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
-              No Show
-            </button>
-            <button
+              <div className="flex flex-row justify-between items-center text-flush-orange-950">
+                <div className="flex flex-col items-center">
+                  <NoTransferIcon />
+                  <p>No Show</p>
+                </div>
+                <ArrowForwardIosIcon />
+              </div>
+            </div>
+            <div 
+              className="flex-grow basis-1 rounded-lg bg-flush-orange-950 mx-1 px-2 py-4 hover:cursor-pointer" 
               onClick={reportFull}
-              type="button"
-              className="flex-grow rounded-lg p-2 w-24 h-16 bg-error-700 text-sm text-white border-solid border-2 dark:border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
-              Full bus
-            </button>
+              <div className="flex flex-row justify-between items-center text-flush-orange-50">
+                <div className="flex flex-col items-center">
+                  <NoTransferIcon />
+                  <p>Bus Full</p>
+                </div>
+                <ArrowForwardIosIcon />
+              </div>
+            </div>
           </div>
         )}
         {crowded && (
           <>
-            <p>How many people are at this stop?</p>
-            <PeopleCounter currNum={numPeople} handler={updateNumPeople} disabled={submitted} />
+            <div className='flex flex-row justify-between items-center'>
+              <p>How many people are at this stop?</p>
+              <PeopleCounter currNum={numPeople} handler={updateNumPeople} disabled={submitted} />
+            </div>
             <SubmitButton submitted={submitted} handler={handleCrowdedSubmit} />
           </>
         )}
         {noShow && (
           <>
-            <div className='my-2'>
+            <div className='flex flex-row justify-between items-center my-2'>
               <p>Which bus passed you?</p>
               <RouteSelector routes={stop.Routes} handler={updateRouteID} curr={routeID} />
             </div>
-            <div className='my-2'>
+            <div className='flex flex-row justify-between items-center my-2'>
               <p>How many people are at this stop? (optional)</p>
               <PeopleCounter currNum={numPeople} handler={updateNumPeople} disabled={submitted} />
             </div>
@@ -267,11 +290,11 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
         )}
         {full && (
           <>
-            <div className='my-2'>
+            <div className='flex flex-row justify-between items-center my-2'>
               <p>Which bus passed you?</p>
               <RouteSelector routes={stop.Routes} handler={updateRouteID} curr={routeID} />
             </div>
-            <div className='my-2'>
+            <div className='flex flex-row justify-between items-center my-2'>
               <p>How many people are at this stop? (optional)</p>
               <PeopleCounter currNum={numPeople} handler={updateNumPeople} disabled={submitted} />
             </div>

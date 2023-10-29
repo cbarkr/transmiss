@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";;
 import SearchIcon from '@mui/icons-material/Search';
-import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
+import GpsNotFixedIcon from '@mui/icons-material/GpsNotFixed';
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 
 import { StopSearchContext } from "@/context/stop";
 import { Active } from "@/enums/activeComponent";
@@ -13,6 +14,7 @@ export default function StopSearch() {
     useContext(StopSearchContext);
 
   const [stopID, setStopID] = useState("");
+  const [locationInUse, setLocationInUse] = useState(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ export default function StopSearch() {
 
   const getCoords = () => {
     if (navigator.geolocation) {
+      setLocationInUse(true);
       navigator.geolocation.getCurrentPosition(
         fetchStopsByLocation,
         navigatorError,
@@ -43,11 +46,13 @@ export default function StopSearch() {
       );
     } else {
       setError(ErrorText.LocationUnsupported);
-      setActive(Active.Error);  
+      setActive(Active.Error);
     }
   };
 
   const navigatorError = (error: GeolocationPositionError) => {
+    setLocationInUse(false);
+    
     switch (error.code) {
       case error.PERMISSION_DENIED:
         setError(ErrorText.LocationDenied);
@@ -98,6 +103,9 @@ export default function StopSearch() {
       })
       .catch((err: any) => {
         setActive(Active.Error);
+      })
+      .finally(() => {
+        setLocationInUse(false);
       });
   };
 
@@ -125,7 +133,9 @@ export default function StopSearch() {
             type="button"
             className="rounded-full mx-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
-            <LocationSearchingIcon />
+            {
+              locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />
+            }
           </button>
         </div>
       </form>
