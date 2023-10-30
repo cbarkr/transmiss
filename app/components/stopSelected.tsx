@@ -5,6 +5,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import NoTransferIcon from '@mui/icons-material/NoTransfer';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import dynamic from "next/dynamic";
 
 import { usePrevious } from "../hooks/prev";
@@ -260,7 +261,7 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
             >
               <div className="flex flex-row justify-between items-center text-flush-orange-50">
                 <div className="flex flex-col items-center">
-                  <NoTransferIcon />
+                  <AirportShuttleIcon />
                   <p>Bus Full</p>
                 </div>
                 <ArrowForwardIosIcon />
