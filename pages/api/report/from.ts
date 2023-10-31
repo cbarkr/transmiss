@@ -16,9 +16,20 @@ export default async function handler(
   if (req.method === "GET") {
     if (!req.query.StopNo) {
       res.status(400).json({ message: "A stop number must be provided" });
+      return;
     }
 
-    const stopID = Number.parseInt(req.query.StopNo as string);
+    const stopIDAsNum = Number.parseInt(req.query.StopNo as string);
+
+    if (stopIDAsNum <= 0) { 
+      res.status(400).json({ message: "Invalid stop number" });
+      return;
+    }
+
+    if (stopIDAsNum > 99999) {
+      res.status(400).json({ message: "Invalid stop number" });
+      return;
+    }
 
     // Query reports from the past hour
     const datetime = new Date();
@@ -35,7 +46,7 @@ export default async function handler(
         "#report_datetime": "report_datetime",
       },
       ExpressionAttributeValues: {
-        ":stop_id": stopID,
+        ":stop_id": stopIDAsNum,
         ":report_datetime": datetime.toISOString(),
       },
       ConsistentRead: true, // Respond with most up-to-date data

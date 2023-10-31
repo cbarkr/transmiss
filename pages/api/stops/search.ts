@@ -5,13 +5,26 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     if (!req.query.stopID) {
       res.status(400).json({ message: "A stop number must be provided" });
+      return;
     }
 
     if (req.query.stopID?.length !== 5) {
       res.status(400).json({ message: "Invalid stop number" });
+      return;
     }
 
-    const stopID = req.query.stopID!.toString();
+    const stopID = req.query.StopNo as string;
+    const stopIDAsNum = Number.parseInt(stopID)
+
+    if (stopIDAsNum <= 0) { 
+      res.status(400).json({ message: "Invalid stop number" });
+      return;
+    }
+
+    if (stopIDAsNum > 99999) {
+      res.status(400).json({ message: "Invalid stop number" });
+      return;
+    }
 
     axios
       .request({

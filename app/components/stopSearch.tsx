@@ -127,6 +127,7 @@ export default function StopSearch() {
               min={0}
               max={99999}
               pattern="[0-9]{5}"
+              title="Five digit stop number"
               placeholder="Search by stop number"
               className="rounded-lg m-2 text-primary-950 dark:text-primary-50 bg-transparent outline-none"
             ></input>
