@@ -13,7 +13,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       return;
     }
 
-    const stopID = req.query.StopNo as string;
+    const stopID = req.query.stopID as string;
     const stopIDAsNum = Number.parseInt(stopID)
 
     if (stopIDAsNum <= 0) { 
