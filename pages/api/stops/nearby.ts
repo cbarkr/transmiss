@@ -5,6 +5,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     if (!req.query.lat || !req.query.long) {
       res.status(400).json({ message: "A location must be provided" });
+      return;
     }
 
     // Note: Translink API requires lat and lon be 6 decimals max
