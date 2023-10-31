@@ -1,20 +1,16 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import GroupsIcon from '@mui/icons-material/Groups';
 import NoTransferIcon from '@mui/icons-material/NoTransfer';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import dynamic from "next/dynamic";
 
-import { defaultStopState } from "@/models/stop";
 import { usePrevious } from "../hooks/prev";
 import { IStopDetails } from "@/interfaces/stop";
 import { IReportFrom } from "@/interfaces/from";
-import { StopSetContext } from "@/context/stop";
-import { Active } from "@/enums/activeComponent";
 
 const StopDetails = dynamic(() => import("./stopDetails"));
 
@@ -39,7 +35,6 @@ interface ISubmitButtonProps {
 
 interface IStopSelectedProps {
   stop: IStopDetails;
-  stops: IStopDetails[]
 }
 
 function PeopleCounter({currNum, handler, disabled}: IPeopleCounterProps) {
@@ -119,9 +114,7 @@ function SubmitButton({submitted, handler}: ISubmitButtonProps) {
   )
 }
 
-export default function StopSelected({ stop, stops }: IStopSelectedProps) {
-  const { setStop, setActive } = useContext(StopSetContext);
-
+export default function StopSelected({ stop }: IStopSelectedProps) {
   // NOTE: crowded and full should be mutually exclusive
   const [crowded, setCrowded] = useState(false);
   const [full, setFull] = useState(false);
@@ -204,18 +197,6 @@ export default function StopSelected({ stop, stops }: IStopSelectedProps) {
     postReport("/api/report/noshow");
   };
 
-  const handleBackClick = () => {
-    if (stops.length > 0) {
-      setStop(defaultStopState);
-      setActive(Active.List);
-    }
-
-    else {
-      setStop(defaultStopState);
-      setActive(Active.Default);
-    }
-  }
-
   const postReport = (url: string) => {
     axios
       .post(url, {
@@ -236,13 +217,6 @@ export default function StopSelected({ stop, stops }: IStopSelectedProps) {
 
   return (
     <div className="m-2">
-      <button
-        onClick={handleBackClick}
-        type="button"
-        className="rounded-full mx-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-      >
-        <ArrowBackIosNewIcon />
-      </button>
       {
         reports.length > 0 && (
           <div className="flex flex-row items-center rounded-lg my-1 p-2 bg-flush-orange-950">
