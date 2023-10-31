@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 import { defaultStopState } from "@/models/stop";
 import { IStopDetails } from "@/interfaces/stop";
-import { StopListContext, StopSearchContext } from "@/context/stop";
+import { StopSetContext, StopSearchContext } from "@/context/stop";
 import { CircularProgress } from "@mui/material";
 import { BusAlert } from "@mui/icons-material";
 import { Active } from "@/enums/activeComponent";
@@ -54,13 +54,19 @@ export default function Home() {
           {active == Active.Error && (
             <p className="text-center">{error}</p>
           )}
-          {active == Active.Selected && <StopSelected stop={stop} />}
+          {active == Active.Selected && 
+            <StopSetContext.Provider
+              value={{ setStop: setStop, setActive: setActive }}
+            >
+              <StopSelected stop={stop} stops={stops} />   
+            </StopSetContext.Provider>
+          }
           {active == Active.List && (
-            <StopListContext.Provider
+            <StopSetContext.Provider
               value={{ setStop: setStop, setActive: setActive }}
             >
               <StopList stops={stops} />
-            </StopListContext.Provider>
+            </StopSetContext.Provider>
           )}
         </div>
       </div>

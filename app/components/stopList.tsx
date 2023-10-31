@@ -2,7 +2,7 @@ import { useContext } from "react";
 import dynamic from "next/dynamic";
 
 import { IStopDetails } from "@/interfaces/stop";
-import { StopListContext } from "@/context/stop";
+import { StopSetContext } from "@/context/stop";
 import { Active } from "@/enums/activeComponent";
 
 const StopDetails = dynamic(() => import("./stopDetails"));
@@ -12,7 +12,7 @@ interface IStopListProps {
 }
 
 export default function StopList({ stops }: IStopListProps) {
-  const { setStop, setActive } = useContext(StopListContext);
+  const { setStop, setActive } = useContext(StopSetContext);
 
   const handleClick = (stop: IStopDetails) => {
     setStop(stop);

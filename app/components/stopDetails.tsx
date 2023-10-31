@@ -12,7 +12,7 @@ export default function StopDetails({ stop }: IStopDetailsProps) {
         <div className="flex flex-row">
           {stop.Routes.split(",").map((route: string) => (
             <div
-              className="rounded-lg py-2 px-4 font-bold bg-secondary-300 text-sm text-primary-950"
+              className="rounded-lg py-2 px-4 mx-1 font-bold bg-secondary-300 text-sm text-primary-950"
               key={route}
             >
               {route ? route : "N/A"}

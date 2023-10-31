@@ -11,7 +11,7 @@ export const StopSearchContext = React.createContext({
   setError: (error: ErrorText) => {},
 });
 
-export const StopListContext = React.createContext({
+export const StopSetContext = React.createContext({
   setStop: (stop: IStopDetails) => {},
-  setActive: (active: number) => {},
+  setActive: (active: Active) => {},
 });
