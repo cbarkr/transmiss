@@ -68,7 +68,7 @@ export default function Home() {
               <button
                 onClick={handleBackClick}
                 type="button"
-                className="rounded-full m-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                className="rounded-full m-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
               >
                 <ArrowBackIosNewIcon />
               </button>

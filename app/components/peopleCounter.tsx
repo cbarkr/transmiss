@@ -17,7 +17,7 @@ export function PeopleCounter({ currNum, handler, disabled }: IPeopleCounterProp
         type="button"
         disabled={disabled}
         onClick={() => handler(currNum > 1 ? currNum - 1 : 0)}
-        className="rounded-full py-2 px-4 text-xl transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        className="rounded-full py-2 px-4 text-xl transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
       >
         -
       </button>
@@ -34,7 +34,7 @@ export function PeopleCounter({ currNum, handler, disabled }: IPeopleCounterProp
         type="button"
         disabled={disabled}
         onClick={() => handler(currNum + 1)}
-        className="rounded-full py-2 px-4 text-xl transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        className="rounded-full py-2 px-4 text-xl transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
       >
         +
       </button>
