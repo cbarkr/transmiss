@@ -64,28 +64,16 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
     setCrowded(true);
   };
 
-  const reportFull = () => {
-    setCrowded(false);
-    setNoShow(false);
-    setFull(true);
-  };
-
   const reportNoShow = () => {
     setCrowded(false);
     setFull(false);
     setNoShow(true);
   };
 
-  const handleReportCrowded = () => {
-    reportCrowded();
-  };
-
-  const handleReportFull = () => {
-    reportFull();
-  };
-
-  const handleReportNoShow = () => {
-    reportNoShow();
+  const reportFull = () => {
+    setCrowded(false);
+    setNoShow(false);
+    setFull(true);
   };
 
   const getReports = () => {
@@ -154,21 +142,21 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
               icon={<GroupsIcon />}
               primaryColour="primary-200"
               secondaryColour="primary-950"
-              handler={handleReportCrowded}
+              handler={reportCrowded}
             />
             <ReportButton
               text="No Show"
               icon={<NoTransferIcon />}
               primaryColour="yellows-950"
               secondaryColour="yellows-300/75"
-              handler={handleReportNoShow}
+              handler={reportNoShow}
             />
             <ReportButton
               text="Bus Full"
               icon={<AirportShuttleIcon />}
               primaryColour="reds-50"
               secondaryColour="reds-800/75"
-              handler={handleReportFull}
+              handler={reportFull}
             />
           </div>
         )}
