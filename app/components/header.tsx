@@ -8,6 +8,7 @@ import { MenuButton } from '@mui/base/MenuButton';
 import { MenuItem  } from '@mui/base/MenuItem';
 
 export default function Header() {
+  // TODO: Remove redundancy
   return (
     <header className="w-full sticky top-0">
       <div className="flex flex-row justify-between items-center px-8 py-2">
@@ -30,7 +31,7 @@ export default function Header() {
               <MenuButton>
                 <MenuIcon />
               </MenuButton>
-              <Menu className="rounded-lg border-solid border-2 bg-neutral-200 dark:bg-gunmetal p-2">
+              <Menu className="rounded-lg border-solid border-2 bg-gunmetal/10 dark:bg-gunmetal p-2">
                 <MenuItem>
                   <Link href="/about" className="hover:underline text-lg mx-2">
                     About

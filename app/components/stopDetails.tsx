@@ -6,7 +6,7 @@ interface IStopDetailsProps {
 
 export default function StopDetails({ stop }: IStopDetailsProps) {
   return (
-    <div className="rounded-lg p-2 bg-neutral-200 dark:bg-gunmetal max-w-screen-sm">
+    <div className="rounded-lg p-2 bg-gunmetal/10 dark:bg-gunmetal max-w-screen-sm">
       <div className="flex flex-row justify-between my-2">
         <p className="text-l md:text-xl font-bold">{stop.StopNo}</p>
         <div className="flex flex-row">
