@@ -133,35 +133,25 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
         </div>
       )}
       <StopDetails stop={stop} />
-      <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-primary-200 dark:bg-primary-950">
+      <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
         <p className="font-bold my-2">Report</p>
         {(!crowded || !noShow || !full) && (
-          <div className="flex flex-col sm:flex-row justify-center">
+          <div className="flex flex-row justify-center rounded-full bg-primary-950 dark:bg-primary-200">
             <ReportButton
               text="Crowded"
               icon={<GroupsIcon />}
-              bgColourLight="bg-primary-950"
-              bgColourDark="dark:bg-primary-200"
-              textColourLight="text-primary-200"
-              textColourDark="dark:text-primary-950"
               disabled={crowded}
               handler={reportCrowded}
             />
             <ReportButton
               text="No Show"
               icon={<NoTransferIcon />}
-              bgColourLight="bg-yellows-500/75"
-              bgColourDark="dark:bg-yellows-500"
-              textColourLight="text-yellows-950"
               disabled={noShow}
               handler={reportNoShow}
             />
             <ReportButton
               text="Bus Full"
               icon={<AirportShuttleIcon />}
-              bgColourLight="bg-reds-800"
-              bgColourDark="dark:bg-reds-800"
-              textColourLight="text-reds-50"
               disabled={full}
               handler={reportFull}
             />
@@ -169,7 +159,7 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
         )}
       </div>
       {(crowded || noShow || full) && (
-        <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-secondary-200 dark:bg-secondary-950">
+        <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
           <p className="font-bold my-2">Report Details</p>
           {crowded && (
             <>
@@ -223,32 +213,29 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
               </div>
             </>
           )}
+          {(crowded || noShow || full) && (
+            <>
+              {crowded && numPeople > 0 && (
+                <SubmitButton
+                  submitted={submitted}
+                  handler={handleCrowdedSubmit}
+                />
+              )}
+              {noShow && routeID !== "" && (
+                <SubmitButton
+                  submitted={submitted}
+                  handler={handleNoShowSubmit}
+                />
+              )}
+              {full && routeID !== "" && (
+                <SubmitButton
+                  submitted={submitted}
+                  handler={handleFullSubmit}
+                />
+              )}
+            </>
+          )}
         </div>
-      )}
-      {(crowded || noShow || full) && (
-        <>
-          {crowded && numPeople > 0 && (
-            <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-greens-200 dark:bg-greens-950">
-              <SubmitButton
-                submitted={submitted}
-                handler={handleCrowdedSubmit}
-              />
-            </div>
-          )}
-          {noShow && routeID !== "" && (
-            <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-greens-200 dark:bg-greens-950">
-              <SubmitButton
-                submitted={submitted}
-                handler={handleNoShowSubmit}
-              />
-            </div>
-          )}
-          {full && routeID !== "" && (
-            <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-greens-200 dark:bg-greens-950">
-              <SubmitButton submitted={submitted} handler={handleFullSubmit} />
-            </div>
-          )}
-        </>
       )}
     </div>
   );

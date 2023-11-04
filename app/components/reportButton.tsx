@@ -1,10 +1,6 @@
 interface IReportButtonProps {
   text: string;
   icon: JSX.Element;
-  bgColourLight: string;
-  bgColourDark?: string;
-  textColourLight: string;
-  textColourDark?: string;
   disabled: boolean;
   handler: () => void;
 }
@@ -12,10 +8,6 @@ interface IReportButtonProps {
 export function ReportButton({
   text,
   icon,
-  bgColourLight,
-  bgColourDark,
-  textColourLight,
-  textColourDark,
   disabled,
   handler,
 }: IReportButtonProps) {
@@ -24,13 +16,11 @@ export function ReportButton({
       type="button"
       disabled={disabled}
       onClick={handler}
-      className={`flex-grow basis-1 rounded-full m-1 px-2 py-4 hover:cursor-pointer disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ${bgColourLight} ${bgColourDark}`}
+      className="flex-grow basis-1 rounded-full px-2 py-4 hover:cursor-pointer disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none disabled:bg-primary-800/50"
     >
-      <div
-        className={`flex flex-row justify-center px-12 mx-2 text-center ${textColourLight} ${textColourDark}`}
-      >
+      <div className="flex flex-row justify-center mx-2 text-center text-primary-200 dark:text-primary-950">
         {icon}
-        <p>{text}</p>
+        {disabled && <p>{text}</p>}
       </div>
     </button>
   );
