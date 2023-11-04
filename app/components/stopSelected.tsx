@@ -124,7 +124,7 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
   return (
     <div className="m-2">
       {reports.length > 0 && (
-        <div className="flex flex-row items-center rounded-lg my-1 p-2 bg-reds-950">
+        <div className="flex flex-row items-center rounded-lg my-1 p-2 bg-reds-800/90">
           <ErrorOutlineIcon sx={{ color: "white" }} />
           <p className="mx-2 text-white">
             Others have reported issues with this stop within the last hour.
@@ -135,7 +135,7 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
       <StopDetails stop={stop} />
       <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-primary-200 dark:bg-primary-950">
         <p className="font-bold my-2">Report</p>
-        {!crowded && !full && !noShow && (
+        {(!crowded || !noShow || !full) && (
           <div className="flex flex-col sm:flex-row justify-center">
             <ReportButton
               text="Crowded"
@@ -144,84 +144,112 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
               bgColourDark="dark:bg-primary-200"
               textColourLight="text-primary-200"
               textColourDark="dark:text-primary-950"
+              disabled={crowded}
               handler={reportCrowded}
             />
             <ReportButton
               text="No Show"
               icon={<NoTransferIcon />}
-              bgColourLight="bg-yellows-300/75"
-              bgColourDark="dark:bg-yellows-950"
+              bgColourLight="bg-yellows-500/75"
+              bgColourDark="dark:bg-yellows-500"
               textColourLight="text-yellows-950"
-              textColourDark="dark:text-yellows-300/75"
+              disabled={noShow}
               handler={reportNoShow}
             />
             <ReportButton
               text="Bus Full"
               icon={<AirportShuttleIcon />}
-              bgColourLight="bg-reds-800/75"
-              bgColourDark="dark:bg-reds-50"
+              bgColourLight="bg-reds-800"
+              bgColourDark="dark:bg-reds-800"
               textColourLight="text-reds-50"
-              textColourDark="dark:text-reds-800/75"
+              disabled={full}
               handler={reportFull}
             />
           </div>
         )}
-        {crowded && (
-          <>
-            <div className="flex flex-row justify-between items-center">
-              <p>How many people are at this stop?</p>
-              <PeopleCounter
-                currNum={numPeople}
-                handler={updateNumPeople}
-                disabled={submitted}
-              />
-            </div>
-            <SubmitButton submitted={submitted} handler={handleCrowdedSubmit} />
-          </>
-        )}
-        {noShow && (
-          <>
-            <div className="flex flex-row justify-between items-center my-2">
-              <p>Which bus passed you?</p>
-              <RouteSelector
-                routes={stop.Routes}
-                handler={updateRouteID}
-                curr={routeID}
-              />
-            </div>
-            <div className="flex flex-row justify-between items-center my-2">
-              <p>How many people are at this stop? (optional)</p>
-              <PeopleCounter
-                currNum={numPeople}
-                handler={updateNumPeople}
-                disabled={submitted}
-              />
-            </div>
-            <SubmitButton submitted={submitted} handler={handleNoShowSubmit} />
-          </>
-        )}
-        {full && (
-          <>
-            <div className="flex flex-row justify-between items-center my-2">
-              <p>Which bus passed you?</p>
-              <RouteSelector
-                routes={stop.Routes}
-                handler={updateRouteID}
-                curr={routeID}
-              />
-            </div>
-            <div className="flex flex-row justify-between items-center my-2">
-              <p>How many people are at this stop? (optional)</p>
-              <PeopleCounter
-                currNum={numPeople}
-                handler={updateNumPeople}
-                disabled={submitted}
-              />
-            </div>
-            <SubmitButton submitted={submitted} handler={handleFullSubmit} />
-          </>
-        )}
       </div>
+      {(crowded || noShow || full) && (
+        <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-secondary-200 dark:bg-secondary-950">
+          <p className="font-bold my-2">Report Details</p>
+          {crowded && (
+            <>
+              <div className="flex flex-row justify-between items-center">
+                <p>How many people are at this stop?</p>
+                <PeopleCounter
+                  currNum={numPeople}
+                  handler={updateNumPeople}
+                  disabled={submitted}
+                />
+              </div>
+            </>
+          )}
+          {noShow && (
+            <>
+              <div className="flex flex-row justify-between items-center my-2">
+                <p>Which bus were you expecting?</p>
+                <RouteSelector
+                  routes={stop.Routes}
+                  handler={updateRouteID}
+                  curr={routeID}
+                />
+              </div>
+              <div className="flex flex-row justify-between items-center my-2">
+                <p>How many people are at this stop? (optional)</p>
+                <PeopleCounter
+                  currNum={numPeople}
+                  handler={updateNumPeople}
+                  disabled={submitted}
+                />
+              </div>
+            </>
+          )}
+          {full && (
+            <>
+              <div className="flex flex-row justify-between items-center my-2">
+                <p>Which bus passed you?</p>
+                <RouteSelector
+                  routes={stop.Routes}
+                  handler={updateRouteID}
+                  curr={routeID}
+                />
+              </div>
+              <div className="flex flex-row justify-between items-center my-2">
+                <p>How many people are at this stop? (optional)</p>
+                <PeopleCounter
+                  currNum={numPeople}
+                  handler={updateNumPeople}
+                  disabled={submitted}
+                />
+              </div>
+            </>
+          )}
+        </div>
+      )}
+      {(crowded || noShow || full) && (
+        <>
+          {crowded && numPeople > 0 && (
+            <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-greens-200 dark:bg-greens-950">
+              <SubmitButton
+                submitted={submitted}
+                handler={handleCrowdedSubmit}
+              />
+            </div>
+          )}
+          {noShow && routeID !== "" && (
+            <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-greens-200 dark:bg-greens-950">
+              <SubmitButton
+                submitted={submitted}
+                handler={handleNoShowSubmit}
+              />
+            </div>
+          )}
+          {full && routeID !== "" && (
+            <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-greens-200 dark:bg-greens-950">
+              <SubmitButton submitted={submitted} handler={handleFullSubmit} />
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
