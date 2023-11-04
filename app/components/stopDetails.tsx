@@ -1,4 +1,5 @@
 import { IStopDetails } from "@/interfaces/stop";
+import PlaceIcon from '@mui/icons-material/Place';
 
 interface IStopDetailsProps {
   stop: IStopDetails;
@@ -8,7 +9,7 @@ export default function StopDetails({ stop }: IStopDetailsProps) {
   return (
     <div className="rounded-lg p-2 bg-gunmetal/10 dark:bg-gunmetal max-w-screen-sm">
       <div className="flex flex-row justify-between my-2">
-        <p className="text-l md:text-xl font-bold">{stop.StopNo}</p>
+        <p className="text-2xl font-bold">{stop.StopNo}</p>
         <div className="flex flex-row">
           {stop.Routes.split(",").map((route: string) => (
             <div
@@ -20,7 +21,17 @@ export default function StopDetails({ stop }: IStopDetailsProps) {
           ))}
         </div>
       </div>
-      <p>{stop.OnStreet} & {stop.AtStreet}</p>
+      <div className="flex flex-row justify-between">
+        <p className="text-sm">{stop.OnStreet} & {stop.AtStreet}</p>
+        {
+          stop.Distance > 0 && (
+            <div className="flex flex-row">
+              <PlaceIcon />
+              <p className="text-sm">{stop.Distance}m</p>
+          </div>
+          )
+        }        
+      </div>
     </div>
   );
 }
