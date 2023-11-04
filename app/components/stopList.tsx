@@ -22,9 +22,9 @@ export default function StopList({ stops }: IStopListProps) {
   // NOTE: Stops pre-ordered
   const stopItems = stops.map((stop: IStopDetails) => (
     <div
+      key={stop.StopNo}
       onClick={() => handleClick(stop)}
       className="my-1 hover:cursor-pointer"
-      key={stop.StopNo}
     >
       <StopDetails stop={stop} />
     </div>

@@ -12,8 +12,8 @@ export default function StopDetails({ stop }: IStopDetailsProps) {
         <div className="flex flex-row">
           {stop.Routes.split(",").map((route: string) => (
             <div
-              className="rounded-lg py-2 px-4 mx-1 font-bold bg-primary-200 text-sm text-primary-950"
               key={route}
+              className="rounded-lg py-2 px-4 mx-1 font-bold bg-primary-200 text-sm text-primary-950"
             >
               {route ? route : "N/A"}
             </div>
