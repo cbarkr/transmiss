@@ -3,7 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { CircularProgress } from "@mui/material";
-import { BusAlert } from "@mui/icons-material";
+import BusAlertIcon from '@mui/icons-material/BusAlert';
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import { defaultStopState } from "@/models/stop";
@@ -52,7 +52,7 @@ export default function Home() {
           {active == Active.Default && (
             <>
               <div className="flex flex-col items-center">
-                <BusAlert fontSize="large" />
+                <BusAlertIcon fontSize="large" />
               </div>
               <p className="text-center">Select a stop to get started</p>
             </>
