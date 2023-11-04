@@ -140,22 +140,28 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
             <ReportButton
               text="Crowded"
               icon={<GroupsIcon />}
-              primaryColour="primary-200"
-              secondaryColour="primary-950"
+              bgColourLight="bg-primary-950"
+              bgColourDark="dark:bg-primary-200"
+              textColourLight="text-primary-200"
+              textColourDark="dark:text-primary-950"
               handler={reportCrowded}
             />
             <ReportButton
               text="No Show"
               icon={<NoTransferIcon />}
-              primaryColour="yellows-950"
-              secondaryColour="yellows-300/75"
+              bgColourLight="bg-yellows-300/75"
+              bgColourDark="dark:bg-yellows-950"
+              textColourLight="text-yellows-950"
+              textColourDark="dark:text-yellows-300/75"
               handler={reportNoShow}
             />
             <ReportButton
               text="Bus Full"
               icon={<AirportShuttleIcon />}
-              primaryColour="reds-50"
-              secondaryColour="reds-800/75"
+              bgColourLight="bg-reds-800/75"
+              bgColourDark="dark:bg-reds-50"
+              textColourLight="text-reds-50"
+              textColourDark="dark:text-reds-800/75"
               handler={reportFull}
             />
           </div>
