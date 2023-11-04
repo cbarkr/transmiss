@@ -11,7 +11,7 @@ export function PeopleCounter({ currNum, handler, disabled }: IPeopleCounterProp
   };
 
   return (
-    <div className="flex flex-row items-center rounded-full text-secondary-200 bg-secondary-950 dark:text-secondary-950 dark:bg-secondary-200 w-fit">
+    <div className="flex flex-row items-center rounded-full text-primary-200 bg-primary-950 dark:text-primary-950 dark:bg-primary-200 w-fit">
       {/* TODO: Consider getting estimate instead? Like https://transitapp.com/rats */}
       <button
         type="button"
