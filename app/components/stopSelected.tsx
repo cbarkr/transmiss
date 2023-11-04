@@ -51,11 +51,15 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
   }, [stop, previousStop, reports]);
 
   const updateNumPeople = (newNum: number) => {
-    setNumPeople(newNum);
+    if (!submitted) {
+      setNumPeople(newNum);
+    }
   };
 
   const updateRouteID = (newRouteID: string) => {
-    setRouteID(newRouteID);
+    if (!submitted) {
+      setRouteID(newRouteID); 
+    }
   };
 
   const reportCrowded = () => {
