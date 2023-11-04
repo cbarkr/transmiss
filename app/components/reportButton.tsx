@@ -15,30 +15,14 @@ export function ReportButton({
 }: IReportButtonProps) {
   return (
     <div
-      className={
-        "flex-grow basis-1 rounded-full m-1 px-2 py-4 hover:cursor-pointer" +
-        " " +
-        "bg-" +
-        secondaryColour +
-        " " +
-        "dark:bg-" +
-        primaryColour
-      }
+      className={`flex-grow basis-1 rounded-full m-1 px-2 py-4 hover:cursor-pointer bg-${secondaryColour} dark:bg-${primaryColour}`}
       onClick={handler}
     >
       <div
-        className={
-          "flex flex-row justify-center px-12 mx-2 text-center" +
-          " " +
-          "text-" +
-          primaryColour +
-          " " +
-          "dark:text-" +
-          secondaryColour
-        }
+        className={`flex flex-row justify-center px-12 mx-2 text-center text-${primaryColour} dark:text-${secondaryColour}`}
       >
         {icon}
-        <p>{text}</p>        
+        <p>{text}</p>
       </div>
     </div>
   );
