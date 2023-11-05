@@ -1,13 +1,21 @@
+import dynamic from "next/dynamic";
+
 import { IStopDetails } from "@/interfaces/stop";
 import PlaceIcon from '@mui/icons-material/Place';
 
+const StopWarning = dynamic(() => import("./stopWarning"));
+
 interface IStopDetailsProps {
   stop: IStopDetails;
+  warning: boolean;
 }
 
-export default function StopDetails({ stop }: IStopDetailsProps) {
+export default function StopDetails({ stop, warning }: IStopDetailsProps) {
   return (
     <div className="rounded-lg p-2 bg-gunmetal/10 dark:bg-gunmetal max-w-screen-sm">
+      {
+        warning && <StopWarning />
+      }
       <div className="flex flex-row justify-between my-2">
         <p className="text-2xl font-bold">{stop.StopNo}</p>
         <div className="flex flex-row">

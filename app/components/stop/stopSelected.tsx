@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import { IReportFrom } from "@/interfaces/from";
 import { IStopDetails } from "@/interfaces/stop";
 
-const StopError = dynamic(() => import("./stopError"));
 const StopDetails = dynamic(() => import("./stopDetails"));
 const StopReport = dynamic(() => import("./stopReport"));
 
@@ -13,19 +12,23 @@ interface IStopSelectedProps {
 }
 
 export default function StopSelected({ stop }: IStopSelectedProps) {
+  // TODO: Better warnings based off reports
   const [reports, setReports] = useState<IReportFrom[]>([]);
+  const [warning, setWarning] = useState(false);
 
-  const handleReports = (reports: IReportFrom[]) => {
-    setReports(reports);
+  const handleRetrievedReports = (newReports: IReportFrom[]) => {
+    setReports(newReports);
+
+    if (newReports.length > 0) {
+      setWarning(true);
+    }
   };
 
   return (
     <div className="m-2">
-      {reports.length > 0 && (
-        <StopError />
-      )}
-      <StopDetails stop={stop} />
-      <StopReport stop={stop} handleReports={handleReports} />
+      {warning}
+      <StopDetails stop={stop} warning={warning}/>
+      <StopReport stop={stop} handleRetrievedReports={handleRetrievedReports} />
     </div>
   );
 }

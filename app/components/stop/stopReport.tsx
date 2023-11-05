@@ -16,10 +16,10 @@ const axios = require("axios").default;
 
 interface IStopReportProps {
   stop: IStopDetails;
-  handleReports: (reports: IReportFrom[]) => void;
+  handleRetrievedReports: (newReports: IReportFrom[]) => void;
 }
 
-export default function StopReport({ stop, handleReports }: IStopReportProps) {
+export default function StopReport({ stop, handleRetrievedReports }: IStopReportProps) {
   // NOTE: crowded and full should be mutually exclusive
   const [crowded, setCrowded] = useState(false);
   const [full, setFull] = useState(false);
@@ -85,7 +85,7 @@ export default function StopReport({ stop, handleReports }: IStopReportProps) {
         },
       })
       .then((res: any) => {
-        handleReports(res.data.data);
+        handleRetrievedReports(res.data.data);
       })
       .catch((err: any) => {
         console.error(err);
@@ -125,9 +125,9 @@ export default function StopReport({ stop, handleReports }: IStopReportProps) {
   return (
     <>
       <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
-        <p className="font-bold my-2">Report</p>
+        <p className="text-xl font-bold my-2">Report</p>
         {(!crowded || !noShow || !full) && (
-          <div className="flex flex-row justify-center rounded-full bg-primary-200 dark:bg-primary-950">
+          <div className="flex flex-row justify-center rounded-full my-2 bg-primary-200 dark:bg-primary-950">
             <ReportButton
               text="Crowded"
               icon={<GroupsIcon />}
@@ -148,86 +148,81 @@ export default function StopReport({ stop, handleReports }: IStopReportProps) {
             />
           </div>
         )}
+        {(crowded || noShow || full) && (
+          <>
+            {crowded && (
+              <div>
+                <p className="font-bold mb-2">
+                  How many people are at this stop?
+                </p>
+                <PeopleCounter
+                  currNum={numPeople}
+                  handler={updateNumPeople}
+                  disabled={submitted}
+                />
+              </div>
+            )}
+            {noShow && (
+              <>
+                <p className="font-bold mb-2">Which bus were you expecting?</p>
+                <RouteSelector
+                  routes={stop.Routes}
+                  handler={updateRouteID}
+                  curr={routeID}
+                />
+                <p className="font-bold mb-2">
+                  How many people are at this stop? (optional)
+                </p>
+                <PeopleCounter
+                  currNum={numPeople}
+                  handler={updateNumPeople}
+                  disabled={submitted}
+                />
+              </>
+            )}
+            {full && (
+              <>
+                <p className="font-bold mb-2">Which bus passed you?</p>
+                <RouteSelector
+                  routes={stop.Routes}
+                  handler={updateRouteID}
+                  curr={routeID}
+                />
+                <p className="font-bold mb-2">
+                  How many people are at this stop? (optional)
+                </p>
+                <PeopleCounter
+                  currNum={numPeople}
+                  handler={updateNumPeople}
+                  disabled={submitted}
+                />
+              </>
+            )}
+            {(crowded || noShow || full) && (
+              <>
+                {crowded && numPeople > 0 && (
+                  <SubmitButton
+                    submitted={submitted}
+                    handler={handleCrowdedSubmit}
+                  />
+                )}
+                {noShow && routeID !== "" && (
+                  <SubmitButton
+                    submitted={submitted}
+                    handler={handleNoShowSubmit}
+                  />
+                )}
+                {full && routeID !== "" && (
+                  <SubmitButton
+                    submitted={submitted}
+                    handler={handleFullSubmit}
+                  />
+                )}
+              </>
+            )}
+          </>
+        )}
       </div>
-      {(crowded || noShow || full) && (
-        <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
-          <p className="font-bold my-2">Report Details</p>
-          {crowded && (
-            <>
-              <div className="flex flex-row justify-between items-center">
-                <p>How many people are at this stop?</p>
-                <PeopleCounter
-                  currNum={numPeople}
-                  handler={updateNumPeople}
-                  disabled={submitted}
-                />
-              </div>
-            </>
-          )}
-          {noShow && (
-            <>
-              <div className="flex flex-row justify-between items-center my-2">
-                <p>Which bus were you expecting?</p>
-                <RouteSelector
-                  routes={stop.Routes}
-                  handler={updateRouteID}
-                  curr={routeID}
-                />
-              </div>
-              <div className="flex flex-row justify-between items-center my-2">
-                <p>How many people are at this stop? (optional)</p>
-                <PeopleCounter
-                  currNum={numPeople}
-                  handler={updateNumPeople}
-                  disabled={submitted}
-                />
-              </div>
-            </>
-          )}
-          {full && (
-            <>
-              <div className="flex flex-row justify-between items-center my-2">
-                <p>Which bus passed you?</p>
-                <RouteSelector
-                  routes={stop.Routes}
-                  handler={updateRouteID}
-                  curr={routeID}
-                />
-              </div>
-              <div className="flex flex-row justify-between items-center my-2">
-                <p>How many people are at this stop? (optional)</p>
-                <PeopleCounter
-                  currNum={numPeople}
-                  handler={updateNumPeople}
-                  disabled={submitted}
-                />
-              </div>
-            </>
-          )}
-          {(crowded || noShow || full) && (
-            <>
-              {crowded && numPeople > 0 && (
-                <SubmitButton
-                  submitted={submitted}
-                  handler={handleCrowdedSubmit}
-                />
-              )}
-              {noShow && routeID !== "" && (
-                <SubmitButton
-                  submitted={submitted}
-                  handler={handleNoShowSubmit}
-                />
-              )}
-              {full && routeID !== "" && (
-                <SubmitButton
-                  submitted={submitted}
-                  handler={handleFullSubmit}
-                />
-              )}
-            </>
-          )}
-        </div>
-      )}
     </>
   );
 }
