@@ -1,6 +1,7 @@
-import { useState, useContext } from "react";;
-import SearchIcon from '@mui/icons-material/Search';
-import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
+import { useState, useContext } from "react";
+import SearchIcon from "@mui/icons-material/Search";
+import GpsNotFixedIcon from "@mui/icons-material/GpsNotFixed";
+import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 
 import { StopSearchContext } from "@/context/stop";
 import { Active } from "@/enums/activeComponent";
@@ -13,6 +14,7 @@ export default function StopSearch() {
     useContext(StopSearchContext);
 
   const [stopID, setStopID] = useState("");
+  const [locationInUse, setLocationInUse] = useState(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ export default function StopSearch() {
 
   const getCoords = () => {
     if (navigator.geolocation) {
+      setLocationInUse(true);
       navigator.geolocation.getCurrentPosition(
         fetchStopsByLocation,
         navigatorError,
@@ -43,11 +46,13 @@ export default function StopSearch() {
       );
     } else {
       setError(ErrorText.LocationUnsupported);
-      setActive(Active.Error);  
+      setActive(Active.Error);
     }
   };
 
   const navigatorError = (error: GeolocationPositionError) => {
+    setLocationInUse(false);
+
     switch (error.code) {
       case error.PERMISSION_DENIED:
         setError(ErrorText.LocationDenied);
@@ -98,37 +103,44 @@ export default function StopSearch() {
       })
       .catch((err: any) => {
         setActive(Active.Error);
+      })
+      .finally(() => {
+        setLocationInUse(false);
       });
   };
 
   return (
-    <>
+    <div className="w-full">
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-row justify-between items-center">
-          <button
-            onClick={getCoords}
-            type="button"
-            className="rounded-full p-2 text-neutral-800 dark:text-neutral-50 bg-transparent border-solid border-2 dark:border-1 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          >
-            <LocationSearchingIcon fontSize="large" />
-          </button>
-          <div className="flex flex-row w-full py-2 justify-between items-center rounded-full border-solid border-2 dark:border-1 bg-transparent">
+          <div className="flex flex-row w-full py-2 items-center rounded-full border-solid border-2 dark:border-1 border-primary-950 dark:border-white bg-transparent">
+            <button
+              type="submit"
+              className="rounded-full mx-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+            >
+              <SearchIcon />
+            </button>
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
-              type="number"
+              min={0}
+              max={99999}
+              pattern="[0-9]{5}"
+              type="text"
+              inputMode="decimal"
               placeholder="Search by stop number"
-              className="rounded-lg pl-2 m-2 text-neutral-800 dark:text-neutral-50 bg-transparent outline-none"
+              className="w-full rounded-lg m-2 text-primary-950 dark:text-primary-50 bg-transparent outline-none"
             ></input>
-            <button
-              type="submit"
-              className="rounded-full mx-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            >
-              <SearchIcon fontSize="large" />
-            </button>
           </div>
+          <button
+            onClick={getCoords}
+            type="button"
+            className="rounded-full m-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+          >
+            {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
+          </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
