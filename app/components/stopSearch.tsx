@@ -123,13 +123,14 @@ export default function StopSearch() {
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
-              type="number"
               min={0}
               max={99999}
               pattern="[0-9]{5}"
+              type="text" 
+              inputMode="decimal"
               title="Five digit stop number"
               placeholder="Search by stop number"
-              className="rounded-lg m-2 text-primary-950 dark:text-primary-50 bg-transparent outline-none"
+              className="w-full rounded-lg m-2 text-primary-950 dark:text-primary-50 bg-transparent outline-none"
             ></input>
           </div>
           <button
