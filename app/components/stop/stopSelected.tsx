@@ -26,7 +26,6 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
 
   return (
     <div className="m-2">
-      {warning}
       <StopDetails stop={stop} warning={warning}/>
       <StopReport stop={stop} handleRetrievedReports={handleRetrievedReports} />
     </div>
