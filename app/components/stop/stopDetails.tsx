@@ -7,7 +7,7 @@ const StopWarning = dynamic(() => import("./stopWarning"));
 
 interface IStopDetailsProps {
   stop: IStopDetails;
-  warning: boolean;
+  warning?: boolean;
 }
 
 export default function StopDetails({ stop, warning }: IStopDetailsProps) {
