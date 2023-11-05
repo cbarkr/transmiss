@@ -127,7 +127,7 @@ export default function StopReport({ stop, handleReports }: IStopReportProps) {
       <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
         <p className="font-bold my-2">Report</p>
         {(!crowded || !noShow || !full) && (
-          <div className="flex flex-row justify-center rounded-full bg-primary-950 dark:bg-primary-200">
+          <div className="flex flex-row justify-center rounded-full bg-primary-200 dark:bg-primary-950">
             <ReportButton
               text="Crowded"
               icon={<GroupsIcon />}

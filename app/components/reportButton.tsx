@@ -16,9 +16,9 @@ export function ReportButton({
       type="button"
       disabled={disabled}
       onClick={handler}
-      className="flex-grow basis-1 rounded-full px-2 py-4 hover:cursor-pointer disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none disabled:bg-primary-800/50"
+      className="flex-grow basis-1 rounded-full px-2 py-4 hover:cursor-pointer disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none disabled:bg-primary-400/50"
     >
-      <div className="flex flex-row justify-center mx-2 text-center text-primary-200 dark:text-primary-950">
+      <div className="flex flex-row justify-center mx-2 text-center text-primary-950 dark:text-primary-200">
         {icon}
         {disabled && <p>{text}</p>}
       </div>
