@@ -135,13 +135,13 @@ export default function StopReport({ stop, handleReports }: IStopReportProps) {
               handler={reportCrowded}
             />
             <ReportButton
-              text="No Show"
+              text="No-Show"
               icon={<NoTransferIcon />}
               disabled={noShow}
               handler={reportNoShow}
             />
             <ReportButton
-              text="Bus Full"
+              text="Full"
               icon={<AirportShuttleIcon />}
               disabled={full}
               handler={reportFull}

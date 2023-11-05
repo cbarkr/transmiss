@@ -20,7 +20,7 @@ export function ReportButton({
     >
       <div className="flex flex-row justify-center mx-2 text-center text-primary-950 dark:text-primary-200">
         {icon}
-        {disabled && <p>{text}</p>}
+        {disabled && <p className="text-sm">{text}</p>}
       </div>
     </button>
   );
