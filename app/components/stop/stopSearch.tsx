@@ -128,7 +128,6 @@ export default function StopSearch() {
               pattern="[0-9]{5}"
               type="text"
               inputMode="decimal"
-              title="Five digit stop number"
               placeholder="Search by stop number"
               className="w-full rounded-lg m-2 text-primary-950 dark:text-primary-50 bg-transparent outline-none"
             ></input>

@@ -12,9 +12,9 @@ import { StopSetContext, StopSearchContext } from "@/context/stop";
 import { Active } from "@/enums/activeComponent";
 import { ErrorText } from "@/enums/activeError";
 
-const StopSearch = dynamic(() => import("./components/stopSearch"));
-const StopList = dynamic(() => import("./components/stopList"));
-const StopSelected = dynamic(() => import("./components/stopSelected"));
+const StopSearch = dynamic(() => import("./components/stop/stopSearch"));
+const StopList = dynamic(() => import("./components/stop/stopList"));
+const StopSelected = dynamic(() => import("./components/stop/stopSelected"));
 
 export default function Home() {
   // NOTE: stop and stops should be mutually exclusive
