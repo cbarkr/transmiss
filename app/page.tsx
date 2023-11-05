@@ -3,7 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { CircularProgress } from "@mui/material";
-import BusAlertIcon from '@mui/icons-material/BusAlert';
+import BusAlertIcon from "@mui/icons-material/BusAlert";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import { defaultStopState } from "@/models/stop";
@@ -36,7 +36,16 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center mx-2">
       <div className="w-full max-w-screen-sm">
-        <div className="mt-4">
+        <div className="mt-4 flex flex-row">
+          {active == Active.Selected && (
+            <button
+              onClick={handleBackClick}
+              type="button"
+              className="rounded-full m-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+            >
+              <ArrowBackIosNewIcon />
+            </button>
+          )}
           <StopSearchContext.Provider
             value={{
               setStop: setStop,
@@ -64,20 +73,11 @@ export default function Home() {
           )}
           {active == Active.Error && <p className="text-center">{error}</p>}
           {active == Active.Selected && (
-            <>
-              <button
-                onClick={handleBackClick}
-                type="button"
-                className="rounded-full m-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
-              >
-                <ArrowBackIosNewIcon />
-              </button>
-              <StopSetContext.Provider
-                value={{ setStop: setStop, setActive: setActive }}
-              >
-                <StopSelected stop={stop} />
-              </StopSetContext.Provider>
-            </>
+            <StopSetContext.Provider
+              value={{ setStop: setStop, setActive: setActive }}
+            >
+              <StopSelected stop={stop} />
+            </StopSetContext.Provider>
           )}
           {active == Active.List && (
             <StopSetContext.Provider
