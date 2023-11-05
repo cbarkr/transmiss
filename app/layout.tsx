@@ -1,10 +1,10 @@
 import "./styles/globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Lato } from "next/font/google";
 
 import Header from "./components/header";
 
-const inter = Inter({ subsets: ["latin"] });
+const lato = Lato({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Tranmiss",
@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={lato.className}>
         <Header />
         {children}
       </body>
