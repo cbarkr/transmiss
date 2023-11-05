@@ -20,8 +20,8 @@ interface IStopReportProps {
 }
 
 export default function StopReport({ stop, handleRetrievedReports }: IStopReportProps) {
-  // NOTE: crowded and full should be mutually exclusive
-  const [crowded, setCrowded] = useState(false);
+  // NOTE: crowded, full, and noShow should be mutually exclusive
+  const [crowded, setCrowded] = useState(true);
   const [full, setFull] = useState(false);
   const [noShow, setNoShow] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -37,8 +37,8 @@ export default function StopReport({ stop, handleRetrievedReports }: IStopReport
       getReports();
     } else {
       if (stop !== previousStop) {
+        setCrowded(true);
         setFull(false);
-        setCrowded(false);
         setNoShow(false);
         setSubmitted(false);
         setNumPeople(0);
@@ -126,28 +126,26 @@ export default function StopReport({ stop, handleRetrievedReports }: IStopReport
     <>
       <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
         <p className="text-xl font-bold my-2">Report</p>
-        {(!crowded || !noShow || !full) && (
-          <div className="flex flex-row justify-center rounded-full my-2 bg-primary-200 dark:bg-primary-950">
-            <ReportButton
-              text="Crowded"
-              icon={<GroupsIcon />}
-              disabled={crowded}
-              handler={reportCrowded}
-            />
-            <ReportButton
-              text="No-Show"
-              icon={<NoTransferIcon />}
-              disabled={noShow}
-              handler={reportNoShow}
-            />
-            <ReportButton
-              text="Full"
-              icon={<AirportShuttleIcon />}
-              disabled={full}
-              handler={reportFull}
-            />
-          </div>
-        )}
+        <div className="flex flex-row justify-center rounded-full my-2 bg-primary-200 dark:bg-primary-950">
+          <ReportButton
+            text="Crowded"
+            icon={<GroupsIcon />}
+            disabled={crowded}
+            handler={reportCrowded}
+          />
+          <ReportButton
+            text="No-Show"
+            icon={<NoTransferIcon />}
+            disabled={noShow}
+            handler={reportNoShow}
+          />
+          <ReportButton
+            text="Full"
+            icon={<AirportShuttleIcon />}
+            disabled={full}
+            handler={reportFull}
+          />
+        </div>
         {(crowded || noShow || full) && (
           <>
             {crowded && (
