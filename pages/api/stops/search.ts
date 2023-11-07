@@ -7,7 +7,7 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 
 import { IStopDetails } from "@/interfaces/stop";
-import { IAPIRes } from "@/interfaces/apiRes";
+import { IAPIRes } from "@/interfaces/apiResponse";
 
 const axios = require("axios").default;
 
