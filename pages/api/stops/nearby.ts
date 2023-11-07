@@ -29,7 +29,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         },
       })
       .then((api_res: any) => {
-        console.log(api_res);
+
+        // TODO: Batch add results to DB?
 
         res.status(200).json({ data: api_res.data });
       })
