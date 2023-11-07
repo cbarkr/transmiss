@@ -24,7 +24,7 @@ export default async function handler(
     });
 
     const command = new PutCommand({
-      TableName: process.env.AWS_TABLE_NAME,
+      TableName: process.env.AWS_REPORTS_TABLE_NAME,
       Item: report,
     });
 

@@ -36,7 +36,7 @@ export default async function handler(
     datetime.setHours(datetime.getHours() - 1);
 
     const command = new QueryCommand({
-      TableName: process.env.AWS_TABLE_NAME,
+      TableName: process.env.AWS_REPORTS_TABLE_NAME,
       Limit: 3, // Limit to 3 items
       ScanIndexForward: false, // Sort descending
       KeyConditionExpression:
@@ -49,7 +49,6 @@ export default async function handler(
         ":stop_id": stopIDAsNum,
         ":report_datetime": datetime.toISOString(),
       },
-      ConsistentRead: true, // Respond with most up-to-date data
     });
 
     const response = await docClient.send(command);
