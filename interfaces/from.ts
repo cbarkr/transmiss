@@ -3,5 +3,4 @@ export interface IReportFrom {
   readonly report_type: string;
   readonly report_datetime: string;
   readonly route_id?: string;
-};
-  
+}

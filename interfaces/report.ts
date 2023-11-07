@@ -4,4 +4,4 @@ export interface IReport {
   readonly bus_id?: number;
   readonly route_id?: string;
   readonly person_count?: number;
-};
+}

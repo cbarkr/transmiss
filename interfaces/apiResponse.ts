@@ -1,4 +1,3 @@
 export interface IAPIRes {
-    data: object;
-  };
-  
+  data: object;
+}
