@@ -7,6 +7,7 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 
 import { IStopDetails } from "@/interfaces/stop";
+import { IAPIRes } from "@/interfaces/apiRes";
 
 const axios = require("axios").default;
 
@@ -30,32 +31,38 @@ export default async function handler(
       return;
     }
 
+    // Stop IDs are numbers (i.e. no leading 0's when casted to a number)
     const stopID = req.query.stopID as string;
     const stopIDAsNum = Number.parseInt(stopID);
 
-    if (stopIDAsNum <= 0) {
+    // Stop IDs should therefore be in [10000, 99999]
+    if (stopIDAsNum < 10000 || stopIDAsNum > 99999) {
       res.status(400).json({ message: "Invalid stop number" });
       return;
     }
 
-    if (stopIDAsNum > 99999) {
-      res.status(400).json({ message: "Invalid stop number" });
+    // Check if the requested stop is in the DB
+    const db_stop = await getStopFromDB(stopIDAsNum);
+    if (db_stop) {
+      res.status(200).json({ data: db_stop as IStopDetails });
       return;
     }
 
-    const stop = await getStopFromDB(stopIDAsNum);
-
-    if (stop) {
-      console.log("item returned from the DB!");
-      res.status(200).json({ data: stop as IStopDetails });
+    // Otherwise, retrieve from RTTI API
+    const api_stop = await getStopFromRTTIAPI(stopIDAsNum);
+    if (api_stop) {
+      res.status(200).json({ data: api_stop as IStopDetails });
       return;
-    } else {
-      return getStopFromRTTIAPI(stopIDAsNum, res);
     }
+
+    // If we haven't returned by now, something has gone wrong
+    res.status(500).json({ message: "Error retrieving stop data :(" });
   }
 }
 
-async function getStopFromDB(stopID: number) {
+async function getStopFromDB(
+  stopID: number
+): Promise<Record<string, any> | null> {
   const command = new GetCommand({
     TableName: process.env.AWS_STOPS_TABLE_NAME,
     Key: {
@@ -67,32 +74,37 @@ async function getStopFromDB(stopID: number) {
   return response.Item ? response.Item : null;
 }
 
-function getStopFromRTTIAPI(stopID: number, res: NextApiResponse) {
-  axios
-    .request({
-      method: "GET",
-      url: `http://api.translink.ca/RTTIAPI/V1/stops/${stopID}`,
-      params: {
-        apiKey: process.env.TRANSLINK_API_KEY,
-      },
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-    .then(async (api_res: any) => {
-      const command = new PutCommand({
-        TableName: process.env.AWS_STOPS_TABLE_NAME,
-        Item: api_res.data as IStopDetails,
+function getStopFromRTTIAPI(stopID: number): Promise<object | null> {
+  return new Promise((resolve) => {
+    axios
+      .request({
+        method: "GET",
+        url: `http://api.translink.ca/RTTIAPI/V1/stops/${stopID}`,
+        params: {
+          apiKey: process.env.TRANSLINK_API_KEY,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then(async (api_res: IAPIRes) => {
+        // Assume stop doesn't exist in DB, so add it!
+        const command = new PutCommand({
+          TableName: process.env.AWS_STOPS_TABLE_NAME,
+          Item: api_res.data as IStopDetails,
+        });
+        await docClient.send(command);
+        // Assume stop was created successfully
+
+        resolve(api_res.data);
+      })
+      .catch((err: any) => {
+        console.error(err);
+        resolve(null);
+      })
+      .finally(() => {
+        resolve(null);
       });
-      await docClient.send(command);
-      // Assume stop was created successfully
-
-      res.status(200).json({ data: api_res.data as IStopDetails });
-    })
-    .catch((err: any) => {
-      console.error(err);
-
-      res.status(500).json({ message: "Error retrieving stop data :(" });
-    });
+  });
 }
