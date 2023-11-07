@@ -1,14 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+  BatchWriteCommand,
+  DynamoDBDocumentClient,
+} from "@aws-sdk/lib-dynamodb";
 
 import { IStopDetails } from "@/interfaces/stop";
-import { IAPIRes } from "@/interfaces/apiRes";
+import { ILocationRequest } from "@/interfaces/locationRequest";
+import { IAPIRes } from "@/interfaces/apiResponse";
 
 const axios = require("axios").default;
 
-export interface ILocationRequest {
-  lat: string;
-  long: string;
-}
+const client = new DynamoDBClient({
+  region: process.env.AWS_REGION,
+});
+const docClient = DynamoDBDocumentClient.from(client);
 
 export default async function handler(
   req: NextApiRequest,
@@ -56,8 +62,23 @@ function getStopsFromRTTIAPI(
           Accept: "application/json",
         },
       })
-      .then((api_res: IAPIRes) => {
-        // TODO: Batch add results to DB?
+      .then(async (api_res: IAPIRes) => {
+        const putRequests = Object.values(api_res.data).map(
+          (stop: IStopDetails) => ({
+            PutRequest: {
+              Item: stop,
+            },
+          })
+        );
+
+        // Assume stops don't exist in DB, so add them!
+        const command = new BatchWriteCommand({
+          RequestItems: {
+            [`${process.env.AWS_STOPS_TABLE_NAME}`]: putRequests,
+          },
+        });
+        await docClient.send(command);
+        // Assume stops were created successfully
 
         resolve(api_res.data);
       })
