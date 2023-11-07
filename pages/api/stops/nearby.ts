@@ -63,6 +63,7 @@ function getStopsFromRTTIAPI(
         },
       })
       .then(async (api_res: IAPIRes) => {
+        // Create batch of stops to put in the DB
         const putRequests = Object.values(api_res.data).map(
           (stop: IStopDetails) => ({
             PutRequest: {
