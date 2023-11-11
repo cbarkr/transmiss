@@ -6,8 +6,9 @@ import {
   DynamoDBDocumentClient,
 } from "@aws-sdk/lib-dynamodb";
 
-import { IStopDetails } from "@/interfaces/stop";
+import { IStopDetails, IStoredStopDetails } from "@/interfaces/stop";
 import { IAPIRes } from "@/interfaces/apiResponse";
+import expiryEpochInSeconds from "@/utils/expiry";
 
 const axios = require("axios").default;
 
@@ -89,10 +90,15 @@ function getStopFromRTTIAPI(stopID: number): Promise<object | null> {
         },
       })
       .then(async (api_res: IAPIRes) => {
+        // Strip distance from stop and add expiry
+        let stop = api_res.data as IStoredStopDetails
+        // Set TTL
+        stop.ExpirationTime = expiryEpochInSeconds()
+
         // Assume stop doesn't exist in DB, so add it!
         const command = new PutCommand({
           TableName: process.env.AWS_STOPS_TABLE_NAME,
-          Item: api_res.data as IStopDetails,
+          Item: stop,
         });
         await docClient.send(command);
         // Assume stop was created successfully

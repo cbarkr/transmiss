@@ -5,9 +5,10 @@ import {
   DynamoDBDocumentClient,
 } from "@aws-sdk/lib-dynamodb";
 
-import { IStopDetails } from "@/interfaces/stop";
+import { IStopDetails, IStoredStopDetails } from "@/interfaces/stop";
 import { ILocationRequest } from "@/interfaces/locationRequest";
 import { IAPIRes } from "@/interfaces/apiResponse";
+import expiryEpochInSeconds from "@/utils/expiry";
 
 const axios = require("axios").default;
 
@@ -65,11 +66,16 @@ function getStopsFromRTTIAPI(
       .then(async (api_res: IAPIRes) => {
         // Create batch of stops to put in the DB
         const putRequests = Object.values(api_res.data).map(
-          (stop: IStopDetails) => ({
-            PutRequest: {
-              Item: stop,
-            },
-          })
+          // Strip distance from stop and add expiry
+          (stop: IStoredStopDetails) => {
+            // Add TTL
+            stop.ExpirationTime = stop.ExpirationTime = expiryEpochInSeconds()
+            return {
+              PutRequest: {
+                Item: stop,
+              },
+            };
+          }
         );
 
         // Assume stops don't exist in DB, so add them!
