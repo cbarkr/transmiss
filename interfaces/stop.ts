@@ -1,4 +1,4 @@
-export interface IStopDetails {
+export interface IStopBase {
   StopNo: number;
   Name: string;
   BayNo: string;
@@ -8,6 +8,13 @@ export interface IStopDetails {
   Latitude: number;
   Longitude: number;
   WheelchairAccess: number;
-  Distance: number;
   Routes: string;
+}
+
+export interface IStopDetails extends IStopBase {
+  Distance: number;
+}
+
+export interface IStoredStopDetails extends IStopBase {
+  ExpirationTime: number;
 }
