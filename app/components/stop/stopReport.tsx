@@ -1,12 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-
-import NoTransferIcon from "@mui/icons-material/NoTransfer";
-import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
-
 import { IStopDetails } from "@/interfaces/stop";
 import { PeopleCounter } from "../peopleCounter";
 import { RouteSelector } from "../routeSelector";
-import { ReportButton } from "../reportButton";
 import { SubmitButton } from "../submitButton";
 import { usePrevious } from "../../hooks/prev";
 
@@ -76,27 +71,26 @@ export default function StopReport({ stop }: IStopReportProps) {
     <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
       {full && (
         <>
-          <div className="mb-4">
-            <p className="text-xl font-bold mb-4">Which bus passed you?</p>
+          <div className="rounded-lg mb-4 p-2">
+            <p className="text-lg font-bold mb-4">Which bus passed you?</p>
             <RouteSelector
               routes={stop.Routes}
               handler={updateRouteID}
               curr={routeID}
             />
           </div>
-          <div className="mb-4">
-            <p className="text-xl font-bold mb-4">
-              How many people are at this stop? (optional)
+          <div className="rounded-lg mb-4 p-2">
+            <p className="text-lg font-bold mb-4">
+              About how many people are at this stop?
             </p>
             <PeopleCounter
               currNum={numPeople}
               handler={updateNumPeople}
-              disabled={submitted}
             />
           </div>
         </>
       )}
-      <SubmitButton submitted={submitted} handler={handleFullSubmit} />
+      <SubmitButton disabled={routeID.length === 0} handler={handleFullSubmit} />
     </div>
   );
 }

@@ -17,6 +17,7 @@ interface IStopSelectedProps {
 export default function StopSelected({ stop }: IStopSelectedProps) {
   // TODO: Better warnings based off reports
   const [warning, setWarning] = useState(false);
+  const [showReportMenu, setShowReportMenu] = useState(false);
 
   const mounted = useRef(false);
 
@@ -46,10 +47,14 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
       });
   };
 
+  const handleShowReportMenu = () => {
+    setShowReportMenu(!showReportMenu);
+  }
+
   return (
     <div className="m-2">
-      <StopDetails stop={stop} warning={warning} />
-      <StopReport stop={stop} />
+      <StopDetails stop={stop} warning={warning} selected={true} showReportMenu={showReportMenu} handleShowReportMenu={handleShowReportMenu}/>
+      {showReportMenu && <StopReport stop={stop} />}
     </div>
   );
 }
