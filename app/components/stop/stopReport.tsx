@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-import GroupsIcon from "@mui/icons-material/Groups";
 import NoTransferIcon from "@mui/icons-material/NoTransfer";
 import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 
@@ -20,9 +19,8 @@ interface IStopReportProps {
 }
 
 export default function StopReport({ stop, handleRetrievedReports }: IStopReportProps) {
-  // NOTE: crowded, full, and noShow should be mutually exclusive
-  const [crowded, setCrowded] = useState(true);
-  const [full, setFull] = useState(false);
+  // NOTE: full and noShow should be mutually exclusive
+  const [full, setFull] = useState(true);
   const [noShow, setNoShow] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [numPeople, setNumPeople] = useState(0);
@@ -37,8 +35,7 @@ export default function StopReport({ stop, handleRetrievedReports }: IStopReport
       getReports();
     } else {
       if (stop !== previousStop) {
-        setCrowded(true);
-        setFull(false);
+        setFull(true);
         setNoShow(false);
         setSubmitted(false);
         setNumPeople(0);
@@ -59,20 +56,12 @@ export default function StopReport({ stop, handleRetrievedReports }: IStopReport
     }
   };
 
-  const reportCrowded = () => {
-    setFull(false);
-    setNoShow(false);
-    setCrowded(true);
-  };
-
   const reportNoShow = () => {
-    setCrowded(false);
     setFull(false);
     setNoShow(true);
   };
 
   const reportFull = () => {
-    setCrowded(false);
     setNoShow(false);
     setFull(true);
   };
@@ -90,10 +79,6 @@ export default function StopReport({ stop, handleRetrievedReports }: IStopReport
       .catch((err: any) => {
         console.error(err);
       });
-  };
-
-  const handleCrowdedSubmit = () => {
-    postReport("/api/report/stop");
   };
 
   const handleFullSubmit = () => {
@@ -128,12 +113,6 @@ export default function StopReport({ stop, handleRetrievedReports }: IStopReport
         <p className="text-xl font-bold my-2">Report</p>
         <div className="flex flex-row justify-center rounded-full my-2 bg-primary-200 dark:bg-primary-950">
           <ReportButton
-            text="Crowded"
-            icon={<GroupsIcon />}
-            disabled={crowded}
-            handler={reportCrowded}
-          />
-          <ReportButton
             text="No-Show"
             icon={<NoTransferIcon />}
             disabled={noShow}
@@ -146,20 +125,8 @@ export default function StopReport({ stop, handleRetrievedReports }: IStopReport
             handler={reportFull}
           />
         </div>
-        {(crowded || noShow || full) && (
+        {(noShow || full) && (
           <>
-            {crowded && (
-              <div>
-                <p className="font-bold mb-2">
-                  How many people are at this stop?
-                </p>
-                <PeopleCounter
-                  currNum={numPeople}
-                  handler={updateNumPeople}
-                  disabled={submitted}
-                />
-              </div>
-            )}
             {noShow && (
               <>
                 <p className="font-bold mb-2">Which bus were you expecting?</p>
@@ -196,14 +163,8 @@ export default function StopReport({ stop, handleRetrievedReports }: IStopReport
                 />
               </>
             )}
-            {(crowded || noShow || full) && (
+            {(noShow || full) && (
               <>
-                {crowded && numPeople > 0 && (
-                  <SubmitButton
-                    submitted={submitted}
-                    handler={handleCrowdedSubmit}
-                  />
-                )}
                 {noShow && routeID !== "" && (
                   <SubmitButton
                     submitted={submitted}
