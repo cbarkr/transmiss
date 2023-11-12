@@ -13,7 +13,6 @@ interface IStopReportProps {
 
 export default function StopReport({ stop }: IStopReportProps) {
   const [full, setFull] = useState(true);
-  const [submitted, setSubmitted] = useState(false);
   const [numPeople, setNumPeople] = useState(0);
   const [routeID, setRouteID] = useState("");
 
@@ -25,28 +24,20 @@ export default function StopReport({ stop }: IStopReportProps) {
       mounted.current = true;
     } else {
       if (stop !== previousStop) {
-        setFull(true);
-        setSubmitted(false);
-        setNumPeople(0);
-        setRouteID("");
+        resetState();
       }
     }
   }, [stop, previousStop]);
 
-  const updateNumPeople = (newNum: number) => {
-    if (!submitted) {
-      setNumPeople(newNum);
-    }
-  };
-
-  const updateRouteID = (newRouteID: string) => {
-    if (!submitted) {
-      setRouteID(newRouteID);
-    }
-  };
+  const resetState = () => {
+    setFull(true);
+    setNumPeople(0);
+    setRouteID("");
+  }
 
   const handleFullSubmit = () => {
     postReport("/api/report/bus");
+    resetState();
   };
 
   const postReport = (url: string) => {
@@ -61,9 +52,6 @@ export default function StopReport({ stop }: IStopReportProps) {
       })
       .catch((err: any) => {
         console.error(err);
-      })
-      .finally(() => {
-        setSubmitted(true);
       });
   };
 
@@ -75,7 +63,7 @@ export default function StopReport({ stop }: IStopReportProps) {
             <p className="text-lg font-bold mb-4">Which bus passed you?</p>
             <RouteSelector
               routes={stop.Routes}
-              handler={updateRouteID}
+              handler={(newRouteID) => setRouteID(newRouteID)}
               curr={routeID}
             />
           </div>
@@ -85,7 +73,7 @@ export default function StopReport({ stop }: IStopReportProps) {
             </p>
             <PeopleCounter
               currNum={numPeople}
-              handler={updateNumPeople}
+              handler={(newNum) => setNumPeople(newNum)}
             />
           </div>
         </>
