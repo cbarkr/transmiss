@@ -17,9 +17,7 @@ interface IStopReportProps {
 }
 
 export default function StopReport({ stop }: IStopReportProps) {
-  // NOTE: full and noShow should be mutually exclusive
   const [full, setFull] = useState(true);
-  const [noShow, setNoShow] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [numPeople, setNumPeople] = useState(0);
   const [routeID, setRouteID] = useState("");
@@ -33,7 +31,6 @@ export default function StopReport({ stop }: IStopReportProps) {
     } else {
       if (stop !== previousStop) {
         setFull(true);
-        setNoShow(false);
         setSubmitted(false);
         setNumPeople(0);
         setRouteID("");
@@ -53,22 +50,8 @@ export default function StopReport({ stop }: IStopReportProps) {
     }
   };
 
-  const reportNoShow = () => {
-    setFull(false);
-    setNoShow(true);
-  };
-
-  const reportFull = () => {
-    setNoShow(false);
-    setFull(true);
-  };
-
   const handleFullSubmit = () => {
     postReport("/api/report/bus");
-  };
-
-  const handleNoShowSubmit = () => {
-    postReport("/api/report/noshow");
   };
 
   const postReport = (url: string) => {
@@ -90,70 +73,30 @@ export default function StopReport({ stop }: IStopReportProps) {
   };
 
   return (
-    <>
-      <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
-        <p className="text-2xl font-bold my-2">Report</p>
-        <div className="flex flex-row justify-center rounded-full my-2 bg-primary-200 dark:bg-primary-950">
-          <ReportButton
-            text="Full"
-            icon={<AirportShuttleIcon />}
-            disabled={full}
-            handler={reportFull}
-          />
-          <ReportButton
-            text="No-Show"
-            icon={<NoTransferIcon />}
-            disabled={noShow}
-            handler={reportNoShow}
-          />
-        </div>
-        {(full || noShow) && (
-          <>
-            {full && (
-              <>
-                <p className="text-xl font-bold mb-4">Which bus passed you?</p>
-                <RouteSelector
-                  routes={stop.Routes}
-                  handler={updateRouteID}
-                  curr={routeID}
-                />
-                <p className="text-xl font-bold mb-4">
-                  How many people are at this stop? (optional)
-                </p>
-                <PeopleCounter
-                  currNum={numPeople}
-                  handler={updateNumPeople}
-                  disabled={submitted}
-                />
-              </>
-            )}
-            {noShow && (
-              <>
-                <p className="text-xl font-bold mb-4">
-                  Which bus were you expecting?
-                </p>
-                <RouteSelector
-                  routes={stop.Routes}
-                  handler={updateRouteID}
-                  curr={routeID}
-                />
-                <p className="text-xl font-bold mb-4">
-                  How many people are at this stop? (optional)
-                </p>
-                <PeopleCounter
-                  currNum={numPeople}
-                  handler={updateNumPeople}
-                  disabled={submitted}
-                />
-              </>
-            )}
-            <SubmitButton
-              submitted={submitted}
-              handler={full ? handleFullSubmit : handleNoShowSubmit}
+    <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
+      {full && (
+        <>
+          <div className="mb-4">
+            <p className="text-xl font-bold mb-4">Which bus passed you?</p>
+            <RouteSelector
+              routes={stop.Routes}
+              handler={updateRouteID}
+              curr={routeID}
             />
-          </>
-        )}
-      </div>
-    </>
+          </div>
+          <div className="mb-4">
+            <p className="text-xl font-bold mb-4">
+              How many people are at this stop? (optional)
+            </p>
+            <PeopleCounter
+              currNum={numPeople}
+              handler={updateNumPeople}
+              disabled={submitted}
+            />
+          </div>
+        </>
+      )}
+      <SubmitButton submitted={submitted} handler={handleFullSubmit} />
+    </div>
   );
 }
