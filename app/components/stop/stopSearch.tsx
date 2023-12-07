@@ -124,7 +124,7 @@ export default function StopSearch() {
               type="text"
               inputMode="decimal"
               placeholder="Search by stop number"
-              className="w-full rounded-lg m-2 pl-2 text-primary-950 dark:text-primary-50 bg-transparent outline-none"
+              className="w-full rounded-3xl m-2 pl-2 text-primary-950 dark:text-primary-50 bg-transparent outline-none"
             ></input>
             <button
               type="submit"

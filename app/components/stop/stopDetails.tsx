@@ -21,7 +21,7 @@ export default function StopDetails({
   handleShowReportMenu,
 }: IStopDetailsProps) {
   return (
-    <div className="rounded-lg p-2 bg-gunmetal/10 dark:bg-gunmetal max-w-screen-sm">
+    <div className="rounded-3xl p-2 bg-gunmetal/10 dark:bg-gunmetal max-w-screen-sm">
       {warning && <StopWarning />}
       <div className="flex flex-row justify-between my-2">
         <p className="text-2xl font-bold">{stop.StopNo}</p>
@@ -29,7 +29,7 @@ export default function StopDetails({
           {stop.Routes.split(",").map((route: string) => (
             <div
               key={route}
-              className="rounded-lg py-2 px-4 mx-1 font-bold bg-primary-200 text-sm text-primary-950"
+              className="rounded-3xl py-2 px-4 mx-1 font-bold bg-primary-200 text-sm text-primary-950"
             >
               {route ? route : "N/A"}
             </div>

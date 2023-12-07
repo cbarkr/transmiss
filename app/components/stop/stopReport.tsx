@@ -56,10 +56,10 @@ export default function StopReport({ stop }: IStopReportProps) {
   };
 
   return (
-    <div className="rounded-lg my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
+    <div className="rounded-3xl my-1 p-2 max-w-screen-sm bg-gunmetal/10 dark:bg-gunmetal">
       {full && (
         <>
-          <div className="rounded-lg mb-4 p-2">
+          <div className="rounded-3xl mb-4 p-2">
             <p className="text-lg font-bold mb-4">Which bus passed you?</p>
             <RouteSelector
               routes={stop.Routes}
@@ -67,7 +67,7 @@ export default function StopReport({ stop }: IStopReportProps) {
               curr={routeID}
             />
           </div>
-          <div className="rounded-lg mb-4 p-2">
+          <div className="rounded-3xl mb-4 p-2">
             <p className="text-lg font-bold mb-4">
               About how many people are at this stop?
             </p>
