@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center mx-2">
-      <div className="w-full max-w-screen-sm">
+      <div className="w-[98dvw] max-w-screen-sm">
         <div className="mt-4 flex flex-row">
           {active !== Active.Selected && (
             <StopSearchContext.Provider
@@ -53,19 +53,21 @@ export default function Home() {
             <button
               onClick={handleBackClick}
               type="button"
-              className="rounded-full m-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+              className="rounded-full m-2 p-2 bg-white text-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
             >
               <ArrowBackIcon />
             </button>
           )}
         </div>
-        <div className="mt-4">
+        <div className="mt-1">
           {active == Active.Default && (
             <>
-              <div className="flex flex-col items-center">
-                <BusAlertIcon fontSize="large" />
+              <div className="h-[25dvh] rounded-3xl bg-gray-600 flex justify-center items-center">
+                <div className="flex flex-col items-center">
+                  <BusAlertIcon fontSize="large" />
+                  <p className="text-center text-xl">Search to get started</p>
+                </div>
               </div>
-              <p className="text-center">Select a stop to get started</p>
             </>
           )}
           {active == Active.Loading && (
