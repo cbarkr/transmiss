@@ -4,9 +4,9 @@
 
 @layer base {
   /* Hide arrows in number input */
-  input[type='number']::-webkit-outer-spin-button,
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number'] {
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"] {
     margin: 0;
     appearance: textfield;
     -webkit-appearance: none;
@@ -14,17 +14,17 @@
   }
 
   :root {
-    --foreground: #FFFFFF;
+    --foreground: #ffffff;
     --background: #000000;
   }
-  
+
   /* @media (prefers-color-scheme: dark) {
     :root {
       --foreground: #FFFFFF;
       --background: #000000;
     }
   } */
-  
+
   body {
     color: var(--foreground);
     background: var(--background);

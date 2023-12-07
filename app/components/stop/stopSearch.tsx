@@ -42,7 +42,7 @@ export default function StopSearch() {
         {
           enableHighAccuracy: true,
           maximumAge: 0,
-        }
+        },
       );
     } else {
       setError(ErrorText.LocationUnsupported);

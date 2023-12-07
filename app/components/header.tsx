@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 import Link from "next/link";
-import MenuIcon from '@mui/icons-material/Menu';
-import { Dropdown } from '@mui/base/Dropdown';
-import { Menu } from '@mui/base/Menu';
-import { MenuButton } from '@mui/base/MenuButton';
-import { MenuItem  } from '@mui/base/MenuItem';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import { Dropdown } from '@mui/base/Dropdown';
+// import { Menu } from '@mui/base/Menu';
+// import { MenuButton } from '@mui/base/MenuButton';
+// import { MenuItem  } from '@mui/base/MenuItem';
 
 export default function Header() {
   // TODO: Remove redundancy

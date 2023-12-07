@@ -52,7 +52,7 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
 
   const handleShowReportMenu = () => {
     setShowReportMenu(!showReportMenu);
-  }
+  };
 
   const handleReportSubmit = () => {
     setActive(Active.Default);
@@ -60,8 +60,16 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
 
   return (
     <div className="m-2">
-      <StopDetails stop={stop} warning={warning} selected={true} showReportMenu={showReportMenu} handleShowReportMenu={handleShowReportMenu}/>
-      {showReportMenu && <StopReport stop={stop} handleReportSubmit={handleReportSubmit} />}
+      <StopDetails
+        stop={stop}
+        warning={warning}
+        selected={true}
+        showReportMenu={showReportMenu}
+        handleShowReportMenu={handleShowReportMenu}
+      />
+      {showReportMenu && (
+        <StopReport stop={stop} handleReportSubmit={handleReportSubmit} />
+      )}
     </div>
   );
 }

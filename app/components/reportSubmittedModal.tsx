@@ -1,12 +1,15 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 interface IReportSubmittedModalProps {
   show: boolean;
   handler: () => void;
 }
 
-export function ReportSubmittedModal({ show, handler }: IReportSubmittedModalProps) {
-  if (!show) return
+export function ReportSubmittedModal({
+  show,
+  handler,
+}: IReportSubmittedModalProps) {
+  if (!show) return;
 
   return (
     <div className="flex justify-center items-center fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm">

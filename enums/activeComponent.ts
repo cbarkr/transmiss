@@ -4,4 +4,4 @@ export enum Active {
   Error,
   Selected,
   List,
-};
+}

@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
+
 import { IStopDetails } from "@/interfaces/stop";
 import { PeopleCounter } from "../peopleCounter";
 import { RouteSelector } from "../routeSelector";
@@ -13,7 +15,10 @@ interface IStopReportProps {
   handleReportSubmit: () => void;
 }
 
-export default function StopReport({ stop, handleReportSubmit }: IStopReportProps) {
+export default function StopReport({
+  stop,
+  handleReportSubmit,
+}: IStopReportProps) {
   const [numPeople, setNumPeople] = useState(0);
   const [routeID, setRouteID] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -35,7 +40,7 @@ export default function StopReport({ stop, handleReportSubmit }: IStopReportProp
     setNumPeople(0);
     setRouteID("");
     setShowModal(false);
-  }
+  };
 
   const handleFullSubmit = () => {
     postReport("/api/report/bus");
@@ -45,7 +50,7 @@ export default function StopReport({ stop, handleReportSubmit }: IStopReportProp
   const handleModalClose = () => {
     resetState();
     handleReportSubmit();
-  }
+  };
 
   const postReport = (url: string) => {
     axios
@@ -65,7 +70,9 @@ export default function StopReport({ stop, handleReportSubmit }: IStopReportProp
   return (
     <div className="rounded-3xl my-1 p-4 max-w-screen-sm bg-gray-200">
       <div className="mb-4">
-        <p className="text-lg text-black font-bold mb-2">Which bus passed you?</p>
+        <p className="text-lg text-black font-bold mb-2">
+          Which bus passed you?
+        </p>
         <RouteSelector
           routes={stop.Routes}
           handler={(newRouteID) => setRouteID(newRouteID)}
@@ -81,7 +88,10 @@ export default function StopReport({ stop, handleReportSubmit }: IStopReportProp
           handler={(newNum) => setNumPeople(newNum)}
         />
       </div>
-      <SubmitButton disabled={routeID.length === 0} handler={handleFullSubmit} />
+      <SubmitButton
+        disabled={routeID.length === 0}
+        handler={handleFullSubmit}
+      />
       <ReportSubmittedModal show={showModal} handler={handleModalClose} />
     </div>
   );

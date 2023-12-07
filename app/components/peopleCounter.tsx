@@ -25,7 +25,7 @@ export function PeopleCounter({ currNum, handler }: IPeopleCounterProps) {
         min={0}
         max={100}
         pattern="[0-9]*"
-        type="text" 
+        type="text"
         inputMode="decimal"
         className="rounded-full w-6 bg-transparent outline-none text-center"
       ></input>
