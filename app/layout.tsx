@@ -1,10 +1,8 @@
 import "./styles/globals.css";
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { GeistSans } from 'geist/font/sans';
 
 import Header from "./components/header";
-
-const lato = Lato({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Tranmiss",
@@ -18,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={lato.className}>
+      <body className={GeistSans.className}>
         <Header />
         {children}
       </body>
