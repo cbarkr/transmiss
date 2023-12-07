@@ -18,7 +18,7 @@ export default function Header() {
           </Link>
         </div>
         <div>
-          <div className="hidden sm:block">
+          {/* <div className="hidden sm:block">
             <Link href="/about" className="hover:underline text-lg mx-2">
               About
             </Link>
@@ -44,7 +44,7 @@ export default function Header() {
                 </MenuItem>
               </Menu>
             </Dropdown>
-          </div>
+          </div> */}
         </div>
       </div>
     </header>
