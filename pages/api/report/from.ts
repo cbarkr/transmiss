@@ -11,7 +11,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method === "GET") {
     if (!req.query.StopNo) {
@@ -21,7 +21,7 @@ export default async function handler(
 
     const stopIDAsNum = Number.parseInt(req.query.StopNo as string);
 
-    if (stopIDAsNum <= 0) { 
+    if (stopIDAsNum <= 0) {
       res.status(400).json({ message: "Invalid stop number" });
       return;
     }

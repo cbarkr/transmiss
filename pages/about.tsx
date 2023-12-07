@@ -15,22 +15,20 @@ export default function About() {
           <div className="mt-4">
             <p className="font-bold text-2xl lg:text-4xl text-center">What</p>
             <p className="text-lg text-center max-w-screen-sm">
-              Transmiss is a web application for reporting transit &quot;misses&quot;.
-              Maybe it&apos;s a crowded stop or perhaps a bus that passes by you because it&apos;s full.
+              Transmiss is a web application for reporting transit
+              &quot;misses&quot;. Maybe it&apos;s a crowded stop or perhaps a
+              bus that passes by you because it&apos;s full.
             </p>
           </div>
           <div className="mt-4">
-            <p className="font-bold text-2xl lg:text-4xl text-center">
-              How
-            </p>
+            <p className="font-bold text-2xl lg:text-4xl text-center">How</p>
             <p className="text-lg text-center max-w-screen-sm">
-              We use real-time data from Translink to get stop, route, and bus information.
+              We use real-time data from Translink to get stop, route, and bus
+              information.
             </p>
           </div>
           <div className="mt-4">
-            <p className="font-bold text-2xl lg:text-4xl text-center">
-              Where
-            </p>
+            <p className="font-bold text-2xl lg:text-4xl text-center">Where</p>
             <p className="text-lg text-center max-w-screen-sm">
               Transmiss is only available in the Metro Vancouver.
             </p>

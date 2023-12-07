@@ -17,8 +17,8 @@ const config: Config = {
     },
     extend: {
       colors: {
-        'gunmetal': "#1c1b22",
-        'primary': {
+        gunmetal: "#1c1b22",
+        primary: {
           50: "#f2f5fb",
           100: "#e7edf8",
           200: "#d3ddf2",
@@ -31,7 +31,7 @@ const config: Config = {
           900: "#40446f",
           950: "#252641",
         },
-        'secondary': {
+        secondary: {
           50: "#f1f2fc",
           100: "#e5e8fa",
           200: "#cfd3f6",
@@ -44,7 +44,7 @@ const config: Config = {
           900: "#423b74",
           950: "#272244",
         },
-        'tertiary': {
+        tertiary: {
           50: "#fbf4f8",
           100: "#f8ebf2",
           200: "#f2d8e6",
@@ -57,7 +57,7 @@ const config: Config = {
           900: "#6e2d46",
           950: "#421526",
         },
-        'blues': {
+        blues: {
           50: "#ebf9ff",
           100: "#d1f3ff",
           200: "#aeeaff",
@@ -70,7 +70,7 @@ const config: Config = {
           900: "#0051ad",
           950: "#063065",
         },
-        'greens': {
+        greens: {
           50: "#f4ffe4",
           100: "#e6ffc5",
           200: "#ccff92",
@@ -83,7 +83,7 @@ const config: Config = {
           900: "#264f0b",
           950: "#133300",
         },
-        'aquamarines': {
+        aquamarines: {
           50: "#e7fff9",
           100: "#c6ffef",
           200: "#92ffe5",
@@ -96,7 +96,7 @@ const config: Config = {
           900: "#006255",
           950: "#003832",
         },
-        'reds': {
+        reds: {
           50: "#fff4ed",
           100: "#ffe7d4",
           200: "#ffcba8",
@@ -109,7 +109,7 @@ const config: Config = {
           900: "#7f1c0f",
           950: "#450a05",
         },
-        'yellows': {
+        yellows: {
           50: "#fefbe8",
           100: "#fff8c2",
           200: "#ffef87",

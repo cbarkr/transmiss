@@ -42,7 +42,7 @@ export default function StopSearch() {
         {
           enableHighAccuracy: true,
           maximumAge: 0,
-        }
+        },
       );
     } else {
       setError(ErrorText.LocationUnsupported);
@@ -80,6 +80,7 @@ export default function StopSearch() {
       })
       .then((res: any) => {
         setStop(res.data.data);
+        setStops([]);
         setActive(Active.Selected);
       })
       .catch((err: any) => {
@@ -113,13 +114,7 @@ export default function StopSearch() {
     <div className="w-full">
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-row w-full py-2 items-center rounded-full border-solid border-2 dark:border-1 border-primary-950 dark:border-white bg-transparent">
-            <button
-              type="submit"
-              className="rounded-full mx-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
-            >
-              <SearchIcon />
-            </button>
+          <div className="flex flex-row w-full py-2 items-center rounded-3xl bg-white text-black">
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
@@ -129,16 +124,22 @@ export default function StopSearch() {
               type="text"
               inputMode="decimal"
               placeholder="Search by stop number"
-              className="w-full rounded-lg m-2 text-primary-950 dark:text-primary-50 bg-transparent outline-none"
+              className="w-full rounded-3xl m-2 pl-2 bg-transparent outline-none text-black"
             ></input>
+            <button
+              type="submit"
+              className="rounded-full mx-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+            >
+              <SearchIcon />
+            </button>
           </div>
-          <button
+          {/* <button
             onClick={getCoords}
             type="button"
-            className="rounded-full m-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+            className="rounded-full m-2 p-2 border-solid border-2 dark:border-1 border-primary-950 dark:border-white bg-transparent transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
           >
             {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
-          </button>
+          </button> */}
         </div>
       </form>
     </div>

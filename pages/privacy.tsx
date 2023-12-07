@@ -14,9 +14,7 @@ export default function Privacy() {
             </p>
           </div>
           <div className="mt-4">
-            <p className="font-bold text-xl">
-              2. What information we collect
-            </p>
+            <p className="font-bold text-xl">2. What information we collect</p>
             <p className="text-lg">
               We collect information provided by you, including:
             </p>
@@ -34,8 +32,8 @@ export default function Privacy() {
               <li>Stop, bus, and route numbers</li>
             </ul>
             <p className="text-lg italic">
-              Note: Your location data is collected only at the time of request and is
-              never stored
+              Note: Your location data is collected only at the time of request
+              and is never stored
             </p>
           </div>
           <div className="mt-4">

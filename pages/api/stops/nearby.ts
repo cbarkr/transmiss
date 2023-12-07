@@ -19,7 +19,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method === "GET") {
     if (!req.query.lat || !req.query.long) {
@@ -46,7 +46,7 @@ export default async function handler(
 }
 
 function getStopsFromRTTIAPI(
-  request: ILocationRequest
+  request: ILocationRequest,
 ): Promise<object | null> {
   return new Promise((resolve) => {
     axios
@@ -69,13 +69,13 @@ function getStopsFromRTTIAPI(
           // Strip distance from stop and add expiry
           (stop: IStoredStopDetails) => {
             // Add TTL
-            stop.ExpirationTime = stop.ExpirationTime = expiryEpochInSeconds()
+            stop.ExpirationTime = stop.ExpirationTime = expiryEpochInSeconds();
             return {
               PutRequest: {
                 Item: stop,
               },
             };
-          }
+          },
         );
 
         // Assume stops don't exist in DB, so add them!

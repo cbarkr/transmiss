@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 import Link from "next/link";
-import MenuIcon from '@mui/icons-material/Menu';
-import { Dropdown } from '@mui/base/Dropdown';
-import { Menu } from '@mui/base/Menu';
-import { MenuButton } from '@mui/base/MenuButton';
-import { MenuItem  } from '@mui/base/MenuItem';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import { Dropdown } from '@mui/base/Dropdown';
+// import { Menu } from '@mui/base/Menu';
+// import { MenuButton } from '@mui/base/MenuButton';
+// import { MenuItem  } from '@mui/base/MenuItem';
 
 export default function Header() {
   // TODO: Remove redundancy
@@ -18,7 +18,7 @@ export default function Header() {
           </Link>
         </div>
         <div>
-          <div className="hidden sm:block">
+          {/* <div className="hidden sm:block">
             <Link href="/about" className="hover:underline text-lg mx-2">
               About
             </Link>
@@ -31,7 +31,7 @@ export default function Header() {
               <MenuButton>
                 <MenuIcon />
               </MenuButton>
-              <Menu className="rounded-lg border-solid border-2 bg-gunmetal/10 dark:bg-gunmetal p-2">
+              <Menu className="rounded-3xl border-solid border-2 bg-gunmetal/10 dark:bg-gunmetal p-2">
                 <MenuItem>
                   <Link href="/about" className="hover:underline text-lg mx-2">
                     About
@@ -44,7 +44,7 @@ export default function Header() {
                 </MenuItem>
               </Menu>
             </Dropdown>
-          </div>
+          </div> */}
         </div>
       </div>
     </header>

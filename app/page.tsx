@@ -4,7 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import { CircularProgress } from "@mui/material";
 import BusAlertIcon from "@mui/icons-material/BusAlert";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { defaultStopState } from "@/models/stop";
 import { IStopDetails } from "@/interfaces/stop";
@@ -35,35 +35,40 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center mx-2">
-      <div className="w-full max-w-screen-sm">
+      <div className="w-[98dvw] max-w-screen-sm">
         <div className="mt-4 flex flex-row">
+          {active !== Active.Selected && (
+            <StopSearchContext.Provider
+              value={{
+                setStop: setStop,
+                setStops: setStops,
+                setActive: setActive,
+                setError: setError,
+              }}
+            >
+              <StopSearch />
+            </StopSearchContext.Provider>
+          )}
           {active == Active.Selected && (
             <button
               onClick={handleBackClick}
               type="button"
-              className="rounded-full m-2 p-2 text-primary-50 bg-primary-950 dark:text-primary-950 dark:bg-primary-50 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+              className="rounded-full m-2 p-2 bg-white text-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
             >
-              <ArrowBackIosNewIcon />
+              <ArrowBackIcon />
             </button>
           )}
-          <StopSearchContext.Provider
-            value={{
-              setStop: setStop,
-              setStops: setStops,
-              setActive: setActive,
-              setError: setError,
-            }}
-          >
-            <StopSearch />
-          </StopSearchContext.Provider>
         </div>
-        <div className="mt-4">
+        <div className="mt-1">
           {active == Active.Default && (
             <>
-              <div className="flex flex-col items-center">
-                <BusAlertIcon fontSize="large" />
+              <div className="h-[25dvh] rounded-3xl bg-zinc-700 flex justify-center items-center">
+                <div className="flex flex-col items-center gap-2">
+                  <BusAlertIcon fontSize="large" />
+                  <h1 className="text-2xl font-bold">Transit missing the mark?</h1>
+                  <h2 className="text-sm text-gray-200">Search for a stop and say something about it</h2>
+                </div>
               </div>
-              <p className="text-center">Select a stop to get started</p>
             </>
           )}
           {active == Active.Loading && (

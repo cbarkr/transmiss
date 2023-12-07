@@ -19,7 +19,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method === "GET") {
     if (!req.query.stopID) {
@@ -62,7 +62,7 @@ export default async function handler(
 }
 
 async function getStopFromDB(
-  stopID: number
+  stopID: number,
 ): Promise<Record<string, any> | null> {
   const command = new GetCommand({
     TableName: process.env.AWS_STOPS_TABLE_NAME,
@@ -91,9 +91,9 @@ function getStopFromRTTIAPI(stopID: number): Promise<object | null> {
       })
       .then(async (api_res: IAPIRes) => {
         // Strip distance from stop and add expiry
-        let stop = api_res.data as IStoredStopDetails
+        let stop = api_res.data as IStoredStopDetails;
         // Set TTL
-        stop.ExpirationTime = expiryEpochInSeconds()
+        stop.ExpirationTime = expiryEpochInSeconds();
 
         // Assume stop doesn't exist in DB, so add it!
         const command = new PutCommand({
