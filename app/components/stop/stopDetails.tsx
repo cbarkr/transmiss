@@ -24,7 +24,7 @@ export default function StopDetails({
   return (
     <>
       {warning && <StopWarning />}
-      <div className="rounded-3xl p-4 bg-gray-600 max-w-screen-sm">
+      <div className="rounded-3xl p-4 bg-zinc-700 max-w-screen-sm">
         <div className="flex flex-row justify-between my-2">
           <p className="text-2xl font-bold">{stop.StopNo}</p>
           <div className="flex flex-row">
@@ -55,7 +55,7 @@ export default function StopDetails({
           <button
             onClick={handleShowReportMenu}
             type="button"
-            className="flex flex-col text-xl basis-1/2 h-[15dvh] rounded-t-3xl rounded-r-3xl px-2 py-4 bg-primary-200 text-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+            className="flex flex-col text-xl basis-1/2 rounded-t-3xl rounded-r-3xl px-2 py-6 bg-primary-200 text-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
           >
             <div className="flex flex-row h-full justify-center items-center text-center ">
               Report here
@@ -71,7 +71,7 @@ export default function StopDetails({
             target="_blank"
             rel="noopener noreferrer"
             role="button"
-            className="flex flex-col text-xl basis-1/2 h-[15dvh] rounded-b-3xl rounded-l-3xl px-2 py-4 bg-primary-200 text-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+            className="flex flex-col text-xl basis-1/2 rounded-b-3xl rounded-l-3xl px-2 py-4 bg-primary-200 text-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
           >
             <div className="flex flex-row justify-end">
               <ArrowOutwardIcon fontSize="large" />
