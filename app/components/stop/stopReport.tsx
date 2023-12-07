@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
 
 import { IStopDetails } from "@/interfaces/stop";
 import { PeopleCounter } from "../peopleCounter";
