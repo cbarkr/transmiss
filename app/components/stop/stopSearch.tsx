@@ -133,13 +133,13 @@ export default function StopSearch() {
               <SearchIcon />
             </button>
           </div>
-          {/* <button
+          <button
             onClick={getCoords}
             type="button"
             className="rounded-full m-2 p-2 border-solid border-2 dark:border-1 border-primary-950 dark:border-white bg-transparent transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
           >
             {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
-          </button> */}
+          </button>
         </div>
       </form>
     </div>
