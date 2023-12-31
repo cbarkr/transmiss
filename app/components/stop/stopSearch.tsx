@@ -133,12 +133,12 @@ export default function StopSearch() {
               className="w-full rounded-3xl m-2 pl-2 bg-transparent outline-none text-black"
             ></input>
             <button
-            onClick={getCoords}
-            type="button"
-            className="rounded-full m-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
-          >
-            {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
-          </button>
+              onClick={getCoords}
+              type="button"
+              className="rounded-full m-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+            >
+              {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
+            </button>
           </div>
         </div>
       </form>

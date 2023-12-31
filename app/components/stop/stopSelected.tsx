@@ -55,10 +55,7 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
 
   return (
     <div className="m-2">
-      <StopDetails
-        stop={stop}
-        warning={warning}
-      />
+      <StopDetails stop={stop} warning={warning} />
       <StopReport stop={stop} handleReportSubmit={handleReportSubmit} />
     </div>
   );

@@ -10,10 +10,7 @@ interface IStopDetailsProps {
   warning?: boolean;
 }
 
-export default function StopDetails({
-  stop,
-  warning,
-}: IStopDetailsProps) {
+export default function StopDetails({ stop, warning }: IStopDetailsProps) {
   return (
     <>
       {warning && <StopWarning />}
