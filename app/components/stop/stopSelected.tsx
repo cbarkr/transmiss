@@ -19,7 +19,6 @@ interface IStopSelectedProps {
 export default function StopSelected({ stop }: IStopSelectedProps) {
   // TODO: Better warnings based off reports
   const [warning, setWarning] = useState(false);
-  const [showReportMenu, setShowReportMenu] = useState(false);
   const { setActive } = useContext(StopSetContext);
 
   const mounted = useRef(false);
@@ -50,10 +49,6 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
       });
   };
 
-  const handleShowReportMenu = () => {
-    setShowReportMenu(!showReportMenu);
-  };
-
   const handleReportSubmit = () => {
     setActive(Active.Default);
   };
@@ -63,13 +58,8 @@ export default function StopSelected({ stop }: IStopSelectedProps) {
       <StopDetails
         stop={stop}
         warning={warning}
-        selected={true}
-        showReportMenu={showReportMenu}
-        handleShowReportMenu={handleShowReportMenu}
       />
-      {showReportMenu && (
-        <StopReport stop={stop} handleReportSubmit={handleReportSubmit} />
-      )}
+      <StopReport stop={stop} handleReportSubmit={handleReportSubmit} />
     </div>
   );
 }

@@ -73,6 +73,7 @@ export default function StopReport({
           Which bus passed you?
         </p>
         <RouteSelector
+          interactive={true}
           routes={stop.Routes}
           handler={(newRouteID) => setRouteID(newRouteID)}
           curr={routeID}
