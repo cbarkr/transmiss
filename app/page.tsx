@@ -53,7 +53,7 @@ export default function Home() {
             <button
               onClick={handleBackClick}
               type="button"
-              className="rounded-full m-2 p-2 bg-white text-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+              className="rounded-full m-2 p-2 text-white transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
             >
               <ArrowBackIcon />
             </button>
@@ -62,11 +62,15 @@ export default function Home() {
         <div className="mt-1">
           {active == Active.Default && (
             <>
-              <div className="h-[25dvh] rounded-3xl bg-zinc-700 flex justify-center items-center">
+              <div className="h-[25vh] rounded-3xl bg-zinc-700 flex justify-center items-center">
                 <div className="flex flex-col items-center gap-2">
                   <BusAlertIcon fontSize="large" />
-                  <h1 className="text-2xl font-bold">Transit missing the mark?</h1>
-                  <h2 className="text-sm text-gray-200">Search for a stop and say something about it</h2>
+                  <h1 className="text-2xl font-bold">
+                    Transit missing the mark?
+                  </h1>
+                  <h2 className="text-sm text-gray-200">
+                    Search for a stop and say something about it
+                  </h2>
                 </div>
               </div>
             </>

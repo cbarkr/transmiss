@@ -113,8 +113,14 @@ export default function StopSearch() {
   return (
     <div className="w-full">
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="flex flex-row justify-between items-center">
-          <div className="flex flex-row w-full py-2 items-center rounded-3xl bg-white text-black">
+        <div className="flex flex-row gap-1 items-center">
+          <div className="flex flex-row w-full items-center rounded-full bg-white text-black">
+            <button
+              type="submit"
+              className="rounded-full mx-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+            >
+              <SearchIcon />
+            </button>
             <input
               onChange={(e) => handleChange(e.target.value)}
               value={stopID}
@@ -127,19 +133,13 @@ export default function StopSearch() {
               className="w-full rounded-3xl m-2 pl-2 bg-transparent outline-none text-black"
             ></input>
             <button
-              type="submit"
-              className="rounded-full mx-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+              onClick={getCoords}
+              type="button"
+              className="rounded-full m-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
             >
-              <SearchIcon />
+              {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
             </button>
           </div>
-          {/* <button
-            onClick={getCoords}
-            type="button"
-            className="rounded-full m-2 p-2 border-solid border-2 dark:border-1 border-primary-950 dark:border-white bg-transparent transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
-          >
-            {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
-          </button> */}
         </div>
       </form>
     </div>

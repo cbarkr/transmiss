@@ -12,7 +12,7 @@ export function ReportSubmittedModal({
   if (!show) return;
 
   return (
-    <div className="flex justify-center items-center fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm">
+    <div className="flex justify-center items-center fixed inset-0 bg-black bg-opacity-50 backdrop-blur-lg">
       <div className="flex flex-col my-1 p-2 w-[80dvw] max-w-screen-xs bg-primary-200 rounded-3xl">
         <div className="flex flex-col justify-center items-center">
           <div className="text-xl text-primary-950 my-2">

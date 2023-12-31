@@ -36,6 +36,11 @@ export default async function handler(
     const stopID = req.query.stopID as string;
     const stopIDAsNum = Number.parseInt(stopID);
 
+    if (!stopIDAsNum) {
+      res.status(400).json({ message: "Invalid stop number" });
+      return;
+    }
+
     // Stop IDs should therefore be in [10000, 99999]
     if (stopIDAsNum < 10000 || stopIDAsNum > 99999) {
       res.status(400).json({ message: "Invalid stop number" });
