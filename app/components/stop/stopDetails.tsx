@@ -2,24 +2,17 @@ import dynamic from "next/dynamic";
 
 import { IStopDetails } from "@/interfaces/stop";
 import PlaceIcon from "@mui/icons-material/Place";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const StopWarning = dynamic(() => import("./stopWarning"));
 
 interface IStopDetailsProps {
   stop: IStopDetails;
   warning?: boolean;
-  selected?: boolean;
-  showReportMenu?: boolean;
-  handleShowReportMenu?: () => void;
 }
 
 export default function StopDetails({
   stop,
   warning,
-  selected,
-  showReportMenu,
-  handleShowReportMenu,
 }: IStopDetailsProps) {
   return (
     <>
@@ -49,18 +42,6 @@ export default function StopDetails({
             </div>
           )}
         </div>
-        {selected && !showReportMenu && (
-          <div className="flex flex-row mt-1 gap-1">
-            <button
-              onClick={handleShowReportMenu}
-              type="button"
-              className="flex flex-col min-w-[5rem] w-[10dvh] min-h-[5rem] h-[10dvh] justify-center items-center text-center text-xl rounded-full bg-primary-200 text-black transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
-            >
-              <div>Report</div>
-              <ArrowForwardIcon />
-            </button>
-          </div>
-        )}
       </div>
     </>
   );
