@@ -13,8 +13,6 @@ import { Active } from "@/enums/activeComponent";
 import { ErrorText } from "@/enums/activeError";
 
 const StopSearch = dynamic(() => import("./components/stop/stopSearch"));
-const StopList = dynamic(() => import("./components/stop/stopList"));
-const StopSelected = dynamic(() => import("./components/stop/stopSelected"));
 
 export default function Home() {
   // NOTE: stop and stops should be mutually exclusive
@@ -81,20 +79,6 @@ export default function Home() {
             </div>
           )}
           {active == Active.Error && <p className="text-center">{error}</p>}
-          {active == Active.Selected && (
-            <StopSetContext.Provider
-              value={{ setStop: setStop, setActive: setActive }}
-            >
-              <StopSelected stop={stop} />
-            </StopSetContext.Provider>
-          )}
-          {active == Active.List && (
-            <StopSetContext.Provider
-              value={{ setStop: setStop, setActive: setActive }}
-            >
-              <StopList stops={stops} />
-            </StopSetContext.Provider>
-          )}
         </div>
       </div>
     </div>
