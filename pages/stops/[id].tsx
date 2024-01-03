@@ -69,7 +69,7 @@ export default function Stops() {
 
   const handleReportSubmit = () => {
     // Redirect home
-    router.push('/')
+    router.push("/");
   };
 
   return (

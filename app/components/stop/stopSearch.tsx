@@ -26,12 +26,12 @@ export default function StopSearch() {
 
   const handleNearby = () => {
     // Redirect to nearby stops page
-    router.push("/stops/nearby")
-  }
+    router.push("/stops/nearby");
+  };
 
   const submitHandler = (id: string = stopID) => {
     // Redirect to stop detail page
-    router.push(`/stops/${id}`)
+    router.push(`/stops/${id}`);
   };
 
   return (

@@ -85,7 +85,7 @@ export default function Nearby() {
 
   const handleClick = (stop: IStopDetails) => {
     // Redirect to stop detail page
-    router.push(`/stops/${stop.StopNo}`)
+    router.push(`/stops/${stop.StopNo}`);
   };
 
   // NOTE: Stops pre-ordered
