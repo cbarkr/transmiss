@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
@@ -6,8 +6,6 @@ import { defaultStopState } from "@/models/stop";
 import { IReportFrom } from "@/interfaces/from";
 import { IStopDetails } from "@/interfaces/stop";
 import { IDBRes } from "@/interfaces/dbResponse";
-import { StopSetContext } from "@/context/stop";
-import { Active } from "@/enums/activeComponent";
 
 const axios = require("axios").default;
 
@@ -21,7 +19,6 @@ const StopReport = dynamic(
 export default function Stops() {
   const mounted = useRef(false);
   const router = useRouter();
-  const { setActive } = useContext(StopSetContext);
   const [warning, setWarning] = useState(false);
   const [stop, setStop] = useState<IStopDetails>(defaultStopState);
   const stopID = router.query.id as string;
@@ -35,7 +32,7 @@ export default function Stops() {
   });
 
   const fetchStopByID = (id: string) => {
-    setActive(Active.Loading);
+    // TODO: Loading bar
 
     axios
       .get("/api/stops/search", {

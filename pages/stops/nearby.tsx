@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
-// import { Active } from "@/enums/activeComponent";
 // import { ErrorText } from "@/enums/activeError";
 import { IStopDetails } from "@/interfaces/stop";
 
@@ -39,7 +38,6 @@ export default function Nearby() {
     } else {
       // TODO: Display error
       // setError(ErrorText.LocationUnsupported);
-      // setActive(Active.Error);
     }
   };
 
@@ -51,24 +49,20 @@ export default function Nearby() {
       case error.PERMISSION_DENIED:
         // TODO: Display error
         // setError(ErrorText.LocationDenied);
-        // setActive(Active.Error);
         break;
       case error.POSITION_UNAVAILABLE:
         // TODO: Display error
         // setError(ErrorText.LocationUnavailable);
-        // setActive(Active.Error);
         break;
       default:
         // TODO: Display error
         // setError(ErrorText.LocationUnknown);
-        // setActive(Active.Error);
         break;
     }
   };
 
   const fetchStopsByLocation = (position: GeolocationPosition) => {
-    // TODO: Loading bar while stuff loads
-    // setActive(Active.Loading);
+    // TODO: Loading bar
 
     axios
       .get("/api/stops/nearby", {
@@ -82,7 +76,6 @@ export default function Nearby() {
       })
       .catch((err: any) => {
         // TODO: Display error
-        // setActive(Active.Error);
       })
       .finally(() => {
         // TODO: Share state w/ search component
