@@ -36,8 +36,7 @@ export default function Nearby() {
         },
       );
     } else {
-      // TODO: Display error
-      // setError(ErrorText.LocationUnsupported);
+      // TODO: Display error ErrorText.LocationUnsupported
     }
   };
 
@@ -47,16 +46,13 @@ export default function Nearby() {
 
     switch (error.code) {
       case error.PERMISSION_DENIED:
-        // TODO: Display error
-        // setError(ErrorText.LocationDenied);
+        // TODO: Display error ErrorText.LocationDenied
         break;
       case error.POSITION_UNAVAILABLE:
-        // TODO: Display error
-        // setError(ErrorText.LocationUnavailable);
+        // TODO: Display error ErrorText.LocationUnavailable
         break;
       default:
-        // TODO: Display error
-        // setError(ErrorText.LocationUnknown);
+        // TODO: Display error ErrorText.LocationUnknown
         break;
     }
   };
@@ -75,7 +71,7 @@ export default function Nearby() {
         setStops(res.data.data);
       })
       .catch((err: any) => {
-        // TODO: Display error
+        // TODO: Display error ErrorText.LocationUnknown
       })
       .finally(() => {
         // TODO: Share state w/ search component
