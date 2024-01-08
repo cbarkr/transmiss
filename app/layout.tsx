@@ -1,8 +1,10 @@
 import "./styles/globals.css";
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 
-import Header from "./components/header";
+const Header = dynamic(() => import("@/app/components/header"));
+const Search = dynamic(() => import("@/app/components/stop/stopSearch"));
 
 export const metadata: Metadata = {
   title: "Tranmiss",
@@ -18,7 +20,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={GeistSans.className}>
         <Header />
-        {children}
+        <div className="flex flex-row justify-center">
+          <div className="flex flex-col max-w-screen-sm">
+            <Search />
+            <main>{children}</main>
+          </div>
+        </div>
       </body>
     </html>
   );
