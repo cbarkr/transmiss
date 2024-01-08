@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -10,18 +12,18 @@ import { IDBRes } from "@/interfaces/dbResponse";
 const axios = require("axios").default;
 
 const StopDetails = dynamic(
-  () => import("../../app/components/stop/stopDetails"),
+  () => import("../../components/stop/stopDetails"),
 );
 const StopReport = dynamic(
-  () => import("../../app/components/stop/stopReport"),
+  () => import("../../components/stop/stopReport"),
 );
 
-export default function Stops() {
+export default function Stops({ params }: { params: { id: string }}) {
   const mounted = useRef(false);
   const router = useRouter();
   const [warning, setWarning] = useState(false);
   const [stop, setStop] = useState<IStopDetails>(defaultStopState);
-  const stopID = router.query.id as string;
+  const stopID = params.id;
 
   useEffect(() => {
     if (!mounted.current) {

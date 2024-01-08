@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -8,7 +10,7 @@ import { IStopDetails } from "@/interfaces/stop";
 const axios = require("axios").default;
 
 const StopDetails = dynamic(
-  () => import("../../app/components/stop/stopDetails"),
+  () => import("../../components/stop/stopDetails"),
 );
 
 export default function Nearby() {
