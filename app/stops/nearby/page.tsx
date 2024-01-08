@@ -81,16 +81,16 @@ export default function Nearby() {
       });
   };
 
-  const handleClick = (stop: IStopDetails) => {
+  const handleClick = (id: Number) => {
     // Redirect to stop detail page
-    router.push(`/stops/${stop.StopNo}`);
+    router.push(`/stops/${id}`);
   };
 
   // NOTE: Stops pre-ordered
   const stopItems = stops.map((stop: IStopDetails) => (
     <div
       key={stop.StopNo}
-      onClick={() => handleClick(stop)}
+      onClick={() => handleClick(stop.StopNo)}
       className="my-1 hover:cursor-pointer"
     >
       <StopDetails stop={stop} />
