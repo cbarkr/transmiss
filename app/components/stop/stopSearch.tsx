@@ -1,10 +1,12 @@
+"use client";
+
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import SearchIcon from "@mui/icons-material/Search";
 import GpsNotFixedIcon from "@mui/icons-material/GpsNotFixed";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 
-export default function StopSearch() {
+export default function Search() {
   const router = useRouter();
   const [stopID, setStopID] = useState("");
 

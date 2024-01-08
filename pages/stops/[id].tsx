@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import { defaultStopState } from "@/models/stop";

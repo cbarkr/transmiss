@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
 // import { ErrorText } from "@/enums/activeError";
