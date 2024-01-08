@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={GeistSans.className}>
         <Header />
         <div className="flex flex-row justify-center">
-          <div className="flex flex-col max-w-screen-sm">
+          <div className="flex flex-col w-full max-w-screen-sm">
             <Search />
             <main>{children}</main>
           </div>

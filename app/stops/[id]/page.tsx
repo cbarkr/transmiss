@@ -75,7 +75,7 @@ export default function Stops({ params }: { params: { id: string }}) {
   };
 
   return (
-    <div className="m-2">
+    <div className="mt-2 flex flex-col gap-1">
       <StopDetails stop={stop} warning={warning} />
       <StopReport stop={stop} handleReportSubmit={handleReportSubmit} />
     </div>

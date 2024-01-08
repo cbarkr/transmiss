@@ -14,7 +14,7 @@ export default function StopDetails({ stop, warning }: IStopDetailsProps) {
   return (
     <>
       {warning && <StopWarning />}
-      <div className="rounded-3xl p-4 bg-zinc-700 max-w-screen-sm">
+      <div className="rounded-3xl p-4 bg-zinc-700">
         <div className="flex flex-row justify-between my-2">
           <p className="text-2xl font-bold">{stop.StopNo}</p>
           <div className="flex flex-row">

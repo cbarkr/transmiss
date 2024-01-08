@@ -67,7 +67,7 @@ export default function StopReport({
   };
 
   return (
-    <div className="rounded-3xl my-1 p-4 max-w-screen-sm bg-primary-200">
+    <div className="rounded-3xl my-1 p-4 bg-primary-200">
       <div className="mb-4">
         <p className="text-lg text-black font-bold mb-2">
           Which bus passed you?
