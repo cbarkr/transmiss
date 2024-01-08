@@ -81,7 +81,7 @@ export default function Nearby() {
       });
   };
 
-  const handleClick = (id: Number) => {
+  const handleClick = (id: number) => {
     // Redirect to stop detail page
     router.push(`/stops/${id}`);
   };
