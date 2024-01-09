@@ -8,6 +8,7 @@ import { defaultStopState } from "@/models/stop";
 import { IReportFrom } from "@/interfaces/from";
 import { IStopDetails } from "@/interfaces/stop";
 import { IDBRes } from "@/interfaces/dbResponse";
+import stopIDIsValid from "@/utils/validate";
 
 const axios = require("axios").default;
 
@@ -22,9 +23,14 @@ export default function Stops({ params }: { params: { id: string }}) {
   const router = useRouter();
   const [warning, setWarning] = useState(false);
   const [stop, setStop] = useState<IStopDetails>(defaultStopState);
+  const [invalid, setInvalid] = useState(false);
   const stopID = params.id;
 
   useEffect(() => {
+    if (!stopIDIsValid(stopID)) {
+      setInvalid(true);
+    }
+
     fetchStopByID(stopID);
     fetchReportsByStopID(stopID);
   }, [])
