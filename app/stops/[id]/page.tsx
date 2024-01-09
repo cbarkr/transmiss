@@ -8,32 +8,35 @@ import { defaultStopState } from "@/models/stop";
 import { IReportFrom } from "@/interfaces/from";
 import { IStopDetails } from "@/interfaces/stop";
 import { IDBRes } from "@/interfaces/dbResponse";
+import { LocationError } from "@/enums/errors";
 import stopIDIsValid from "@/utils/validate";
+import StopError from "@/app/components/stop/stopError";
 
 const axios = require("axios").default;
 
-const StopDetails = dynamic(
-  () => import("../../components/stop/stopDetails"),
-);
-const StopReport = dynamic(
-  () => import("../../components/stop/stopReport"),
-);
+const StopDetails = dynamic(() => import("../../components/stop/stopDetails"));
+const StopReport = dynamic(() => import("../../components/stop/stopReport"));
 
-export default function Stops({ params }: { params: { id: string }}) {
+export default function Stops({ params }: { params: { id: string } }) {
   const router = useRouter();
+
   const [warning, setWarning] = useState(false);
   const [stop, setStop] = useState<IStopDetails>(defaultStopState);
   const [invalid, setInvalid] = useState(false);
+  const [invalidMessage, setInvalidMessage] = useState("");
+
   const stopID = params.id;
 
   useEffect(() => {
     if (!stopIDIsValid(stopID)) {
       setInvalid(true);
+      setInvalidMessage(LocationError.LocationNotFound);
+      return;
+    } else {
+      fetchStopByID(stopID);
+      fetchReportsByStopID(stopID);
     }
-
-    fetchStopByID(stopID);
-    fetchReportsByStopID(stopID);
-  }, [])
+  }, []);
 
   const fetchStopByID = (id: string) => {
     // TODO: Loading bar
@@ -49,6 +52,8 @@ export default function Stops({ params }: { params: { id: string }}) {
       })
       .catch((err: any) => {
         console.error(err);
+        setInvalid(true);
+        setInvalidMessage(LocationError.LocationNotFound);
       });
   };
 
@@ -78,8 +83,13 @@ export default function Stops({ params }: { params: { id: string }}) {
 
   return (
     <div className="mt-2 flex flex-col gap-1">
-      <StopDetails stop={stop} warning={warning} />
-      <StopReport stop={stop} handleReportSubmit={handleReportSubmit} />
+      {invalid && <StopError error={invalidMessage} />}
+      {!invalid && (
+        <>
+          <StopDetails stop={stop} warning={warning} />
+          <StopReport stop={stop} handleReportSubmit={handleReportSubmit} />
+        </>
+      )}
     </div>
   );
 }

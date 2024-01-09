@@ -4,22 +4,24 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
-// import { LocationError } from "@/enums/errors";
+import { LocationError } from "@/enums/errors";
 import { IStopDetails } from "@/interfaces/stop";
 
 const axios = require("axios").default;
 
-const StopDetails = dynamic(
-  () => import("../../components/stop/stopDetails"),
-);
+const StopDetails = dynamic(() => import("../../components/stop/stopDetails"));
+
+const StopError = dynamic(() => import("../../components/stop/stopError"));
 
 export default function Nearby() {
   const router = useRouter();
   const [stops, setStops] = useState<IStopDetails[]>([]);
+  const [invalid, setInvalid] = useState(false);
+  const [invalidMessage, setInvalidMessage] = useState("");
 
   useEffect(() => {
     getCoords();
-  }, [])
+  }, []);
 
   const getCoords = () => {
     if (navigator.geolocation) {
@@ -34,7 +36,8 @@ export default function Nearby() {
         },
       );
     } else {
-      // TODO: Display error LocationError.LocationUnsupported
+      setInvalid(true);
+      setInvalidMessage(LocationError.LocationUnsupported);
     }
   };
 
@@ -44,13 +47,16 @@ export default function Nearby() {
 
     switch (error.code) {
       case error.PERMISSION_DENIED:
-        // TODO: Display error LocationError.LocationDenied
+        setInvalid(true);
+        setInvalidMessage(LocationError.LocationDenied);
         break;
       case error.POSITION_UNAVAILABLE:
-        // TODO: Display error LocationError.LocationUnavailable
+        setInvalid(true);
+        setInvalidMessage(LocationError.LocationUnavailable);
         break;
       default:
-        // TODO: Display error LocationError.LocationUnknown
+        setInvalid(true);
+        setInvalidMessage(LocationError.LocationUnknown);
         break;
     }
   };
@@ -69,7 +75,8 @@ export default function Nearby() {
         setStops(res.data.data);
       })
       .catch((err: any) => {
-        // TODO: Display error LocationError.LocationUnknown
+        setInvalid(true);
+        setInvalidMessage(LocationError.LocationUnknown);
       })
       .finally(() => {
         // TODO: Share state w/ search component
@@ -93,5 +100,10 @@ export default function Nearby() {
     </div>
   ));
 
-  return <div className="mt-2">{stopItems}</div>;
+  return (
+    <div className="mt-2">
+      {invalid && <StopError error={invalidMessage} />}
+      {!invalid && <>{stopItems}</>}
+    </div>
+  );
 }
