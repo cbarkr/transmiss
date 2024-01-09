@@ -91,11 +91,11 @@ export default function Nearby() {
     <div
       key={stop.StopNo}
       onClick={() => handleClick(stop.StopNo)}
-      className="my-1 hover:cursor-pointer"
+      className="my-2 hover:cursor-pointer"
     >
       <StopDetails stop={stop} />
     </div>
   ));
 
-  return <div className="m-2">{stopItems}</div>;
+  return <div className="mt-2">{stopItems}</div>;
 }
