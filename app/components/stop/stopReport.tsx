@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 import { IStopDetails } from "@/interfaces/stop";
 import { PeopleCounter } from "../peopleCounter";
 import { RouteSelector } from "../routeSelector";
 import { SubmitButton } from "../submitButton";
 import { ReportSubmittedModal } from "../reportSubmittedModal";
-import { usePrevious } from "../../hooks/prev";
 
 const axios = require("axios").default;
 
@@ -21,19 +20,6 @@ export default function StopReport({
   const [numPeople, setNumPeople] = useState(0);
   const [routeID, setRouteID] = useState("");
   const [showModal, setShowModal] = useState(false);
-
-  const mounted = useRef(false);
-  const previousStop = usePrevious(stop);
-
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-    } else {
-      if (stop !== previousStop) {
-        resetState();
-      }
-    }
-  }, [stop, previousStop]);
 
   const resetState = () => {
     setNumPeople(0);

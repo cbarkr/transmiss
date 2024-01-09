@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
@@ -19,19 +19,15 @@ const StopReport = dynamic(
 );
 
 export default function Stops({ params }: { params: { id: string }}) {
-  const mounted = useRef(false);
   const router = useRouter();
   const [warning, setWarning] = useState(false);
   const [stop, setStop] = useState<IStopDetails>(defaultStopState);
   const stopID = params.id;
 
   useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      fetchStopByID(stopID);
-      fetchReportsByStopID(stopID);
-    }
-  });
+    fetchStopByID(stopID);
+    fetchReportsByStopID(stopID);
+  }, [])
 
   const fetchStopByID = (id: string) => {
     // TODO: Loading bar

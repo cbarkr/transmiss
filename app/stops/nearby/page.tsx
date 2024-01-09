@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
@@ -14,16 +14,12 @@ const StopDetails = dynamic(
 );
 
 export default function Nearby() {
-  const mounted = useRef(false);
   const router = useRouter();
   const [stops, setStops] = useState<IStopDetails[]>([]);
 
   useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      getCoords();
-    }
-  });
+    getCoords();
+  }, [])
 
   const getCoords = () => {
     if (navigator.geolocation) {
