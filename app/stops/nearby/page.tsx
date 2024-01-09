@@ -27,8 +27,6 @@ export default function Nearby() {
 
   const getCoords = () => {
     if (navigator.geolocation) {
-      // TODO: Share state w/ search component
-      // setLocationInUse(true);
       navigator.geolocation.getCurrentPosition(
         fetchStopsByLocation,
         navigatorError,
@@ -44,9 +42,6 @@ export default function Nearby() {
   };
 
   const navigatorError = (error: GeolocationPositionError) => {
-    // TODO: Share state w/ search component
-    // setLocationInUse(false);
-
     switch (error.code) {
       case error.PERMISSION_DENIED:
         setInvalid(true);
@@ -82,8 +77,6 @@ export default function Nearby() {
       })
       .finally(() => {
         setLoading(false);
-        // TODO: Share state w/ search component
-        // setLocationInUse(false);
       });
   };
 
