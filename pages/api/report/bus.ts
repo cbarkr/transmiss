@@ -3,7 +3,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { PutCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
 import { Report } from "@/models/report";
-import { ReportType } from "@/enums/reportType";
+import { ReportType } from "@/enums/reportTypes";
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION,

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
-// import { ErrorText } from "@/enums/activeError";
+// import { LocationErrors } from "@/enums/activeError";
 import { IStopDetails } from "@/interfaces/stop";
 
 const axios = require("axios").default;
@@ -34,7 +34,7 @@ export default function Nearby() {
         },
       );
     } else {
-      // TODO: Display error ErrorText.LocationUnsupported
+      // TODO: Display error LocationErrors.LocationUnsupported
     }
   };
 
@@ -44,13 +44,13 @@ export default function Nearby() {
 
     switch (error.code) {
       case error.PERMISSION_DENIED:
-        // TODO: Display error ErrorText.LocationDenied
+        // TODO: Display error LocationErrors.LocationDenied
         break;
       case error.POSITION_UNAVAILABLE:
-        // TODO: Display error ErrorText.LocationUnavailable
+        // TODO: Display error LocationErrors.LocationUnavailable
         break;
       default:
-        // TODO: Display error ErrorText.LocationUnknown
+        // TODO: Display error LocationErrors.LocationUnknown
         break;
     }
   };
@@ -69,7 +69,7 @@ export default function Nearby() {
         setStops(res.data.data);
       })
       .catch((err: any) => {
-        // TODO: Display error ErrorText.LocationUnknown
+        // TODO: Display error LocationErrors.LocationUnknown
       })
       .finally(() => {
         // TODO: Share state w/ search component
