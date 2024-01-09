@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
+import { CircularProgress } from "@mui/material";
 import { LocationError } from "@/enums/errors";
 import { IStopDetails } from "@/interfaces/stop";
 
@@ -16,6 +17,7 @@ const StopError = dynamic(() => import("../../components/stop/stopError"));
 export default function Nearby() {
   const router = useRouter();
   const [stops, setStops] = useState<IStopDetails[]>([]);
+  const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [invalidMessage, setInvalidMessage] = useState("");
 
@@ -62,7 +64,7 @@ export default function Nearby() {
   };
 
   const fetchStopsByLocation = (position: GeolocationPosition) => {
-    // TODO: Loading bar
+    setLoading(true);
 
     axios
       .get("/api/stops/nearby", {
@@ -79,6 +81,7 @@ export default function Nearby() {
         setInvalidMessage(LocationError.LocationUnknown);
       })
       .finally(() => {
+        setLoading(false);
         // TODO: Share state w/ search component
         // setLocationInUse(false);
       });
@@ -102,8 +105,13 @@ export default function Nearby() {
 
   return (
     <div className="mt-2">
+      {loading && (
+        <div className="flex flex-col items-center">
+          <CircularProgress color="inherit" />
+        </div>
+      )}
       {invalid && <StopError error={invalidMessage} />}
-      {!invalid && <>{stopItems}</>}
+      {!loading && !invalid && <>{stopItems}</>}
     </div>
   );
 }
