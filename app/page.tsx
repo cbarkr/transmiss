@@ -9,7 +9,7 @@ export default function Home() {
             <BusAlertIcon fontSize="large" />
             <h1 className="text-2xl font-bold">Transit missing the mark?</h1>
             <h2 className="text-sm text-gray-200">
-              Search for a stop and say something about it
+              Search for a stop and say something
             </h2>
           </div>
         </div>
