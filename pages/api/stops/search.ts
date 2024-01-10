@@ -8,6 +8,7 @@ import {
 
 import { IStopDetails, IStoredStopDetails } from "@/interfaces/stop";
 import { IAPIRes } from "@/interfaces/apiResponse";
+import stopIDIsValid from "@/utils/validate";
 import expiryEpochInSeconds from "@/utils/expiry";
 
 const axios = require("axios").default;
@@ -22,40 +23,22 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === "GET") {
-    if (!req.query.stopID) {
-      res.status(400).json({ message: "A stop number must be provided" });
-      return;
-    }
-
-    if (req.query.stopID?.length !== 5) {
-      res.status(400).json({ message: "Invalid stop number" });
-      return;
-    }
-
-    // Stop IDs are numbers (i.e. no leading 0's when casted to a number)
     const stopID = req.query.stopID as string;
-    const stopIDAsNum = Number.parseInt(stopID);
 
-    if (!stopIDAsNum) {
-      res.status(400).json({ message: "Invalid stop number" });
-      return;
-    }
-
-    // Stop IDs should therefore be in [10000, 99999]
-    if (stopIDAsNum < 10000 || stopIDAsNum > 99999) {
+    if (!stopIDIsValid(stopID)) {
       res.status(400).json({ message: "Invalid stop number" });
       return;
     }
 
     // Check if the requested stop is in the DB
-    const db_stop = await getStopFromDB(stopIDAsNum);
+    const db_stop = await getStopFromDB(stopID);
     if (db_stop) {
       res.status(200).json({ data: db_stop as IStopDetails });
       return;
     }
 
     // Otherwise, retrieve from RTTI API
-    const api_stop = await getStopFromRTTIAPI(stopIDAsNum);
+    const api_stop = await getStopFromRTTIAPI(stopID);
     if (api_stop) {
       res.status(200).json({ data: api_stop as IStopDetails });
       return;
@@ -67,12 +50,12 @@ export default async function handler(
 }
 
 async function getStopFromDB(
-  stopID: number,
+  stopID: string,
 ): Promise<Record<string, any> | null> {
   const command = new GetCommand({
     TableName: process.env.AWS_STOPS_TABLE_NAME,
     Key: {
-      StopNo: stopID,
+      StopNo: Number.parseInt(stopID),
     },
   });
 
@@ -80,7 +63,7 @@ async function getStopFromDB(
   return response.Item ? response.Item : null;
 }
 
-function getStopFromRTTIAPI(stopID: number): Promise<object | null> {
+function getStopFromRTTIAPI(stopID: string): Promise<object | null> {
   return new Promise((resolve) => {
     axios
       .request({

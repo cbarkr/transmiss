@@ -1,19 +1,16 @@
-import { useState, useContext } from "react";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import SearchIcon from "@mui/icons-material/Search";
 import GpsNotFixedIcon from "@mui/icons-material/GpsNotFixed";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 
-import { StopSearchContext } from "@/context/stop";
-import { Active } from "@/enums/activeComponent";
-import { ErrorText } from "@/enums/activeError";
-
-const axios = require("axios").default;
-
-export default function StopSearch() {
-  const { setStop, setStops, setActive, setError } =
-    useContext(StopSearchContext);
-
+export default function Search() {
+  const router = useRouter();
   const [stopID, setStopID] = useState("");
+
+  // TODO: Share state with nearby page
   const [locationInUse, setLocationInUse] = useState(false);
 
   const handleSubmit = (e: any) => {
@@ -29,85 +26,14 @@ export default function StopSearch() {
     }
   };
 
+  const handleNearby = () => {
+    // Redirect to nearby stops page
+    router.push("/stops/nearby");
+  };
+
   const submitHandler = (id: string = stopID) => {
-    fetchStopByID(id);
-  };
-
-  const getCoords = () => {
-    if (navigator.geolocation) {
-      setLocationInUse(true);
-      navigator.geolocation.getCurrentPosition(
-        fetchStopsByLocation,
-        navigatorError,
-        {
-          enableHighAccuracy: true,
-          maximumAge: 0,
-        },
-      );
-    } else {
-      setError(ErrorText.LocationUnsupported);
-      setActive(Active.Error);
-    }
-  };
-
-  const navigatorError = (error: GeolocationPositionError) => {
-    setLocationInUse(false);
-
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        setError(ErrorText.LocationDenied);
-        setActive(Active.Error);
-        break;
-      case error.POSITION_UNAVAILABLE:
-        setError(ErrorText.LocationUnavailable);
-        setActive(Active.Error);
-        break;
-      default:
-        setError(ErrorText.LocationUnknown);
-        setActive(Active.Error);
-        break;
-    }
-  };
-
-  const fetchStopByID = (id: string) => {
-    setActive(Active.Loading);
-
-    axios
-      .get("/api/stops/search", {
-        params: {
-          stopID: id,
-        },
-      })
-      .then((res: any) => {
-        setStop(res.data.data);
-        setStops([]);
-        setActive(Active.Selected);
-      })
-      .catch((err: any) => {
-        setActive(Active.Error);
-      });
-  };
-
-  const fetchStopsByLocation = (position: GeolocationPosition) => {
-    setActive(Active.Loading);
-
-    axios
-      .get("/api/stops/nearby", {
-        params: {
-          lat: position.coords.latitude,
-          long: position.coords.longitude,
-        },
-      })
-      .then((res: any) => {
-        setStops(res.data.data);
-        setActive(Active.List);
-      })
-      .catch((err: any) => {
-        setActive(Active.Error);
-      })
-      .finally(() => {
-        setLocationInUse(false);
-      });
+    // Redirect to stop detail page
+    router.push(`/stops/${id}`);
   };
 
   return (
@@ -133,7 +59,7 @@ export default function StopSearch() {
               className="w-full rounded-3xl m-2 pl-2 bg-transparent outline-none text-black"
             ></input>
             <button
-              onClick={getCoords}
+              onClick={handleNearby}
               type="button"
               className="rounded-full m-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
             >
