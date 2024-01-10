@@ -23,6 +23,8 @@ export default function RootLayout({
         <div className="flex flex-row justify-center">
           <div className="flex flex-col w-full mx-2 max-w-screen-sm">
             <Search />
+            {/* TODO: Resolve "Received NaN for the children attribute" error */}
+            {/* TODO: Try https://github.com/storybookjs/react-inspector/issues/42 */}
             <main>{children}</main>
           </div>
         </div>
