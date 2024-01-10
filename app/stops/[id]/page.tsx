@@ -36,7 +36,6 @@ export default function Stops({ params }: { params: { id: string } }) {
       return;
     } else {
       fetchStopByID(stopID);
-      fetchReportsByStopID(stopID);
     }
   }, []);
 
@@ -51,6 +50,7 @@ export default function Stops({ params }: { params: { id: string } }) {
       })
       .then((res: any) => {
         setStop(res.data.data);
+        fetchReportsByStopID(id);
       })
       .catch((err: any) => {
         console.error(err);
