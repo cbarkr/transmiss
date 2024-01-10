@@ -14,9 +14,9 @@ export default function StopDetails({ stop, warning }: IStopDetailsProps) {
   return (
     <>
       {warning && <StopWarning />}
-      <div className="rounded-3xl p-4 bg-zinc-700 max-w-screen-sm">
+      <div className="rounded-3xl p-4 bg-zinc-700">
         <div className="flex flex-row justify-between my-2">
-          <p className="text-2xl font-bold">{stop.StopNo}</p>
+          <p className="text-2xl font-bold">{String(stop.StopNo)}</p>
           <div className="flex flex-row">
             {stop.Routes.split(",").map((route: string) => (
               <div
@@ -35,7 +35,7 @@ export default function StopDetails({ stop, warning }: IStopDetailsProps) {
           {stop.Distance > 0 && (
             <div className="flex flex-row">
               <PlaceIcon />
-              <p className="text-sm">{stop.Distance}m</p>
+              <p className="text-sm">{String(stop.Distance)}m</p>
             </div>
           )}
         </div>
