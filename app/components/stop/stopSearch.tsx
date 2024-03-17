@@ -40,12 +40,13 @@ export default function Search() {
     <div className="w-full">
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-row gap-1 items-center">
-          <div className="flex flex-row w-full items-center rounded-full bg-white text-black">
-            <button
-              type="submit"
-              className="rounded-full mx-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+          <div className="flex flex-row w-full items-center border-b-2">
+          <button
+              onClick={handleNearby}
+              type="button"
+              className="m-2 p-2"
             >
-              <SearchIcon />
+              {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
             </button>
             <input
               onChange={(e) => handleChange(e.target.value)}
@@ -56,14 +57,13 @@ export default function Search() {
               type="text"
               inputMode="decimal"
               placeholder="Search by stop number"
-              className="w-full rounded-3xl m-2 pl-2 bg-transparent outline-none text-black"
+              className="w-full m-2 pl-2 bg-transparent outline-none md:text-2xl"
             ></input>
             <button
-              onClick={handleNearby}
-              type="button"
-              className="rounded-full m-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+              type="submit"
+              className="mx-2 p-2"
             >
-              {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
+              <SearchIcon />
             </button>
           </div>
         </div>
