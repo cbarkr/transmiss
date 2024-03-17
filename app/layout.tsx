@@ -1,8 +1,8 @@
 import "./styles/globals.css";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 
 const Header = dynamic(() => import("@/app/components/header"));
 

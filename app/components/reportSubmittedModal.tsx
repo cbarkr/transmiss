@@ -18,9 +18,7 @@ export function ReportSubmittedModal({
           <div className="text-xl my-2">
             <CheckCircleIcon fontSize="large" />
           </div>
-          <h3 className="text-xl leading-6">
-            Report submitted!
-          </h3>
+          <h3 className="text-xl leading-6">Report submitted!</h3>
         </div>
         <div className="flex flex-col items-center">
           <button

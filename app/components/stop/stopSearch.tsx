@@ -41,11 +41,7 @@ export default function Search() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-row gap-1 items-center">
           <div className="flex flex-row w-full items-center border-b-2">
-          <button
-              onClick={handleNearby}
-              type="button"
-              className="m-2 p-2"
-            >
+            <button onClick={handleNearby} type="button" className="m-2 p-2">
               {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
             </button>
             <input
@@ -59,10 +55,7 @@ export default function Search() {
               placeholder="Search by stop number"
               className="w-full m-2 pl-2 bg-transparent outline-none md:text-2xl"
             ></input>
-            <button
-              type="submit"
-              className="mx-2 p-2"
-            >
+            <button type="submit" className="mx-2 p-2">
               <SearchIcon />
             </button>
           </div>

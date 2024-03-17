@@ -55,9 +55,7 @@ export default function StopReport({
   return (
     <div className="flex flex-col gap-12 my-2">
       <div className="flex flex-col mt-4 gap-4">
-        <p className="text-2xl font-bold">
-          1. Which bus passed you?
-        </p>
+        <p className="text-2xl font-bold">1. Which bus passed you?</p>
         <RouteSelector
           interactive={true}
           routes={stop.Routes}
@@ -75,7 +73,7 @@ export default function StopReport({
         />
       </div>
       <SubmitButton
-        disabled={(!routeID || !numPeople)}
+        disabled={!routeID || !numPeople}
         handler={handleFullSubmit}
       />
       <ReportSubmittedModal show={showModal} handler={handleModalClose} />
