@@ -18,7 +18,6 @@ const StopDetails = dynamic(() => import("../../components/stop/stopDetails"));
 const StopReport = dynamic(() => import("../../components/stop/stopReport"));
 
 export default function Stops({ params }: { params: { id: string } }) {
-
   const [warning, setWarning] = useState(false);
   const [stop, setStop] = useState<IStopDetails>(defaultStopState);
   const [loading, setLoading] = useState(false);

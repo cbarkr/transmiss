@@ -4,7 +4,7 @@ export default function StopError({ error }: { error: string }) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/stops")
+    router.push("/stops");
   };
 
   return (
@@ -16,7 +16,7 @@ export default function StopError({ error }: { error: string }) {
       <div>
         <button
           onClick={handleClick}
-          type="button" 
+          type="button"
           className="p-2 border-2 rounded-2xl font-mono"
         >
           ← Go back

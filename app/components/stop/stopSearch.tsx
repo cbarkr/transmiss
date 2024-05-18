@@ -36,7 +36,9 @@ export default function Search() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="flex flex-col gap-2">
           <div>
-            <label htmlFor="stop-input" className="flex items-start">Stop Number</label>
+            <label htmlFor="stop-input" className="flex items-start">
+              Stop Number
+            </label>
             <div className="flex flex-row w-full items-center border-b-2">
               <input
                 id="stop-input"
@@ -57,7 +59,11 @@ export default function Search() {
           </div>
           <div>or</div>
           <div>
-            <button onClick={handleNearby} type="button" className="p-2 border-2 rounded-2xl font-mono">
+            <button
+              onClick={handleNearby}
+              type="button"
+              className="p-2 border-2 rounded-2xl font-mono"
+            >
               Use my location
             </button>
           </div>

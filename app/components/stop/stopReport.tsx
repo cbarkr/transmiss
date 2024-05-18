@@ -12,7 +12,7 @@ interface IStopReportProps {
   stop: IStopDetails;
 }
 
-export default function StopReport({stop}: IStopReportProps) {
+export default function StopReport({ stop }: IStopReportProps) {
   const router = useRouter();
   const [numPeople, setNumPeople] = useState(0);
   const [routeID, setRouteID] = useState("");
@@ -60,10 +60,7 @@ export default function StopReport({stop}: IStopReportProps) {
           handler={(newNum) => setNumPeople(newNum)}
         />
       </div>
-      <SubmitButton
-        disabled={!routeID || !numPeople}
-        handler={handleSubmit}
-      />
+      <SubmitButton disabled={!routeID || !numPeople} handler={handleSubmit} />
     </div>
   );
 }

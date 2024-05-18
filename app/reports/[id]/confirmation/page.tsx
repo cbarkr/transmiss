@@ -1,7 +1,7 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function Confirmation({ params }: { params: { id: string } }) {
-  console.log(params.id)
+  console.log(params.id);
 
   return (
     <div className="w-full">
@@ -15,7 +15,10 @@ export default function Confirmation({ params }: { params: { id: string } }) {
           </div>
           <div>We received your report</div>
         </div>
-        <a href="/stops" className="text-2xl font-mono text-blue-400 hover:underline underline-offset-4">
+        <a
+          href="/stops"
+          className="text-2xl font-mono text-blue-400 hover:underline underline-offset-4"
+        >
           ← Make a new report
         </a>
       </div>
