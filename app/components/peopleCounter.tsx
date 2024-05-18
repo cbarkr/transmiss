@@ -10,7 +10,7 @@ export function PeopleCounter({ currNum, handler }: IPeopleCounterProps) {
   };
 
   return (
-    <div className="flex flex-row items-center gap-2 w-fit ">
+    <div className="flex flex-row items-center gap-2 w-fit">
       ↳
       {/* TODO: Consider getting estimate instead? Like https://transitapp.com/rats */}
       <button

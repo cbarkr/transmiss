@@ -24,7 +24,7 @@ export function RouteSelector({
   return (
     <>
       {interactive && (
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center gap-2 w-fit">
           ↳
           {routesArr.map((route: string, idx: number) => (
             <>
