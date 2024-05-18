@@ -19,7 +19,7 @@ export function RouteSelector({
     if (interactive) {
       handler(routesArr[0]); // Select first route by default
     }
-  }, []);
+  }, [interactive, handler, routesArr]);
 
   return (
     <>
