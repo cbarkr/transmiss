@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import { CircularProgress } from "@mui/material";
@@ -19,7 +18,6 @@ const StopDetails = dynamic(() => import("../../components/stop/stopDetails"));
 const StopReport = dynamic(() => import("../../components/stop/stopReport"));
 
 export default function Stops({ params }: { params: { id: string } }) {
-  const router = useRouter();
 
   const [warning, setWarning] = useState(false);
   const [stop, setStop] = useState<IStopDetails>(defaultStopState);
@@ -81,11 +79,6 @@ export default function Stops({ params }: { params: { id: string } }) {
       });
   };
 
-  const handleReportSubmit = () => {
-    // Redirect home
-    router.push("/");
-  };
-
   return (
     <div className="mt-2 flex flex-col gap-1">
       {loading && (
@@ -97,7 +90,7 @@ export default function Stops({ params }: { params: { id: string } }) {
       {!loading && !invalid && (
         <>
           <StopDetails stop={stop} warning={warning} />
-          <StopReport stop={stop} handleReportSubmit={handleReportSubmit} />
+          <StopReport stop={stop} />
         </>
       )}
     </div>
