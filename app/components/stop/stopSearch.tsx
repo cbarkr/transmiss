@@ -3,15 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import SearchIcon from "@mui/icons-material/Search";
-import GpsNotFixedIcon from "@mui/icons-material/GpsNotFixed";
-import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 
 export default function Search() {
   const router = useRouter();
   const [stopID, setStopID] = useState("");
-
-  // TODO: Share state with nearby page
-  const [locationInUse, setLocationInUse] = useState(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -39,31 +34,37 @@ export default function Search() {
   return (
     <div className="w-full">
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="flex flex-row gap-1 items-center">
-          <div className="flex flex-row w-full items-center rounded-full bg-white text-black">
-            <button
-              type="submit"
-              className="rounded-full mx-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
-            >
-              <SearchIcon />
-            </button>
-            <input
-              onChange={(e) => handleChange(e.target.value)}
-              value={stopID}
-              min={0}
-              max={99999}
-              pattern="[0-9]{5}"
-              type="text"
-              inputMode="decimal"
-              placeholder="Search by stop number"
-              className="w-full rounded-3xl m-2 pl-2 bg-transparent outline-none text-black"
-            ></input>
+        <div className="flex flex-col gap-2">
+          <div>
+            <label htmlFor="stop-input" className="flex items-start">
+              Stop Number
+            </label>
+            <div className="flex flex-row w-full items-center border-b-2">
+              <input
+                id="stop-input"
+                onChange={(e) => handleChange(e.target.value)}
+                value={stopID}
+                min={0}
+                max={99999}
+                pattern="[0-9]{5}"
+                type="text"
+                inputMode="decimal"
+                placeholder="12345"
+                className="w-full font-mono bg-transparent outline-none md:text-xl"
+              ></input>
+              <button type="submit" className="p-2">
+                <SearchIcon />
+              </button>
+            </div>
+          </div>
+          <div>or</div>
+          <div>
             <button
               onClick={handleNearby}
               type="button"
-              className="rounded-full m-2 p-2 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+              className="p-2 border-2 rounded-2xl font-mono"
             >
-              {locationInUse ? <GpsFixedIcon /> : <GpsNotFixedIcon />}
+              Use my location
             </button>
           </div>
         </div>

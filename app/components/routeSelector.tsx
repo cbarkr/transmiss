@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 interface IRouteSelectorProps {
   interactive: boolean;
   routes: string;
@@ -11,35 +13,49 @@ export function RouteSelector({
   handler,
   curr,
 }: IRouteSelectorProps) {
+  const routesArr = routes.split(",");
+
+  useEffect(() => {
+    if (interactive) {
+      handler(routesArr[0]); // Select first route by default
+    }
+  }, [interactive, handler, routesArr]);
+
   return (
     <>
       {interactive && (
-        <div className="flex flex-row items-center">
-          {routes.split(",").map((route: string) => (
-            <button
-              key={route}
-              type="button"
-              disabled={curr === route}
-              onClick={() => handler(route)}
-              className="rounded-full min-w-[3rem] min-h-[3rem] text-xl font-bold text-primary-200 bg-primary-950 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
-            >
-              {route ? route : "N/A"}
-            </button>
+        <div className="flex flex-row items-center gap-2 w-fit">
+          ↳
+          {routesArr.map((route: string, idx: number) => (
+            <>
+              <button
+                key={route}
+                type="button"
+                onClick={() => handler(route)}
+                className={`text-lg font-bold font-mono px-2 ${
+                  curr && curr === route ? "bg-white text-black" : "text-white"
+                }`}
+              >
+                {route ? route : "N/A"}
+              </button>
+              {idx !== routesArr.length - 1 && (
+                <div key={`${route}-slash`}>/</div>
+              )}
+            </>
           ))}
         </div>
       )}
       {!interactive && (
         <div className="flex flex-row items-center">
-          {routes.split(",").map((route: string) => (
-            <button
-              key={route}
-              type="button"
-              disabled={curr === route}
-              onClick={() => handler(route)}
-              className="rounded-full py-2 px-4 mx-1 text-sm font-bold text-primary-200 bg-primary-950 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
-            >
-              {route ? route : "N/A"}
-            </button>
+          {routesArr.map((route: string, idx: number) => (
+            <>
+              <div key={route} className="text-lg font-bold font-mono px-2">
+                {route ? route : "N/A"}
+              </div>
+              {idx !== routesArr.length - 1 && (
+                <div key={`${route}-slash`}>/</div>
+              )}
+            </>
           ))}
         </div>
       )}

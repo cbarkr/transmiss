@@ -90,7 +90,7 @@ export default function Nearby() {
     <div
       key={stop.StopNo}
       onClick={() => handleClick(stop.StopNo)}
-      className="my-2 hover:cursor-pointer"
+      className="my-2 hover:cursor-pointer hover:bg-white hover:text-black"
     >
       <StopDetails stop={stop} />
     </div>

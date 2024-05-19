@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 
 import { IStopDetails } from "@/interfaces/stop";
+import { RouteSelector } from "../routeSelector";
 import PlaceIcon from "@mui/icons-material/Place";
 
 const StopWarning = dynamic(() => import("./stopWarning"));
@@ -14,19 +15,15 @@ export default function StopDetails({ stop, warning }: IStopDetailsProps) {
   return (
     <>
       {warning && <StopWarning />}
-      <div className="rounded-3xl p-4 bg-zinc-700">
+      <div className="pb-2 border-b-2">
         <div className="flex flex-row justify-between my-2">
-          <p className="text-2xl font-bold">{String(stop.StopNo)}</p>
-          <div className="flex flex-row">
-            {stop.Routes.split(",").map((route: string) => (
-              <div
-                key={route}
-                className="rounded-3xl py-2 px-4 mx-1 font-bold bg-primary-200 text-sm text-primary-950"
-              >
-                {route ? route : "N/A"}
-              </div>
-            ))}
-          </div>
+          <p className="text-4xl font-bold">{String(stop.StopNo)}</p>
+          <RouteSelector
+            interactive={false}
+            routes={stop.Routes}
+            handler={() => null}
+            curr={""}
+          />
         </div>
         <div className="flex flex-row justify-between">
           <p className="text-sm">
