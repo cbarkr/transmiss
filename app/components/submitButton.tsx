@@ -5,16 +5,18 @@ interface ISubmitButtonProps {
 
 export function SubmitButton({ disabled, handler }: ISubmitButtonProps) {
   return (
-    <div className="flex my-2">
+    <div className="flex flex-col items-center">
       <button
         type="button"
         disabled={disabled}
         onClick={handler}
-        className="flex-grow basis-1 rounded-full px-2 py-4 text-primary-200 bg-primary-950 transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-75 disabled:shadow-none"
+        className={`border-2 rounded-2xl p-2 font-mono text-xl hover:underline underline-offset-4 ${
+          disabled
+            ? "border-blue-400/75 text-blue-400/75"
+            : "border-blue-400 text-blue-400"
+        }`}
       >
-        <div className="flex flex-row justify-center">
-          <p>Submit</p>
-        </div>
+        Submit report
       </button>
     </div>
   );

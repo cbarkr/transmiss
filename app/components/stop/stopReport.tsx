@@ -1,40 +1,28 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { IStopDetails } from "@/interfaces/stop";
 import { PeopleCounter } from "../peopleCounter";
 import { RouteSelector } from "../routeSelector";
 import { SubmitButton } from "../submitButton";
-import { ReportSubmittedModal } from "../reportSubmittedModal";
 
 const axios = require("axios").default;
 
 interface IStopReportProps {
   stop: IStopDetails;
-  handleReportSubmit: () => void;
 }
 
-export default function StopReport({
-  stop,
-  handleReportSubmit,
-}: IStopReportProps) {
+export default function StopReport({ stop }: IStopReportProps) {
+  const router = useRouter();
   const [numPeople, setNumPeople] = useState(0);
   const [routeID, setRouteID] = useState("");
-  const [showModal, setShowModal] = useState(false);
 
-  const resetState = () => {
-    setNumPeople(0);
-    setRouteID("");
-    setShowModal(false);
-  };
-
-  const handleFullSubmit = () => {
+  const handleSubmit = () => {
     postReport("/api/report/bus");
-    setShowModal(true);
   };
 
-  const handleModalClose = () => {
-    resetState();
-    handleReportSubmit();
+  const handleRedirect = (report_uuid: string) => {
+    router.push(`/reports/${report_uuid}/confirmation`);
   };
 
   const postReport = (url: string) => {
@@ -45,7 +33,7 @@ export default function StopReport({
         route_id: routeID,
       })
       .then((res: any) => {
-        console.log(res);
+        handleRedirect(res.data.data.report_id);
       })
       .catch((err: any) => {
         console.error(err);
@@ -53,11 +41,9 @@ export default function StopReport({
   };
 
   return (
-    <div className="rounded-3xl my-1 p-4 bg-primary-200">
-      <div className="mb-4">
-        <p className="text-lg text-black font-bold mb-2">
-          Which bus passed you?
-        </p>
+    <div className="flex flex-col gap-12 my-2">
+      <div className="flex flex-col mt-4 gap-2">
+        <p className="text-2xl font-bold">1. Which bus passed you?</p>
         <RouteSelector
           interactive={true}
           routes={stop.Routes}
@@ -65,20 +51,16 @@ export default function StopReport({
           curr={routeID}
         />
       </div>
-      <div className="mb-4">
-        <p className="text-lg text-black font-bold mb-2">
-          Roughly how many people are at this stop?
+      <div className="flex flex-col gap-2">
+        <p className="text-2xl font-bold">
+          2. How many people are at this stop?
         </p>
         <PeopleCounter
           currNum={numPeople}
           handler={(newNum) => setNumPeople(newNum)}
         />
       </div>
-      <SubmitButton
-        disabled={routeID.length === 0}
-        handler={handleFullSubmit}
-      />
-      <ReportSubmittedModal show={showModal} handler={handleModalClose} />
+      <SubmitButton disabled={!routeID || !numPeople} handler={handleSubmit} />
     </div>
   );
 }
