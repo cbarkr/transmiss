@@ -22,7 +22,7 @@ export function RouteSelector({
   }, [interactive, handler, routesArr]);
 
   return (
-    <>
+    <div>
       {interactive && (
         <div className="flex flex-row items-center gap-2 w-fit">
           ↳
@@ -59,6 +59,6 @@ export function RouteSelector({
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
