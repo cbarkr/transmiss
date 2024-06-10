@@ -25,10 +25,12 @@ export async function GET(request: NextRequest) {
   const long = searchParams.get("long") as string;
 
   if (!lat || !long) {
-    return Response.json({
-      status: 400,
-      message: "A location must be provided",
-    });
+    return Response.json(
+      {
+        message: "A location must be provided",
+      },
+      { status: 400 },
+    );
   }
 
   // Note: Translink API requires lat and lon be 6 decimals max
@@ -40,17 +42,21 @@ export async function GET(request: NextRequest) {
   const api_stops = await getStopsFromRTTIAPI(req);
 
   if (api_stops) {
-    return Response.json({
-      status: 200,
-      data: api_stops as IStopDetails[],
-    });
+    return Response.json(
+      {
+        data: api_stops as IStopDetails[],
+      },
+      { status: 200 },
+    );
   }
 
   // If we haven't returned by now, something has gone wrong
-  return Response.json({
-    status: 500,
-    message: "Error retrieving stop data :(",
-  });
+  return Response.json(
+    {
+      message: "Error retrieving stop data :(",
+    },
+    { status: 500 },
+  );
 }
 
 function getStopsFromRTTIAPI(

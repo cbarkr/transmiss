@@ -15,17 +15,21 @@ export async function GET(request: NextRequest) {
   const stopID = searchParams.get("StopNo") as string;
 
   if (!stopID) {
-    return Response.json({
-      status: 400,
-      message: "A stop number must be provided",
-    });
+    return Response.json(
+      {
+        message: "A stop number must be provided",
+      },
+      { status: 400 },
+    );
   }
 
   if (!stopIDIsValid(stopID)) {
-    return Response.json({
-      status: 400,
-      message: "Invalid stop number",
-    });
+    return Response.json(
+      {
+        message: "Invalid stop number",
+      },
+      { status: 400 },
+    );
   }
 
   // Query reports from the past hour
@@ -65,8 +69,10 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  return Response.json({
-    status: 200,
-    data: reports,
-  });
+  return Response.json(
+    {
+      data: reports,
+    },
+    { status: 200 },
+  );
 }

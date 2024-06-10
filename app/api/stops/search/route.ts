@@ -23,35 +23,43 @@ export async function GET(request: NextRequest) {
   const stopID = searchParams.get("stopID") as string;
 
   if (!stopIDIsValid(stopID)) {
-    return Response.json({
-      status: 400,
-      message: "Invalid stop number",
-    });
+    return Response.json(
+      {
+        message: "Invalid stop number",
+      },
+      { status: 400 },
+    );
   }
 
   // Check if the requested stop is in the DB
   const db_stop = await getStopFromDB(stopID);
   if (db_stop) {
-    return Response.json({
-      status: 200,
-      data: db_stop as IStopDetails,
-    });
+    return Response.json(
+      {
+        data: db_stop as IStopDetails,
+      },
+      { status: 200 },
+    );
   }
 
   // Otherwise, retrieve from RTTI API
   const api_stop = await getStopFromRTTIAPI(stopID);
   if (api_stop) {
-    return Response.json({
-      status: 200,
-      data: api_stop as IStopDetails,
-    });
+    return Response.json(
+      {
+        data: api_stop as IStopDetails,
+      },
+      { status: 200 },
+    );
   }
 
   // If we haven't returned by now, something has gone wrong
-  return Response.json({
-    status: 500,
-    message: "Error retrieving stop data :(",
-  });
+  return Response.json(
+    {
+      message: "Error retrieving stop data :(",
+    },
+    { status: 500 },
+  );
 }
 
 async function getStopFromDB(

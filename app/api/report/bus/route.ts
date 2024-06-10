@@ -28,8 +28,10 @@ export async function POST(request: NextRequest) {
 
   await docClient.send(command);
 
-  return Response.json({
-    status: 201,
-    data: report,
-  });
+  return Response.json(
+    {
+      data: report,
+    },
+    { status: 201 },
+  );
 }
