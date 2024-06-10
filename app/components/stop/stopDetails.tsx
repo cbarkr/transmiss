@@ -13,7 +13,7 @@ interface IStopDetailsProps {
 
 export default function StopDetails({ stop, warning }: IStopDetailsProps) {
   return (
-    <>
+    <div>
       {warning && <StopWarning />}
       <div className="pb-2 border-b-2">
         <div className="flex flex-row justify-between my-2">
@@ -37,6 +37,6 @@ export default function StopDetails({ stop, warning }: IStopDetailsProps) {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

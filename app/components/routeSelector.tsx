@@ -22,14 +22,13 @@ export function RouteSelector({
   }, [interactive, handler, routesArr]);
 
   return (
-    <>
+    <div>
       {interactive && (
         <div className="flex flex-row items-center gap-2 w-fit">
           ↳
           {routesArr.map((route: string, idx: number) => (
-            <>
+            <div key={`${route}-${idx}`}>
               <button
-                key={route}
                 type="button"
                 onClick={() => handler(route)}
                 className={`text-lg font-bold font-mono px-2 ${
@@ -39,26 +38,26 @@ export function RouteSelector({
                 {route ? route : "N/A"}
               </button>
               {idx !== routesArr.length - 1 && (
-                <div key={`${route}-slash`}>/</div>
+                <div key={`${route}-${idx}-slash`}>/</div>
               )}
-            </>
+            </div>
           ))}
         </div>
       )}
       {!interactive && (
         <div className="flex flex-row items-center">
           {routesArr.map((route: string, idx: number) => (
-            <>
-              <div key={route} className="text-lg font-bold font-mono px-2">
+            <div key={`${route}-${idx}`}>
+              <div className="text-lg font-bold font-mono px-2">
                 {route ? route : "N/A"}
               </div>
               {idx !== routesArr.length - 1 && (
-                <div key={`${route}-slash`}>/</div>
+                <div key={`${route}-${idx}-slash`}>/</div>
               )}
-            </>
+            </div>
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
