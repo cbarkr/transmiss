@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { type NextRequest } from "next/server";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   BatchWriteCommand,
@@ -17,32 +17,40 @@ const client = new DynamoDBClient({
 });
 const docClient = DynamoDBDocumentClient.from(client);
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  if (req.method === "GET") {
-    if (!req.query.lat || !req.query.long) {
-      res.status(400).json({ message: "A location must be provided" });
-      return;
-    }
+export async function GET(request: NextRequest) {
+  // TODO: Use request.geo?
 
-    // Note: Translink API requires lat and lon be 6 decimals max
-    const request = {
-      lat: Number.parseFloat(req.query.lat!.toString()).toFixed(6),
-      long: Number.parseFloat(req.query.long!.toString()).toFixed(6),
-    };
+  const searchParams = request.nextUrl.searchParams;
+  const lat = searchParams.get("lat") as string;
+  const long = searchParams.get("long") as string;
 
-    const api_stops = await getStopsFromRTTIAPI(request);
-
-    if (api_stops) {
-      res.status(200).json({ data: api_stops as IStopDetails[] });
-      return;
-    }
-
-    // If we haven't returned by now, something has gone wrong
-    res.status(500).json({ message: "Error retrieving stop data :(" });
+  if (!lat || !long) {
+    return Response.json({
+      status: 400,
+      message: "A location must be provided",
+    });
   }
+
+  // Note: Translink API requires lat and lon be 6 decimals max
+  const req = {
+    lat: Number.parseFloat(lat!.toString()).toFixed(6),
+    long: Number.parseFloat(long!.toString()).toFixed(6),
+  };
+
+  const api_stops = await getStopsFromRTTIAPI(req);
+
+  if (api_stops) {
+    return Response.json({
+      status: 200,
+      data: api_stops as IStopDetails[],
+    });
+  }
+
+  // If we haven't returned by now, something has gone wrong
+  return Response.json({
+    status: 500,
+    message: "Error retrieving stop data :(",
+  });
 }
 
 function getStopsFromRTTIAPI(

@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { type NextRequest } from "next/server";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   GetCommand,
@@ -18,35 +18,40 @@ const client = new DynamoDBClient({
 });
 const docClient = DynamoDBDocumentClient.from(client);
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  if (req.method === "GET") {
-    const stopID = req.query.stopID as string;
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const stopID = searchParams.get("stopID") as string;
 
-    if (!stopIDIsValid(stopID)) {
-      res.status(400).json({ message: "Invalid stop number" });
-      return;
-    }
-
-    // Check if the requested stop is in the DB
-    const db_stop = await getStopFromDB(stopID);
-    if (db_stop) {
-      res.status(200).json({ data: db_stop as IStopDetails });
-      return;
-    }
-
-    // Otherwise, retrieve from RTTI API
-    const api_stop = await getStopFromRTTIAPI(stopID);
-    if (api_stop) {
-      res.status(200).json({ data: api_stop as IStopDetails });
-      return;
-    }
-
-    // If we haven't returned by now, something has gone wrong
-    res.status(500).json({ message: "Error retrieving stop data :(" });
+  if (!stopIDIsValid(stopID)) {
+    return Response.json({
+      status: 400,
+      message: "Invalid stop number",
+    });
   }
+
+  // Check if the requested stop is in the DB
+  const db_stop = await getStopFromDB(stopID);
+  if (db_stop) {
+    return Response.json({
+      status: 200,
+      data: db_stop as IStopDetails,
+    });
+  }
+
+  // Otherwise, retrieve from RTTI API
+  const api_stop = await getStopFromRTTIAPI(stopID);
+  if (api_stop) {
+    return Response.json({
+      status: 200,
+      data: api_stop as IStopDetails,
+    });
+  }
+
+  // If we haven't returned by now, something has gone wrong
+  return Response.json({
+    status: 500,
+    message: "Error retrieving stop data :(",
+  });
 }
 
 async function getStopFromDB(
