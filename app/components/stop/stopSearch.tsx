@@ -6,7 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export default function Search() {
   const router = useRouter();
-  const [stopID, setStopID] = useState("");  
+  const [stopID, setStopID] = useState("");
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ export default function Search() {
     if (stopID.length === 5) {
       submitHandler(stopID);
     }
-  }, [stopID])
+  }, [stopID]);
 
   return (
     <div className="w-full">
