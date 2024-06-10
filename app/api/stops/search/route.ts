@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { type NextRequest } from "next/server";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   GetCommand,
@@ -18,35 +18,48 @@ const client = new DynamoDBClient({
 });
 const docClient = DynamoDBDocumentClient.from(client);
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  if (req.method === "GET") {
-    const stopID = req.query.stopID as string;
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const stopID = searchParams.get("stopID") as string;
 
-    if (!stopIDIsValid(stopID)) {
-      res.status(400).json({ message: "Invalid stop number" });
-      return;
-    }
-
-    // Check if the requested stop is in the DB
-    const db_stop = await getStopFromDB(stopID);
-    if (db_stop) {
-      res.status(200).json({ data: db_stop as IStopDetails });
-      return;
-    }
-
-    // Otherwise, retrieve from RTTI API
-    const api_stop = await getStopFromRTTIAPI(stopID);
-    if (api_stop) {
-      res.status(200).json({ data: api_stop as IStopDetails });
-      return;
-    }
-
-    // If we haven't returned by now, something has gone wrong
-    res.status(500).json({ message: "Error retrieving stop data :(" });
+  if (!stopIDIsValid(stopID)) {
+    return Response.json(
+      {
+        message: "Invalid stop number",
+      },
+      { status: 400 },
+    );
   }
+
+  // Check if the requested stop is in the DB
+  const db_stop = await getStopFromDB(stopID);
+  if (db_stop) {
+    return Response.json(
+      {
+        data: db_stop as IStopDetails,
+      },
+      { status: 200 },
+    );
+  }
+
+  // Otherwise, retrieve from RTTI API
+  const api_stop = await getStopFromRTTIAPI(stopID);
+  if (api_stop) {
+    return Response.json(
+      {
+        data: api_stop as IStopDetails,
+      },
+      { status: 200 },
+    );
+  }
+
+  // If we haven't returned by now, something has gone wrong
+  return Response.json(
+    {
+      message: "Error retrieving stop data :(",
+    },
+    { status: 500 },
+  );
 }
 
 async function getStopFromDB(

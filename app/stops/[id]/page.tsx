@@ -10,11 +10,11 @@ import { IStopDetails } from "@/interfaces/stop";
 import { IDBRes } from "@/interfaces/dbResponse";
 import { LocationError } from "@/enums/errors";
 import stopIDIsValid from "@/utils/validate";
-import StopError from "@/app/components/stop/stopError";
 
 const axios = require("axios").default;
 
 const StopDetails = dynamic(() => import("../../components/stop/stopDetails"));
+const StopError = dynamic(() => import("../../components/stop/stopError"));
 const StopReport = dynamic(() => import("../../components/stop/stopReport"));
 
 export default function Stops({ params }: { params: { id: string } }) {

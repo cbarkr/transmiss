@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -10,15 +10,7 @@ export default function Search() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    submitHandler();
-  };
-
-  const handleChange = (id: string) => {
-    setStopID(id);
-
-    if (id.length === 5) {
-      submitHandler(id); // Stop IDs are 5 characters, search immediately
-    }
+    submitHandler(stopID);
   };
 
   const handleNearby = () => {
@@ -26,10 +18,16 @@ export default function Search() {
     router.push("/stops/nearby");
   };
 
-  const submitHandler = (id: string = stopID) => {
+  const submitHandler = (id: string) => {
     // Redirect to stop detail page
     router.push(`/stops/${id}`);
   };
+
+  useEffect(() => {
+    if (stopID.length === 5) {
+      submitHandler(stopID);
+    }
+  }, [stopID]);
 
   return (
     <div className="w-full">
@@ -42,7 +40,7 @@ export default function Search() {
             <div className="flex flex-row w-full items-center border-b-2">
               <input
                 id="stop-input"
-                onChange={(e) => handleChange(e.target.value)}
+                onChange={(e) => setStopID(e.target.value)}
                 value={stopID}
                 min={0}
                 max={99999}
