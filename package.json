@@ -10,7 +10,7 @@
     "format": "npx prettier . --write"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.431.0",
+    "@aws-sdk/client-dynamodb": "^3.624.0",
     "@aws-sdk/lib-dynamodb": "^3.431.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
